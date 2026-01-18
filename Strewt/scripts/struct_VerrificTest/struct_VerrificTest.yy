@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"struct_VerrificTest",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"struct_VerrificTest",
+  "parent":{
+    "name":"Testing",
+    "path":"folders/_Packages/Alphish/Verrific/Testing.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
