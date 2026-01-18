@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ctor_StrewtReader",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ctor_StrewtReader",
+  "parent":{
+    "name":"Strewt",
+    "path":"folders/_Packages/Alphish/Strewt.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

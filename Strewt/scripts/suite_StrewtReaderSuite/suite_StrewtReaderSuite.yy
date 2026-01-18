@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"suite_StrewtReaderSuite",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"suite_StrewtReaderSuite",
+  "parent":{
+    "name":"Tests",
+    "path":"folders/Tests.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

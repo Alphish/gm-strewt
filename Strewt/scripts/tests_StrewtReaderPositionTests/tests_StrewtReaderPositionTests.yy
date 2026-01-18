@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"tests_StrewtReaderPositionTests",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"tests_StrewtReaderPositionTests",
+  "parent":{
+    "name":"Tests",
+    "path":"folders/Tests.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

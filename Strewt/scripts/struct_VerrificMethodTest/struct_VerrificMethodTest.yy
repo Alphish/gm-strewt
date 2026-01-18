@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"struct_VerrificMethodTest",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"struct_VerrificMethodTest",
+  "parent":{
+    "name":"Method-based",
+    "path":"folders/_Packages/Alphish/Verrific/Testing/Method-based.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

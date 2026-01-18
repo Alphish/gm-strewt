@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"struct_VerrificLogRunner",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"struct_VerrificLogRunner",
+  "parent":{
+    "name":"Log",
+    "path":"folders/_Packages/Alphish/Verrific/Tools/Log.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

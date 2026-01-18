@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"struct_VerrificCrash",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"struct_VerrificCrash",
+  "parent":{
+    "name":"Messages",
+    "path":"folders/_Packages/Alphish/Verrific/Testing/Messages.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
