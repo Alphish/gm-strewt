@@ -1,4 +1,4 @@
-function StrewtReaderCreationTests(_run, _method) : VerrificMethodTest(_run, _method) constructor {
+function StrewtReaderCreationTests(_run, _method) : StrewtReaderBaseTests(_run, _method) constructor {
     static test_subject = "Reader creation";
     
     static should_accept_string_content = function() {
@@ -90,20 +90,5 @@ function StrewtReaderCreationTests(_run, _method) : VerrificMethodTest(_run, _me
             assert_is_instanceof_struct(StrewtException, _ex);
             assert_equal("reader_invalid_content", _ex.code);
         }
-    }
-    
-    // -----
-    // Setup
-    // -----
-    
-    reader = undefined;
-    
-    static given_content = function(_content) {
-        reader = new StrewtReader(_content);
-    }
-    
-    static test_cleanup = function() {
-        if (!is_undefined(reader))
-            reader.cleanup();
     }
 }

@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"tests_StrewtReaderCreationTests",
   "parent":{
-    "name":"Tests",
-    "path":"folders/Tests.yy",
+    "name":"Reader",
+    "path":"folders/Tests/Reader.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
