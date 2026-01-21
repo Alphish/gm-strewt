@@ -36,6 +36,7 @@
     {"id":{"name":"ctrl_VerrificLog","path":"objects/ctrl_VerrificLog/ctrl_VerrificLog.yy",},},
     {"id":{"name":"ui_VerrificLogView","path":"objects/ui_VerrificLogView/ui_VerrificLogView.yy",},},
     {"id":{"name":"rm_Test","path":"rooms/rm_Test/rm_Test.yy",},},
+    {"id":{"name":"ctor_StrewtCharset","path":"scripts/ctor_StrewtCharset/ctor_StrewtCharset.yy",},},
     {"id":{"name":"ctor_StrewtException","path":"scripts/ctor_StrewtException/ctor_StrewtException.yy",},},
     {"id":{"name":"ctor_StrewtReader","path":"scripts/ctor_StrewtReader/ctor_StrewtReader.yy",},},
     {"id":{"name":"ctor_VerrificArrayAssertion","path":"scripts/ctor_VerrificArrayAssertion/ctor_VerrificArrayAssertion.yy",},},

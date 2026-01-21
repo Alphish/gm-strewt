@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ctor_StrewtCharset",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ctor_StrewtCharset",
+  "parent":{
+    "name":"Strewt",
+    "path":"folders/_Packages/Alphish/Strewt.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
