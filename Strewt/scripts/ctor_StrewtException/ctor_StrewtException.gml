@@ -21,3 +21,31 @@ StrewtException.invalid_content = function(_content) {
         $"Expected a buffer or a string, but got {typeof(_content)} '{_content}' instead."
         );
 }
+
+StrewtException.charset_invalid_input = function(_input) {
+    return new StrewtException(
+        nameof(charset_invalid_input),
+        $"Expected an array or a bool, but got {typeof(_input)} '{_input}' instead."
+        );
+}
+
+StrewtException.charset_invalid_target = function(_target) {
+    return new StrewtException(
+        nameof(charset_invalid_target),
+        $"Expected a string or a number in range 0-255, but got {typeof(_target)} '{_target}' instead."
+        );
+}
+
+StrewtException.charset_invalid_range_end = function(_end) {
+    return new StrewtException(
+        nameof(charset_invalid_range_end),
+        $"Expected a single-byte string or a number in range 0-255, but got {typeof(_end)} '{_end}' instead."
+        );
+}
+
+StrewtException.charset_invalid_range_order = function(_from, _to) {
+    return new StrewtException(
+        nameof(charset_invalid_range_order),
+        $"The range start must be less than the range end, but got a range from {_from} to {_to} instead."
+        );
+}
