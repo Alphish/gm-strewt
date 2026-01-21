@@ -15,9 +15,9 @@ function StrewtException(_code, _description) constructor {
     }
 }
 
-StrewtException.invalid_content = function(_content) {
+StrewtException.reader_invalid_content = function(_content) {
     return new StrewtException(
-        nameof(invalid_content),
+        nameof(reader_invalid_content),
         $"Expected a buffer or a string, but got {typeof(_content)} '{_content}' instead."
         );
 }

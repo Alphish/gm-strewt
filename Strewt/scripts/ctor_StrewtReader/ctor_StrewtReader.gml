@@ -14,7 +14,7 @@ function StrewtReader(_content) constructor {
             buffer_poke(content_buffer, byte_length, buffer_u8, 0);
         }
     } else {
-        throw StrewtException.invalid_content(_content);
+        throw StrewtException.reader_invalid_content(_content);
     }
     
     buffer_seek(content_buffer, buffer_seek_start, 0);
