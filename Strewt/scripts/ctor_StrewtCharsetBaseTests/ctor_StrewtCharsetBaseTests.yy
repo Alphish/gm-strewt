@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ctor_StrewtCharsetBaseTests",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ctor_StrewtCharsetBaseTests",
+  "parent":{
+    "name":"Charset",
+    "path":"folders/Tests/Charset.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"suite_StrewtReaderSuite",
+  "%Name":"suite_StrewtCharsetSuite",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"suite_StrewtReaderSuite",
+  "name":"suite_StrewtCharsetSuite",
   "parent":{
-    "name":"Reader",
-    "path":"folders/Tests/Reader.yy",
+    "name":"Charset",
+    "path":"folders/Tests/Charset.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

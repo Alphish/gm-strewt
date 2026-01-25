@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"suite_StrewtReaderSuite",
+  "%Name":"suite_StrewtSuite",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"suite_StrewtReaderSuite",
+  "name":"suite_StrewtSuite",
   "parent":{
-    "name":"Reader",
-    "path":"folders/Tests/Reader.yy",
+    "name":"Tests",
+    "path":"folders/Tests.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

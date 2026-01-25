@@ -1,4 +1,4 @@
-function StrewtReaderSubstringTests(_run, _method) : VerrificMethodTest(_run, _method) constructor {
+function StrewtReaderSubstringTests(_run, _method) : StrewtReaderBaseTests(_run, _method) constructor {
     static test_subject = "peek_substring method";
     
     static should_read_empty_string = function() {
@@ -34,20 +34,5 @@ function StrewtReaderSubstringTests(_run, _method) : VerrificMethodTest(_run, _m
     static should_read_multibyte_character = function() {
         given_content("Zażółć gęślą jaźń");
         assert_equal("ż", reader.peek_substring(2, 4));
-    }
-    
-    // -----
-    // Setup
-    // -----
-    
-    reader = undefined;
-    
-    static given_content = function(_content) {
-        reader = new StrewtReader(_content);
-    }
-    
-    static test_cleanup = function() {
-        if (!is_undefined(reader))
-            reader.cleanup();
     }
 }

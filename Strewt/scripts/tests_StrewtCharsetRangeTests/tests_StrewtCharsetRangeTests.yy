@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"tests_StrewtCharsetRangeTests",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"tests_StrewtCharsetRangeTests",
+  "parent":{
+    "name":"Charset",
+    "path":"folders/Tests/Charset.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

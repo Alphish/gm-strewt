@@ -1,4 +1,4 @@
-function StrewtReaderPositionTests(_run, _method) : VerrificMethodTest(_run, _method) constructor {
+function StrewtReaderPositionTests(_run, _method) : StrewtReaderBaseTests(_run, _method) constructor {
     static test_subject = "Reader position";
     
     static should_start_with_zero_position = function() {
@@ -44,20 +44,5 @@ function StrewtReaderPositionTests(_run, _method) : VerrificMethodTest(_run, _me
         
         reader.move_to(13);
         assert_equal(true, reader.is_end_of_string());
-    }
-    
-    // -----
-    // Setup
-    // -----
-    
-    reader = undefined;
-    
-    static given_content = function(_content) {
-        reader = new StrewtReader(_content);
-    }
-    
-    static test_cleanup = function() {
-        if (!is_undefined(reader))
-            reader.cleanup();
     }
 }

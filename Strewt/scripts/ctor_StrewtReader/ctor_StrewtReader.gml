@@ -14,7 +14,7 @@ function StrewtReader(_content) constructor {
             buffer_poke(content_buffer, byte_length, buffer_u8, 0);
         }
     } else {
-        throw StrewtException.invalid_content(_content);
+        throw StrewtException.reader_invalid_content(_content);
     }
     
     buffer_seek(content_buffer, buffer_seek_start, 0);
@@ -42,9 +42,9 @@ function StrewtReader(_content) constructor {
         return position >= byte_length;
     }
     
-    // -------
-    // Reading
-    // -------
+    // ------
+    // Ranges
+    // ------
     
     static peek_all = function() {
         return buffer_peek(content_buffer, 0, buffer_string);
@@ -63,6 +63,67 @@ function StrewtReader(_content) constructor {
         var _result = buffer_peek(content_buffer, _from, buffer_string);
         buffer_poke(content_buffer, _to, buffer_u8, _keep);
         return _result;
+    }
+    
+    // --------
+    // Charsets
+    // --------
+    
+    static try_skip_charset = function(_charset) {
+        var _table = _charset.table;
+        if (_table[buffer_read(content_buffer, buffer_u8)]) {
+            position += 1;
+            return true;
+        } else {
+            buffer_seek(content_buffer, buffer_seek_relative, -1);
+            return false;
+        }
+    }
+    
+    static try_peek_charset = function(_charset) {
+        var _table = _charset.table;
+        var _byte = buffer_peek(content_buffer, position, buffer_u8);
+        return _table[_byte] ? _byte : 0;
+    }
+    
+    static try_read_charset = function(_charset) {
+        var _table = _charset.table;
+        var _byte = buffer_read(content_buffer, buffer_u8);
+        if (_table[_byte]) {
+            position += 1;
+            return _byte;
+        } else {
+            buffer_seek(content_buffer, buffer_seek_relative, -1);
+            return 0;
+        }
+    }
+    
+    static skip_charset_string = function(_charset) {
+        var _table = _charset.table;
+        while (_table[buffer_read(content_buffer, buffer_u8)]) {
+            position += 1;
+        }
+        buffer_seek(content_buffer, buffer_seek_relative, -1);
+    }
+    
+    static peek_charset_string = function(_charset) {
+        var _table = _charset.table;
+        var _to = position;
+        while (_table[buffer_read(content_buffer, buffer_u8)]) {
+            _to += 1;
+        }
+        buffer_seek(content_buffer, buffer_seek_start, position);
+        return peek_substring(position, _to);
+    }
+    
+    static read_charset_string = function(_charset) {
+        var _table = _charset.table;
+        var _from = position;
+        while (_table[buffer_read(content_buffer, buffer_u8)]) {
+            position += 1;
+        }
+        buffer_seek(content_buffer, buffer_seek_relative, -1);
+        return peek_substring(_from, position);
     }
     
     // -------

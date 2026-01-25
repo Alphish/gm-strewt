@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"suite_StrewtReaderSuite",
+  "%Name":"tests_StrewtReaderCharsetByteTests",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"suite_StrewtReaderSuite",
+  "name":"tests_StrewtReaderCharsetByteTests",
   "parent":{
     "name":"Reader",
     "path":"folders/Tests/Reader.yy",
