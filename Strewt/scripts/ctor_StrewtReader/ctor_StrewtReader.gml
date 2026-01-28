@@ -65,6 +65,45 @@ function StrewtReader(_content) constructor {
         return _result;
     }
     
+    // -----
+    // Bytes
+    // -----
+    
+    static skip_byte = function() {
+        if (position == byte_length)
+            return false;
+        
+        position++;
+        buffer_seek(content_buffer, buffer_seek_relative, 1);
+        return true;
+    }
+    
+    static peek_byte = function() {
+        return buffer_peek(content_buffer, position, buffer_u8);
+    }
+    
+    static read_byte = function() {
+        if (position == byte_length)
+            return 0;
+        
+        position++;
+        return buffer_read(content_buffer, buffer_u8);
+    }
+    
+    static try_skip_byte = function(_byte) {
+        if (buffer_read(content_buffer, buffer_u8) == _byte) {
+            position++;
+            return true;
+        } else {
+            buffer_seek(content_buffer, buffer_seek_relative, -1);
+            return false;
+        }
+    }
+    
+    static peeks_byte = function(_byte) {
+        return buffer_peek(content_buffer, position, buffer_u8) == _byte;
+    }
+    
     // --------
     // Charsets
     // --------
