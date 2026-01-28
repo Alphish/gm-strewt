@@ -4,6 +4,7 @@ function StrewtReaderSuite() : VerrificSuiteGroup("Strewt Reader tests") constru
         StrewtReaderPositionTests,
         StrewtReaderSubstringTests,
         StrewtReaderByteTests,
+        StrewtReaderCharacterTests,
         StrewtReaderCharsetTests,
         StrewtReaderCharsetStringTests,
     ], function(_test) {
