@@ -22,6 +22,13 @@ StrewtException.reader_invalid_content = function(_content) {
         );
 }
 
+StrewtException.reader_invalid_utf8_byte = function(_byte) {
+    return new StrewtException(
+        nameof(reader_invalid_utf8_byte),
+        $"Attempting to read a UTF-8 character, but {_byte} is not a valid starting byte."
+        );
+}
+
 StrewtException.charset_invalid_input = function(_input) {
     return new StrewtException(
         nameof(charset_invalid_input),

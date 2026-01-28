@@ -65,6 +65,125 @@ function StrewtReader(_content) constructor {
         return _result;
     }
     
+    // -----
+    // Bytes
+    // -----
+    
+    static skip_byte = function() {
+        if (position == byte_length)
+            return false;
+        
+        position++;
+        buffer_seek(content_buffer, buffer_seek_relative, 1);
+        return true;
+    }
+    
+    static peek_byte = function() {
+        return buffer_peek(content_buffer, position, buffer_u8);
+    }
+    
+    static read_byte = function() {
+        if (position == byte_length)
+            return 0;
+        
+        position++;
+        return buffer_read(content_buffer, buffer_u8);
+    }
+    
+    static try_skip_byte = function(_byte) {
+        if (buffer_read(content_buffer, buffer_u8) == _byte) {
+            position++;
+            return true;
+        } else {
+            buffer_seek(content_buffer, buffer_seek_relative, -1);
+            return false;
+        }
+    }
+    
+    static peeks_byte = function(_byte) {
+        return buffer_peek(content_buffer, position, buffer_u8) == _byte;
+    }
+    
+    // ---------
+    // Character
+    // ---------
+    
+    static get_utf8_character_length = function(_byte) {
+        static lookup = array_create_ext(256, function(i) {
+            if (i == 0)
+                return 0;
+            else if ((i & 0b11111000) == 0b11111000)
+                return -1;
+            else if ((i & 0b11111000) == 0b11110000)
+                return 4;
+            else if ((i & 0b11110000) == 0b11100000)
+                return 3;
+            else if ((i & 0b11100000) == 0b11000000)
+                return 2;
+            else if ((i & 0b11000000) == 0b10000000)
+                return -1;
+            else
+                return 1;
+        });
+        return lookup[_byte];
+    }
+    
+    static get_utf8_character_mask = function(_byte) {
+        static lookup = array_create_ext(256, function(i) {
+            if (i == 0)
+                return 0;
+            else if ((i & 0b11111000) == 0b11111000)
+                return 0;
+            else if ((i & 0b11111000) == 0b11110000)
+                return 0b00000111;
+            else if ((i & 0b11110000) == 0b11100000)
+                return 0b00001111;
+            else if ((i & 0b11100000) == 0b11000000)
+                return 0b00011111;
+            else if ((i & 0b11000000) == 0b10000000)
+                return 0;
+            else
+                return 0b11111111;
+        });
+        return lookup[_byte];
+    }
+    
+    static peek_character = function() {
+        var _byte = buffer_peek(content_buffer, position, buffer_u8);
+        var _length = get_utf8_character_length(_byte);
+        if (_length < 0)
+            throw StrewtException.reader_invalid_utf8_byte(_byte);
+        else if (_length == 0)
+            return "";
+        
+        var _codepoint = _byte & get_utf8_character_mask(_byte);
+        for (var i = 1; i < _length; i++) {
+            _byte = buffer_peek(content_buffer, position + i, buffer_u8);
+            _codepoint = (_codepoint << 6) | (_byte & 0b00111111);
+        }
+        return chr(_codepoint);
+    }
+    
+    static read_character = function() {
+        var _byte = buffer_read(content_buffer, buffer_u8);
+        var _length = get_utf8_character_length(_byte);
+        if (_length < 0) {
+            buffer_seek(content_buffer, buffer_seek_relative, -1);
+            throw StrewtException.reader_invalid_utf8_byte(_byte);
+        } else if (_length == 0) {
+            buffer_seek(content_buffer, buffer_seek_relative, -1);
+            return "";
+        }
+        
+        var _codepoint = _byte & get_utf8_character_mask(_byte);
+        repeat (_length - 1) {
+            _byte = buffer_read(content_buffer, buffer_u8);
+            _codepoint = (_codepoint << 6) | (_byte & 0b00111111);
+        }
+        position += _length;
+        return chr(_codepoint);
+    }
+    
     // --------
     // Charsets
     // --------
