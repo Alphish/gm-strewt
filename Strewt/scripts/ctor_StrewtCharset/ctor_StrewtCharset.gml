@@ -22,6 +22,9 @@ function StrewtCharset(_input = false) constructor {
         if (is_real(_target))
             return with_byte_value(_target, _value);
         
+        if (_target == "")
+            return self;
+        
         if (is_string(_target)) {
             var _charset = self;
             var _context = { value: _value, charset: _charset };
