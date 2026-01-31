@@ -104,9 +104,36 @@ function StrewtReader(_content) constructor {
         return buffer_peek(content_buffer, position, buffer_u8) == _byte;
     }
     
-    // ---------
-    // Character
-    // ---------
+    static try_skip_byte_sequence = function(_bytes) {
+        var _length = array_length(_bytes);
+        if (position + _length > byte_length)
+            return false;
+        
+        for (var i = 0; i < _length; i++) {
+            if (buffer_read(content_buffer, buffer_u8) != _bytes[i]) {
+                buffer_seek(content_buffer, buffer_seek_start, position);
+                return false;
+            }
+        }
+        position += _length;
+        return true;
+    }
+    
+    static peeks_byte_sequence = function(_bytes) {
+        var _length = array_length(_bytes);
+        if (position + _length > byte_length)
+            return false;
+        
+        for (var i = 0; i < _length; i++) {
+            if (buffer_peek(content_buffer, position + i, buffer_u8) != _bytes[i])
+                return false;
+        }
+        return true;
+    }
+    
+    // ----------
+    // Characters
+    // ----------
     
     static get_utf8_character_length = function(_byte) {
         static lookup = array_create_ext(256, function(i) {
