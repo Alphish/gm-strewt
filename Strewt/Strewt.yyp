@@ -76,6 +76,7 @@
     {"id":{"name":"tests_StrewtCharsetDerivedTests","path":"scripts/tests_StrewtCharsetDerivedTests/tests_StrewtCharsetDerivedTests.yy",},},
     {"id":{"name":"tests_StrewtCharsetRangeTests","path":"scripts/tests_StrewtCharsetRangeTests/tests_StrewtCharsetRangeTests.yy",},},
     {"id":{"name":"tests_StrewtCharsetSettingTests","path":"scripts/tests_StrewtCharsetSettingTests/tests_StrewtCharsetSettingTests.yy",},},
+    {"id":{"name":"tests_StrewtReaderByteSequenceTests","path":"scripts/tests_StrewtReaderByteSequenceTests/tests_StrewtReaderByteSequenceTests.yy",},},
     {"id":{"name":"tests_StrewtReaderByteTests","path":"scripts/tests_StrewtReaderByteTests/tests_StrewtReaderByteTests.yy",},},
     {"id":{"name":"tests_StrewtReaderCharacterTests","path":"scripts/tests_StrewtReaderCharacterTests/tests_StrewtReaderCharacterTests.yy",},},
     {"id":{"name":"tests_StrewtReaderCharsetByteTests","path":"scripts/tests_StrewtReaderCharsetByteTests/tests_StrewtReaderCharsetByteTests.yy",},},
