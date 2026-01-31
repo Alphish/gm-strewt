@@ -83,6 +83,7 @@
     {"id":{"name":"tests_StrewtReaderCharsetStringTests","path":"scripts/tests_StrewtReaderCharsetStringTests/tests_StrewtReaderCharsetStringTests.yy",},},
     {"id":{"name":"tests_StrewtReaderCreationTests","path":"scripts/tests_StrewtReaderCreationTests/tests_StrewtReaderCreationTests.yy",},},
     {"id":{"name":"tests_StrewtReaderPositionTests","path":"scripts/tests_StrewtReaderPositionTests/tests_StrewtReaderPositionTests.yy",},},
+    {"id":{"name":"tests_StrewtReaderStringTests","path":"scripts/tests_StrewtReaderStringTests/tests_StrewtReaderStringTests.yy",},},
     {"id":{"name":"tests_StrewtReaderSubstringTests","path":"scripts/tests_StrewtReaderSubstringTests/tests_StrewtReaderSubstringTests.yy",},},
   ],
   "resourceType":"GMProject",
