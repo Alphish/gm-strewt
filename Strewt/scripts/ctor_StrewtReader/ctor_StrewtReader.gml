@@ -139,15 +139,15 @@ function StrewtReader(_content) constructor {
         static lookup = array_create_ext(256, function(i) {
             if (i == 0)
                 return 0;
-            else if ((i & 0b11111000) == 0b11111000)
+            else if ((i & 0b11111_000) == 0b11111_000)
                 return -1;
-            else if ((i & 0b11111000) == 0b11110000)
+            else if ((i & 0b11111_000) == 0b11110_000)
                 return 4;
-            else if ((i & 0b11110000) == 0b11100000)
+            else if ((i & 0b1111_0000) == 0b1110_0000)
                 return 3;
-            else if ((i & 0b11100000) == 0b11000000)
+            else if ((i & 0b111_00000) == 0b110_00000)
                 return 2;
-            else if ((i & 0b11000000) == 0b10000000)
+            else if ((i & 0b11_000000) == 0b10_000000)
                 return -1;
             else
                 return 1;
@@ -159,15 +159,15 @@ function StrewtReader(_content) constructor {
         static lookup = array_create_ext(256, function(i) {
             if (i == 0)
                 return 0;
-            else if ((i & 0b11111000) == 0b11111000)
+            else if ((i & 0b11111_000) == 0b11111_000)
                 return 0;
-            else if ((i & 0b11111000) == 0b11110000)
-                return 0b00000111;
-            else if ((i & 0b11110000) == 0b11100000)
-                return 0b00001111;
-            else if ((i & 0b11100000) == 0b11000000)
-                return 0b00011111;
-            else if ((i & 0b11000000) == 0b10000000)
+            else if ((i & 0b11111_000) == 0b11110_000)
+                return 0b00000_111;
+            else if ((i & 0b1111_0000) == 0b1110_0000)
+                return 0b0000_1111;
+            else if ((i & 0b111_00000) == 0b110_00000)
+                return 0b000_11111;
+            else if ((i & 0b11_000000) == 0b10_000000)
                 return 0;
             else
                 return 0b11111111;
@@ -209,6 +209,31 @@ function StrewtReader(_content) constructor {
         }
         position += _length;
         return chr(_codepoint);
+    }
+    
+    // -------
+    // Strings
+    // -------
+    
+    static try_skip_string = function(_str) {
+        var _length = string_byte_length(_str);
+        if (position + _length > byte_length)
+            return false;
+        
+        var _result = peek_substring(position, position + _length) == _str;
+        if (_result) {
+            buffer_seek(content_buffer, buffer_seek_relative, _length);
+            position += _length;
+        }
+        return _result;
+    }
+    
+    static peeks_string = function(_str) {
+        var _length = string_byte_length(_str);
+        if (position + _length > byte_length)
+            return false;
+        
+        return peek_substring(position, position + _length) == _str;
     }
     
     // --------
