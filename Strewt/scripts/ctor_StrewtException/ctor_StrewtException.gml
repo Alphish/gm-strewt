@@ -29,6 +29,13 @@ StrewtException.reader_invalid_utf8_byte = function(_byte) {
         );
 }
 
+StrewtException.multigraph_invalid_length = function(_type, _length, _str) {
+    return new StrewtException(
+        nameof(multigraph_invalid_length),
+        $"The string '{_str}' to use as a {_type} should be {_length} bytes long, but is {string_byte_length(_str)} bytes long instead."
+        );
+}
+
 StrewtException.charset_invalid_input = function(_input) {
     return new StrewtException(
         nameof(charset_invalid_input),
