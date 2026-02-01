@@ -211,6 +211,67 @@ function StrewtReader(_content) constructor {
         return chr(_codepoint);
     }
     
+    // -----------
+    // Multigraphs
+    // -----------
+    
+    static try_skip_digraph = function(_value) {
+        if (position + 2 > byte_length)
+            return false;
+        
+        if (buffer_peek(content_buffer, position, buffer_u16) != _value)
+            return false;
+        
+        buffer_seek(content_buffer, buffer_seek_relative, 2);
+        position += 2;
+        return true;
+    }
+    
+    static peeks_digraph = function(_value) {
+        if (position + 2 > byte_length)
+            return false;
+        
+        return buffer_peek(content_buffer, position, buffer_u16) == _value;
+    }
+    
+    static try_skip_trigraph = function(_value) {
+        if (position + 3 > byte_length)
+            return false;
+        
+        if ((buffer_peek(content_buffer, position, buffer_u32) & 0x00ffffff) != _value)
+            return false;
+        
+        buffer_seek(content_buffer, buffer_seek_relative, 3);
+        position += 3;
+        return true;
+    }
+    
+    static peeks_trigraph = function(_value) {
+        if (position + 3 > byte_length)
+            return false;
+        
+        return (buffer_peek(content_buffer, position, buffer_u32) & 0x00ffffff) == _value;
+    }
+    
+    static try_skip_tetragraph = function(_value) {
+        if (position + 4 > byte_length)
+            return false;
+        
+        if (buffer_peek(content_buffer, position, buffer_u32) != _value)
+            return false;
+        
+        buffer_seek(content_buffer, buffer_seek_relative, 4);
+        position += 4;
+        return true;
+    }
+    
+    static peeks_tetragraph = function(_value) {
+        if (position + 4 > byte_length)
+            return false;
+        
+        return buffer_peek(content_buffer, position, buffer_u32) == _value;
+    }
+    
     // -------
     // Strings
     // -------
