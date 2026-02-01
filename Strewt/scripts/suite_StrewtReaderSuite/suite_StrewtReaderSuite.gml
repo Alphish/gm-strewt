@@ -6,6 +6,7 @@ function StrewtReaderSuite() : VerrificSuiteGroup("Strewt Reader tests") constru
         StrewtReaderByteTests,
         StrewtReaderByteSequenceTests,
         StrewtReaderCharacterTests,
+        StrewtReaderMultigraphTests,
         StrewtReaderStringTests,
         StrewtReaderCharsetTests,
         StrewtReaderCharsetStringTests,
