@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ctor_StrewtChartable",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ctor_StrewtChartable",
+  "parent":{
+    "name":"Strewt",
+    "path":"folders/_Packages/Alphish/Strewt.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

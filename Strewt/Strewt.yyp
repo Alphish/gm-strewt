@@ -40,6 +40,7 @@
     {"id":{"name":"rm_Test","path":"rooms/rm_Test/rm_Test.yy",},},
     {"id":{"name":"ctor_StrewtCharset","path":"scripts/ctor_StrewtCharset/ctor_StrewtCharset.yy",},},
     {"id":{"name":"ctor_StrewtCharsetBaseTests","path":"scripts/ctor_StrewtCharsetBaseTests/ctor_StrewtCharsetBaseTests.yy",},},
+    {"id":{"name":"ctor_StrewtChartable","path":"scripts/ctor_StrewtChartable/ctor_StrewtChartable.yy",},},
     {"id":{"name":"ctor_StrewtException","path":"scripts/ctor_StrewtException/ctor_StrewtException.yy",},},
     {"id":{"name":"ctor_StrewtReader","path":"scripts/ctor_StrewtReader/ctor_StrewtReader.yy",},},
     {"id":{"name":"ctor_StrewtReaderBaseTests","path":"scripts/ctor_StrewtReaderBaseTests/ctor_StrewtReaderBaseTests.yy",},},
