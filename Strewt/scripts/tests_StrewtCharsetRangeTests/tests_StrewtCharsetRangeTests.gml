@@ -110,99 +110,120 @@ function StrewtCharsetRangeTests(_run, _method) : StrewtCharsetBaseTests(_run, _
     static should_reject_negative_byte_from = function() {
         try {
             var _charset = new StrewtCharset().with_range_value(-1, 32, true);
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("charset_invalid_range_end", _ex.code);
+            assert_equal("chartable_invalid_range_end", _ex.code);
+        }
+    }
+    
+    static should_reject_zero_byte_from = function() {
+        try {
+            var _charset = new StrewtCharset().with_range_value(0, 32, true);
+            assert_fail($"Expected the code to fail, but it didn't.");
+        } catch (_ex) {
+            assert_is_instanceof_struct(StrewtException, _ex);
+            assert_equal("chartable_invalid_range_end", _ex.code);
         }
     }
     
     static should_reject_too_large_byte_to = function() {
         try {
             var _charset = new StrewtCharset().with_range_value(32, 256, true);
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("charset_invalid_range_end", _ex.code);
+            assert_equal("chartable_invalid_range_end", _ex.code);
         }
     }
     
     static should_reject_empty_character_from = function() {
         try {
             var _charset = new StrewtCharset().with_range_value("", 32, true);
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("charset_invalid_range_end", _ex.code);
+            assert_equal("chartable_invalid_range_end", _ex.code);
         }
     }
     
     static should_reject_multi_character_from = function() {
         try {
             var _charset = new StrewtCharset().with_range_value("12", 32, true);
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("charset_invalid_range_end", _ex.code);
+            assert_equal("chartable_invalid_range_end", _ex.code);
         }
     }
     
     static should_reject_nonascii_character_from = function() {
         try {
             var _charset = new StrewtCharset().with_range_value("Ż", 32, true);
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("charset_invalid_range_end", _ex.code);
+            assert_equal("chartable_invalid_range_end", _ex.code);
         }
     }
     
     static should_reject_empty_character_to = function() {
         try {
             var _charset = new StrewtCharset().with_range_value(32, "", true);
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("charset_invalid_range_end", _ex.code);
+            assert_equal("chartable_invalid_range_end", _ex.code);
         }
     }
     
     static should_reject_multi_character_to = function() {
         try {
             var _charset = new StrewtCharset().with_range_value(32, "42", true);
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("charset_invalid_range_end", _ex.code);
+            assert_equal("chartable_invalid_range_end", _ex.code);
         }
     }
     
     static should_reject_nonascii_character_to = function() {
         try {
             var _charset = new StrewtCharset().with_range_value(32, "Ż", true);
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("charset_invalid_range_end", _ex.code);
+            assert_equal("chartable_invalid_range_end", _ex.code);
         }
     }
     
     static should_reject_swapped_range_bytes = function() {
         try {
             var _charset = new StrewtCharset().with_range_value(57, 48, true);
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("charset_invalid_range_order", _ex.code);
+            assert_equal("chartable_invalid_range_order", _ex.code);
         }
     }
     
     static should_reject_swapped_range_characters = function() {
         try {
             var _charset = new StrewtCharset().with_range_value("9", "0", true);
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("charset_invalid_range_order", _ex.code);
+            assert_equal("chartable_invalid_range_order", _ex.code);
         }
     }
     
     static should_reject_swapped_mixed_range = function() {
         try {
             var _charset = new StrewtCharset().with_range_value(57, "0", true);
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("charset_invalid_range_order", _ex.code);
+            assert_equal("chartable_invalid_range_order", _ex.code);
         }
     }
 }
