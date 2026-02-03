@@ -10,6 +10,7 @@ function StrewtReaderSuite() : VerrificSuiteGroup("Strewt Reader tests") constru
         StrewtReaderStringTests,
         StrewtReaderCharsetTests,
         StrewtReaderCharsetStringTests,
+        StrewtReaderChartableTests,
     ], function(_test) {
         add_methods_from(_test);
     });
