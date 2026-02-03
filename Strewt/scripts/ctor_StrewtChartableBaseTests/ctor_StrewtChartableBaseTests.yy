@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ctor_StrewtChartableBaseTests",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ctor_StrewtChartableBaseTests",
+  "parent":{
+    "name":"Chartable",
+    "path":"folders/Tests/Chartable.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

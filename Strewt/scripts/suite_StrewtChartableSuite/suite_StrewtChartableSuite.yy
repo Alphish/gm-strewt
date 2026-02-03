@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"suite_StrewtChartableSuite",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"suite_StrewtChartableSuite",
+  "parent":{
+    "name":"Chartable",
+    "path":"folders/Tests/Chartable.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

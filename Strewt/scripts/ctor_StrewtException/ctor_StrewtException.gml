@@ -43,23 +43,23 @@ StrewtException.charset_invalid_input = function(_input) {
         );
 }
 
-StrewtException.charset_invalid_target = function(_target) {
+StrewtException.chartable_invalid_target = function(_target) {
     return new StrewtException(
-        nameof(charset_invalid_target),
+        nameof(chartable_invalid_target),
         $"Expected a string or a number in range 0-255, but got {typeof(_target)} '{_target}' instead."
         );
 }
 
-StrewtException.charset_invalid_range_end = function(_end) {
+StrewtException.chartable_invalid_range_end = function(_end) {
     return new StrewtException(
-        nameof(charset_invalid_range_end),
+        nameof(chartable_invalid_range_end),
         $"Expected a single-byte string or a number in range 0-255, but got {typeof(_end)} '{_end}' instead."
         );
 }
 
-StrewtException.charset_invalid_range_order = function(_from, _to) {
+StrewtException.chartable_invalid_range_order = function(_from, _to) {
     return new StrewtException(
-        nameof(charset_invalid_range_order),
+        nameof(chartable_invalid_range_order),
         $"The range start must be less than the range end, but got a range from {_from} to {_to} instead."
         );
 }

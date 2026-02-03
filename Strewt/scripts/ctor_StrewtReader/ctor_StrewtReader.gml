@@ -358,6 +358,24 @@ function StrewtReader(_content) constructor {
         return peek_substring(_from, position);
     }
     
+    // ----------
+    // Chartables
+    // ----------
+    
+    static peek_chartable = function(_chartable) {
+        var _byte = buffer_peek(content_buffer, position, buffer_u8);
+        return _chartable.table[_byte];
+    }
+    
+    static read_chartable = function(_chartable) {
+        if (position >= byte_length)
+            return _chartable.table[0];
+        
+        var _byte = buffer_read(content_buffer, buffer_u8);
+        position += 1;
+        return _chartable.table[_byte];
+    }
+    
     // -------
     // Cleanup
     // -------

@@ -120,36 +120,50 @@ function StrewtCharsetSettingTests(_run, _method) : StrewtCharsetBaseTests(_run,
     static should_reject_negative_byte = function() {
         try {
             var _charset = new StrewtCharset().with_value(-1, true);
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("charset_invalid_target", _ex.code);
+            assert_equal("chartable_invalid_target", _ex.code);
+        }
+    }
+    
+    static should_reject_zero_byte = function() {
+        try {
+            var _charset = new StrewtCharset().with_value(0, true);
+            assert_fail($"Expected the code to fail, but it didn't.");
+        } catch (_ex) {
+            assert_is_instanceof_struct(StrewtException, _ex);
+            assert_equal("chartable_invalid_target", _ex.code);
         }
     }
     
     static should_reject_too_large_byte = function() {
         try {
             var _charset = new StrewtCharset().with_value(256, true);
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("charset_invalid_target", _ex.code);
+            assert_equal("chartable_invalid_target", _ex.code);
         }
     }
     
     static should_reject_nonascii_character = function() {
         try {
             var _charset = new StrewtCharset().with_value("Ż", true);
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("charset_invalid_target", _ex.code);
+            assert_equal("chartable_invalid_target", _ex.code);
         }
     }
     
     static should_reject_non_target = function() {
         try {
             var _charset = new StrewtCharset().with_value({}, true);
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("charset_invalid_target", _ex.code);
+            assert_equal("chartable_invalid_target", _ex.code);
         }
     }
 }

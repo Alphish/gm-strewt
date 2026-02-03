@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"tests_StrewtReaderChartableTests",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"tests_StrewtReaderChartableTests",
+  "parent":{
+    "name":"Reader",
+    "path":"folders/Tests/Reader.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

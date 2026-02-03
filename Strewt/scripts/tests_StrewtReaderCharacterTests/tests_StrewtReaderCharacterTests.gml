@@ -46,6 +46,7 @@ function StrewtReaderCharacterTests(_run, _method) : StrewtReaderBaseTests(_run,
         reader.move_to(1);
         try {
             reader.peek_character();
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
             assert_equal("reader_invalid_utf8_byte", _ex.code);
@@ -58,6 +59,7 @@ function StrewtReaderCharacterTests(_run, _method) : StrewtReaderBaseTests(_run,
         given_content(_content);
         try {
             reader.peek_character();
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
             assert_equal("reader_invalid_utf8_byte", _ex.code);
@@ -115,6 +117,7 @@ function StrewtReaderCharacterTests(_run, _method) : StrewtReaderBaseTests(_run,
         reader.move_to(1);
         try {
             reader.read_character();
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
             assert_equal("reader_invalid_utf8_byte", _ex.code);
@@ -127,6 +130,7 @@ function StrewtReaderCharacterTests(_run, _method) : StrewtReaderBaseTests(_run,
         given_content(_content);
         try {
             reader.read_character();
+            assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
             assert_equal("reader_invalid_utf8_byte", _ex.code);
