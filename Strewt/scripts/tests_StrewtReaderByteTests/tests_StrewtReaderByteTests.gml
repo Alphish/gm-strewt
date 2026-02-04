@@ -2,65 +2,104 @@ function StrewtReaderByteTests(_run, _method) : StrewtReaderBaseTests(_run, _met
     static test_subject = "Byte reading";
     
     // --------
+    // Spanning
+    // --------
+    
+    static should_not_span_specific_byte_on_empty_string = function() {
+        given_content("");
+        when(reader.span_byte(49));
+        expect_result_position(0, 0);
+    }
+    
+    static should_span_specific_byte_before_matching = function() {
+        given_content("123");
+        when(reader.span_byte(49));
+        expect_result_position(1, 0);
+    }
+    
+    static should_not_span_specific_byte_before_different_byte = function() {
+        given_content("123");
+        when(reader.span_byte(59));
+        expect_result_position(0, 0);
+    }
+    
+    static should_span_same_specific_byte_repeatedly = function() {
+        given_content("123");
+        
+        when(reader.span_byte(49));
+        expect_result_position(1, 0)
+        when(reader.span_byte(49));
+        expect_result_position(1, 0);
+    }
+    
+    static should_span_specific_byte_in_the_middle = function() {
+        given_content("12345");
+        reader.move_to(3);
+        
+        when(reader.span_byte(52));
+        expect_result_position(1, 3)
+    }
+    
+    // --------
     // Skipping
     // --------
     
     static should_not_skip_byte_on_empty_string = function() {
         given_content("");
         when(reader.skip_byte());
-        expect_result_position(false, 0);
+        expect_result_position(0, 0);
     }
     
     static should_skip_byte_on_nonempty_string = function() {
         given_content("123");
         when(reader.skip_byte());
-        expect_result_position(true, 1);
+        expect_result_position(1, 1);
     }
     
     static should_skip_byte_repeatedly_until_end = function() {
         given_content("123");
         
         when(reader.skip_byte());
-        expect_result_position(true, 1);
+        expect_result_position(1, 1);
         when(reader.skip_byte());
-        expect_result_position(true, 2);
+        expect_result_position(1, 2);
         when(reader.skip_byte());
-        expect_result_position(true, 3);
+        expect_result_position(1, 3);
         
         when(reader.skip_byte());
-        expect_result_position(false, 3);
+        expect_result_position(0, 3);
     }
     
     static should_not_skip_specific_byte_on_empty_string = function() {
         given_content("");
         when(reader.try_skip_byte(49));
-        expect_result_position(false, 0);
+        expect_result_position(0, 0);
     }
     
     static should_skip_specific_byte_before_matching_byte = function() {
         given_content("123");
         when(reader.try_skip_byte(49));
-        expect_result_position(true, 1);
+        expect_result_position(1, 1);
     }
     
     static should_not_skip_specific_byte_before_different_byte = function() {
         given_content("123");
         when(reader.try_skip_byte(59));
-        expect_result_position(false, 0);
+        expect_result_position(0, 0);
     }
     
     static should_skip_specific_bytes_repeatedly_until_end = function() {
         given_content("123");
         
         when(reader.try_skip_byte(49));
-        expect_result_position(true, 1);
+        expect_result_position(1, 1);
         when(reader.try_skip_byte(50));
-        expect_result_position(true, 2);
+        expect_result_position(1, 2);
         when(reader.try_skip_byte(51));
-        expect_result_position(true, 3);
+        expect_result_position(1, 3);
         
         when(reader.try_skip_byte(52));
-        expect_result_position(false, 3);
+        expect_result_position(0, 3);
     }
     
     // -------
@@ -94,41 +133,6 @@ function StrewtReaderByteTests(_run, _method) : StrewtReaderBaseTests(_run, _met
         
         when(reader.peek_byte());
         expect_result_position(52, 3)
-    }
-    
-    static should_not_peek_specific_byte_on_empty_string = function() {
-        given_content("");
-        when(reader.peeks_byte(49));
-        expect_result_position(false, 0);
-    }
-    
-    static should_peek_specific_byte_before_matching = function() {
-        given_content("123");
-        when(reader.peeks_byte(49));
-        expect_result_position(true, 0);
-    }
-    
-    static should_not_peek_specific_byte_before_different_byte = function() {
-        given_content("123");
-        when(reader.peeks_byte(59));
-        expect_result_position(false, 0);
-    }
-    
-    static should_peek_same_specific_byte_repeatedly = function() {
-        given_content("123");
-        
-        when(reader.peeks_byte(49));
-        expect_result_position(true, 0)
-        when(reader.peeks_byte(49));
-        expect_result_position(true, 0);
-    }
-    
-    static should_peek_specific_byte_in_the_middle = function() {
-        given_content("12345");
-        reader.move_to(3);
-        
-        when(reader.peeks_byte(52));
-        expect_result_position(true, 3)
     }
     
     // -------
