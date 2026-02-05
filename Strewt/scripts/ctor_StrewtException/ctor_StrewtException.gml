@@ -29,6 +29,13 @@ StrewtException.reader_invalid_utf8_byte = function(_byte) {
         );
 }
 
+StrewtException.multigraph_invalid_type = function(_type, _value) {
+    return new StrewtException(
+        nameof(multigraph_invalid_type),
+        $"A {_type} can be only created from a string, but {typeof(_value)} was provided instead."
+        );
+}
+
 StrewtException.multigraph_invalid_length = function(_type, _length, _str) {
     return new StrewtException(
         nameof(multigraph_invalid_length),

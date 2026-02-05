@@ -1,4 +1,7 @@
 function strewt_digraph(_str) {
+    if (!is_string(_str))
+        throw StrewtException.multigraph_invalid_type("digraph", _str);
+    
     var _length = string_byte_length(_str);
     if (_length != 2)
         throw StrewtException.multigraph_invalid_length("digraph", 2, _str);
@@ -11,6 +14,9 @@ function strewt_digraph(_str) {
 }
 
 function strewt_trigraph(_str) {
+    if (!is_string(_str))
+        throw StrewtException.multigraph_invalid_type("trigraph", _str);
+    
     var _length = string_byte_length(_str);
     if (_length != 3)
         throw StrewtException.multigraph_invalid_length("trigraph", 3, _str);
@@ -23,6 +29,9 @@ function strewt_trigraph(_str) {
 }
 
 function strewt_tetragraph(_str) {
+    if (!is_string(_str))
+        throw StrewtException.multigraph_invalid_type("tetragraph", _str);
+    
     var _length = string_byte_length(_str);
     if (_length != 4)
         throw StrewtException.multigraph_invalid_length("tetragraph", 4, _str);
