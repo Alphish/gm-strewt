@@ -5,34 +5,6 @@ function StrewtReaderMultigraphTests(_run, _method) : StrewtReaderBaseTests(_run
     // Digraphs
     // --------
     
-    static should_not_create_digraph_from_too_short_string = function() {
-        try
-        {
-            var _value = strewt_digraph("e");
-            assert_fail($"Creating a multigraph with invalid length should fail, but it didn't.");
-        }
-        catch (_ex)
-        {
-            assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("multigraph_invalid_length", _ex.code);
-            assert_is_true(string_pos("digraph", _ex.description) > 0);
-        }
-    }
-    
-    static should_not_create_digraph_from_too_long_string = function() {
-        try
-        {
-            var _value = strewt_digraph("elo");
-            assert_fail($"Creating a multigraph with invalid length should fail, but it didn't.");
-        }
-        catch (_ex)
-        {
-            assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("multigraph_invalid_length", _ex.code);
-            assert_is_true(string_pos("digraph", _ex.description) > 0);
-        }
-    }
-    
     static should_not_span_digraph_on_empty_string = function() {
         var _value = strewt_digraph("+=");
         given_content("");
@@ -155,37 +127,51 @@ function StrewtReaderMultigraphTests(_run, _method) : StrewtReaderBaseTests(_run
         expect_result_position(0, 6);
     }
     
+    static should_not_create_digraph_from_non_string = function() {
+        try
+        {
+            var _value = strewt_digraph(123);
+            assert_fail($"Creating a multigraph from a non-string should fail, but it didn't.");
+        }
+        catch (_ex)
+        {
+            assert_is_instanceof_struct(StrewtException, _ex);
+            assert_equal("multigraph_invalid_type", _ex.code);
+            assert_is_true(string_pos("digraph", _ex.description) > 0);
+        }
+    }
+    
+    static should_not_create_digraph_from_too_short_string = function() {
+        try
+        {
+            var _value = strewt_digraph("e");
+            assert_fail($"Creating a multigraph with invalid length should fail, but it didn't.");
+        }
+        catch (_ex)
+        {
+            assert_is_instanceof_struct(StrewtException, _ex);
+            assert_equal("multigraph_invalid_length", _ex.code);
+            assert_is_true(string_pos("digraph", _ex.description) > 0);
+        }
+    }
+    
+    static should_not_create_digraph_from_too_long_string = function() {
+        try
+        {
+            var _value = strewt_digraph("elo");
+            assert_fail($"Creating a multigraph with invalid length should fail, but it didn't.");
+        }
+        catch (_ex)
+        {
+            assert_is_instanceof_struct(StrewtException, _ex);
+            assert_equal("multigraph_invalid_length", _ex.code);
+            assert_is_true(string_pos("digraph", _ex.description) > 0);
+        }
+    }
+    
     // ---------
     // Trigraphs
     // ---------
-    
-    static should_not_create_trigraph_from_too_short_string = function() {
-        try
-        {
-            var _value = strewt_trigraph("/*");
-            assert_fail($"Creating a multigraph with invalid length should fail, but it didn't.");
-        }
-        catch (_ex)
-        {
-            assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("multigraph_invalid_length", _ex.code);
-            assert_is_true(string_pos("trigraph", _ex.description) > 0);
-        }
-    }
-    
-    static should_not_create_trigraph_from_too_long_string = function() {
-        try
-        {
-            var _value = strewt_trigraph("/***");
-            assert_fail($"Creating a multigraph with invalid length should fail, but it didn't.");
-        }
-        catch (_ex)
-        {
-            assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("multigraph_invalid_length", _ex.code);
-            assert_is_true(string_pos("trigraph", _ex.description) > 0);
-        }
-    }
     
     static should_not_span_trigraph_on_empty_string = function() {
         var _value = strewt_trigraph("??=");
@@ -309,9 +295,65 @@ function StrewtReaderMultigraphTests(_run, _method) : StrewtReaderBaseTests(_run
         expect_result_position(0, 9);
     }
     
+    static should_not_create_trigraph_from_non_string = function() {
+        try
+        {
+            var _value = strewt_trigraph(123);
+            assert_fail($"Creating a multigraph from a non-string should fail, but it didn't.");
+        }
+        catch (_ex)
+        {
+            assert_is_instanceof_struct(StrewtException, _ex);
+            assert_equal("multigraph_invalid_type", _ex.code);
+            assert_is_true(string_pos("trigraph", _ex.description) > 0);
+        }
+    }
+    
+    static should_not_create_trigraph_from_too_short_string = function() {
+        try
+        {
+            var _value = strewt_trigraph("/*");
+            assert_fail($"Creating a multigraph with invalid length should fail, but it didn't.");
+        }
+        catch (_ex)
+        {
+            assert_is_instanceof_struct(StrewtException, _ex);
+            assert_equal("multigraph_invalid_length", _ex.code);
+            assert_is_true(string_pos("trigraph", _ex.description) > 0);
+        }
+    }
+    
+    static should_not_create_trigraph_from_too_long_string = function() {
+        try
+        {
+            var _value = strewt_trigraph("/***");
+            assert_fail($"Creating a multigraph with invalid length should fail, but it didn't.");
+        }
+        catch (_ex)
+        {
+            assert_is_instanceof_struct(StrewtException, _ex);
+            assert_equal("multigraph_invalid_length", _ex.code);
+            assert_is_true(string_pos("trigraph", _ex.description) > 0);
+        }
+    }
+    
     // -----------
     // Tetragraphs
     // -----------
+    
+    static should_not_create_tetragraph_from_non_string = function() {
+        try
+        {
+            var _value = strewt_tetragraph(123);
+            assert_fail($"Creating a multigraph from a non-string should fail, but it didn't.");
+        }
+        catch (_ex)
+        {
+            assert_is_instanceof_struct(StrewtException, _ex);
+            assert_equal("multigraph_invalid_type", _ex.code);
+            assert_is_true(string_pos("tetragraph", _ex.description) > 0);
+        }
+    }
     
     static should_not_create_tetragraph_from_too_short_string = function() {
         try
