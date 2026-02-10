@@ -15,6 +15,13 @@ function StrewtException(_code, _description) constructor {
     }
 }
 
+StrewtException.not_implemented = function(_context, _method) {
+    return new StrewtException(
+        nameof(not_implemented),
+        $"{instanceof(_context)}.{_method} was not implemented."
+        );
+}
+
 StrewtException.reader_invalid_content = function(_content) {
     return new StrewtException(
         nameof(reader_invalid_content),

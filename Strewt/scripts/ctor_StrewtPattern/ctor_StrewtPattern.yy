@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ctor_StrewtPattern",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ctor_StrewtPattern",
+  "parent":{
+    "name":"Patterns",
+    "path":"folders/_Packages/Alphish/Strewt/Patterns.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
