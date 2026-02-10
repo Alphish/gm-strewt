@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ctor_StringQuoteDoublingPattern",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ctor_StringQuoteDoublingPattern",
+  "parent":{
+    "name":"Patterns",
+    "path":"folders/_Packages/Alphish/Strewt/Patterns.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -384,6 +384,42 @@ function StrewtReader(_content) constructor {
         return _chartable.table[_byte];
     }
     
+    // --------
+    // Patterns
+    // --------
+    
+    static span_pattern = function(_pattern) {
+        return _pattern.span(self);
+    }
+    
+    static skip_pattern = function(_pattern) {
+        return _pattern.skip(self);
+    }
+    
+    static peek_pattern_raw = function(_pattern) {
+        return _pattern.peek_raw(self);
+    }
+    
+    static read_pattern_raw = function(_pattern) {
+        return _pattern.read_raw(self);
+    }
+    
+    static peek_pattern = function(_pattern) {
+        return _pattern.peek(self);
+    }
+    
+    static read_pattern = function(_pattern) {
+        return _pattern.read(self);
+    }
+    
+    static peek_pattern_into = function(_pattern, _target) {
+        return _pattern.peek_into(self, _target);
+    }
+    
+    static read_pattern_into = function(_pattern, _target) {
+        return _pattern.read_into(self, _target);
+    }
+    
     // -------
     // Cleanup
     // -------
