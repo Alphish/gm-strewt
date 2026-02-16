@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"tests_StrewtNumberPatternTests",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"tests_StrewtNumberPatternTests",
+  "parent":{
+    "name":"Patterns",
+    "path":"folders/Tests/Patterns.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
