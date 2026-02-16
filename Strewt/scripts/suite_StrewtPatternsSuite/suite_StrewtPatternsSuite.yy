@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"suite_StrewtPatternsSuite",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"suite_StrewtPatternsSuite",
+  "parent":{
+    "name":"Patterns",
+    "path":"folders/Tests/Patterns.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
