@@ -297,6 +297,64 @@ function StrewtReader(_content) constructor {
         return _string_found ? _length : 0;
     }
     
+    // -----
+    // Lines
+    // -----
+    
+    static span_line = function(_withend = false) {
+        var _byte = buffer_read(content_buffer, buffer_u8);
+        while (_byte != 10 /* Line feed */ && _byte != 13 /* Carriage return */ && _byte != 0 /* String end */) {
+            _byte = buffer_read(content_buffer, buffer_u8);
+        }
+        var _newpos = buffer_tell(content_buffer);
+        if (!_withend || _byte == 0)
+            _newpos -= 1;
+        else if (_byte == 13 && buffer_read(content_buffer, buffer_u8) == 10 /* CRLF sequence */)
+            _newpos += 1;
+        
+        buffer_seek(content_buffer, buffer_seek_start, position);
+        return _newpos - position;
+    }
+    
+    static skip_line = function(_withend = false) {
+        var _byte = buffer_read(content_buffer, buffer_u8);
+        while (_byte != 10 /* Line feed */ && _byte != 13 /* Carriage return */ && _byte != 0 /* String end */) {
+            _byte = buffer_read(content_buffer, buffer_u8);
+        }
+        var _newpos = buffer_tell(content_buffer);
+        if (_byte == 0) {
+            _newpos -= 1;
+            buffer_seek(content_buffer, buffer_seek_relative, -1);
+            var _result = _newpos - position;
+            position = _newpos;
+            return _result;
+        } else if (_byte != 13) {
+            var _result = (_withend ? _newpos : _newpos - 1) - position;
+            position = _newpos;
+            return _result;
+        } else if (buffer_read(content_buffer, buffer_u8) == 10 /* CRLF sequence */) {
+            var _result = (_withend ? _newpos + 1 : _newpos - 1) - position;
+            position = _newpos + 1;
+            return _result;
+        } else {
+            buffer_seek(content_buffer, buffer_seek_relative, -1);
+            var _result = (_withend ? _newpos : _newpos - 1) - position;
+            position = _newpos;
+            return _result;
+        }
+    }
+    
+    static peek_line = function(_withend = false) {
+        var _span = span_line(_withend);
+        return peek_substring(position, position + _span);
+    }
+    
+    static read_line = function(_withend = false) {
+        var _position = position;
+        var _span = skip_line(_withend);
+        return peek_substring(_position, _position + _span);
+    }
+    
     // --------
     // Charsets
     // --------
