@@ -8,6 +8,7 @@ function StrewtReaderSuite() : VerrificSuiteGroup("Strewt Reader tests") constru
         StrewtReaderCharacterTests,
         StrewtReaderMultigraphTests,
         StrewtReaderStringTests,
+        StrewtReaderLineTests,
         StrewtReaderCharsetTests,
         StrewtReaderCharsetStringTests,
         StrewtReaderChartableTests,
