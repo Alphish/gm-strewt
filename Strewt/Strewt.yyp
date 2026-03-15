@@ -106,6 +106,7 @@
     {"id":{"name":"tests_StrewtReaderPositionTests","path":"scripts/tests_StrewtReaderPositionTests/tests_StrewtReaderPositionTests.yy",},},
     {"id":{"name":"tests_StrewtReaderStringTests","path":"scripts/tests_StrewtReaderStringTests/tests_StrewtReaderStringTests.yy",},},
     {"id":{"name":"tests_StrewtReaderSubstringTests","path":"scripts/tests_StrewtReaderSubstringTests/tests_StrewtReaderSubstringTests.yy",},},
+    {"id":{"name":"tests_StrewtReaderTargetCopyTests","path":"scripts/tests_StrewtReaderTargetCopyTests/tests_StrewtReaderTargetCopyTests.yy",},},
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
