@@ -65,6 +65,16 @@ function StrewtReader(_content) constructor {
         return _result;
     }
     
+    static read_into = function(_from, _span, _target, _offset = undefined) {
+        if (_span <= 0)
+            return 0;
+        
+        _offset ??= buffer_tell(_target);
+        buffer_copy(content_buffer, _from, _span, _target, _offset);
+        buffer_seek(_target, buffer_seek_start, _offset + _span);
+        return _span;
+    }
+    
     // -----
     // Bytes
     // -----
