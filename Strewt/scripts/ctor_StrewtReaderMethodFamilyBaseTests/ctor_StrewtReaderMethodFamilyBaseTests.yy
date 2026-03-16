@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ctor_StrewtReaderMethodFamilyBaseTests",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ctor_StrewtReaderMethodFamilyBaseTests",
+  "parent":{
+    "name":"Reader",
+    "path":"folders/Tests/Reader.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
