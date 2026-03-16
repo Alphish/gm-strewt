@@ -434,6 +434,11 @@ function StrewtReader(_content) constructor {
         return peek_substring(position - _span, position);
     }
     
+    static read_charset_string_into = function(_charset, _target, _offset = undefined) {
+        var _position = position;
+        return read_into(_position, skip_charset_string(_charset), _target, _offset);
+    }
+    
     // ----------
     // Chartables
     // ----------
