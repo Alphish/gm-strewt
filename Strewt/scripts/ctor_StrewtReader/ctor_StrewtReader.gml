@@ -114,6 +114,17 @@ function StrewtReader(_content) constructor {
         }
     }
     
+    static try_read_byte_into = function(_byte, _target, _offset = undefined) {
+        if (!try_skip_byte(_byte))
+            return 0;
+        
+        if (!is_undefined(_offset))
+            buffer_seek(_target, buffer_seek_start, _offset);
+        
+        buffer_write(_target, buffer_u8, _byte);
+        return 1;
+    }
+    
     static span_byte_sequence = function(_bytes) {
         var _length = array_length(_bytes);
         if (position + _length > byte_length)
