@@ -255,6 +255,17 @@ function StrewtReader(_content) constructor {
         return 2;
     }
     
+    static try_read_digraph_into = function(_value, _target, _offset = undefined) {
+        if (!try_skip_digraph(_value))
+            return 0;
+        
+        if (!is_undefined(_offset))
+            buffer_seek(_target, buffer_seek_start, _offset);
+        
+        buffer_write(_target, buffer_u16, _value);
+        return 2;
+    }
+    
     static span_trigraph = function(_value) {
         if (position + 3 > byte_length)
             return 0;
@@ -274,6 +285,18 @@ function StrewtReader(_content) constructor {
         return 3;
     }
     
+    static try_read_trigraph_into = function(_value, _target, _offset = undefined) {
+        if (!try_skip_trigraph(_value))
+            return 0;
+        
+        if (!is_undefined(_offset))
+            buffer_seek(_target, buffer_seek_start, _offset);
+        
+        buffer_write(_target, buffer_u32, _value);
+        buffer_seek(_target, buffer_seek_relative, -1);
+        return 3;
+    }
+    
     static span_tetragraph = function(_value) {
         if (position + 4 > byte_length)
             return 0;
@@ -290,6 +313,17 @@ function StrewtReader(_content) constructor {
         
         buffer_seek(content_buffer, buffer_seek_relative, 4);
         position += 4;
+        return 4;
+    }
+    
+    static try_read_tetragraph_into = function(_value, _target, _offset = undefined) {
+        if (!try_skip_tetragraph(_value))
+            return 0;
+        
+        if (!is_undefined(_offset))
+            buffer_seek(_target, buffer_seek_start, _offset);
+        
+        buffer_write(_target, buffer_u32, _value);
         return 4;
     }
     
