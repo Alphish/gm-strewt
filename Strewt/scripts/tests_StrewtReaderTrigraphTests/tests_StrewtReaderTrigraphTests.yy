@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"tests_StrewtReaderTrigraphTests",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"tests_StrewtReaderTrigraphTests",
+  "parent":{
+    "name":"Reader",
+    "path":"folders/Tests/Reader.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

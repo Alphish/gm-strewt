@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"tests_StrewtReaderTargetCopyTests",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"tests_StrewtReaderTargetCopyTests",
+  "parent":{
+    "name":"Reader",
+    "path":"folders/Tests/Reader.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

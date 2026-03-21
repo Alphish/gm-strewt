@@ -1,679 +1,301 @@
-function StrewtReaderLineTests(_run, _method) : StrewtReaderBaseTests(_run, _method) constructor {
+function StrewtReaderLineTests(_run, _method) : StrewtReaderMethodFamilyBaseTests(_run, _method) constructor {
     static test_subject = "Line checking";
+    
+    // -----
+    // Setup
+    // -----
+    
+    include_eol = undefined;
+    static excluding_end_of_line = function() {
+        include_eol = false;
+    }
+    
+    static including_end_of_line = function() {
+        include_eol = true;
+    }
+    
+    static when_spanned = function() {
+        return is_undefined(include_eol) ? reader.span_line() : reader.span_line(include_eol);
+    }
+    
+    static when_skipped = function() {
+        return is_undefined(include_eol) ? reader.skip_line() : reader.skip_line(include_eol);
+    }
+    
+    static when_peeked = function() {
+        return is_undefined(include_eol) ? reader.peek_line() : reader.peek_line(include_eol);
+    }
+    
+    static when_read = function() {
+        return is_undefined(include_eol) ? reader.read_line() : reader.read_line(include_eol);
+    }
+    
+    static when_read_into_target = function(_target, _offset = undefined) {
+        return is_undefined(_offset)
+            ? reader.read_line_into(include_eol, _target)
+            : reader.read_line_into(include_eol, _target, _offset);
+    }
     
     // --------
     // Spanning
     // --------
     
-    static should_span_empty_line_on_empty_string = function() {
+    static should_receive_empty_line_on_empty_string = function() {
         given_content("");
-        when(reader.span_line(/* with end */ false));
-        expect_result_position(0, 0);
+        excluding_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(0);
+        then_expect_string("");
+        then_expect_positions(0, 0);
     }
     
-    static should_span_empty_line_with_end_on_empty_string = function() {
+    static should_receive_empty_line_on_empty_string_with_end = function() {
         given_content("");
-        when(reader.span_line(/* with end */ true));
-        expect_result_position(0, 0);
+        including_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(0);
+        then_expect_string("");
+        then_expect_positions(0, 0);
     }
     
-    static should_span_entire_string_without_linebreak = function() {
+    static should_receive_entire_string_without_linebreak = function() {
         given_content("Lorem ipsum");
-        when(reader.span_line(/* with end */ false));
-        expect_result_position(11, 0);
+        excluding_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(11);
+        then_expect_string("Lorem ipsum");
+        then_expect_positions(0, 11);
     }
     
-    static should_span_entire_string_with_end_without_linebreak = function() {
+    static should_receive_entire_string_without_linebreak_with_end = function() {
         given_content("Lorem ipsum");
-        when(reader.span_line(/* with end */ true));
-        expect_result_position(11, 0);
+        including_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(11);
+        then_expect_string("Lorem ipsum");
+        then_expect_positions(0, 11);
     }
     
-    static should_span_line_without_end_by_default = function() {
+    static should_receive_line_without_end_by_default = function() {
         given_content("Lorem\nIpsum");
-        when(reader.span_line());
-        expect_result_position(5, 0);
+        when_method_family_tested();
+        
+        then_expect_span(5);
+        then_expect_string("Lorem");
+        then_expect_positions(0, 6);
     }
     
     // Starting line break
     
-    static should_span_line_on_starting_lf = function() {
+    static should_receive_empty_line_on_starting_lf = function() {
         given_content("\nTest");
-        when(reader.span_line(/* with end */ false));
-        expect_result_position(0, 0);
+        excluding_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(0);
+        then_expect_string("");
+        then_expect_positions(0, 1);
     }
     
-    static should_span_line_with_end_on_starting_lf = function() {
+    static should_receive_lf_on_starting_lf_with_end = function() {
         given_content("\nTest");
-        when(reader.span_line(/* with end */ true));
-        expect_result_position(1, 0);
+        including_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(1);
+        then_expect_string("\n");
+        then_expect_positions(0, 1);
     }
     
-    static should_span_line_on_starting_cr = function() {
+    static should_receive_empty_line_on_starting_cr = function() {
         given_content("\rTest");
-        when(reader.span_line(/* with end */ false));
-        expect_result_position(0, 0);
+        excluding_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(0);
+        then_expect_string("");
+        then_expect_positions(0, 1);
     }
     
-    static should_span_line_with_end_on_starting_cr = function() {
+    static should_receive_cr_on_starting_cr_with_end = function() {
         given_content("\rTest");
-        when(reader.span_line(/* with end */ true));
-        expect_result_position(1, 0);
+        including_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(1);
+        then_expect_string("\r");
+        then_expect_positions(0, 1);
     }
     
-    static should_span_line_on_starting_crlf = function() {
+    static should_receive_empty_line_on_starting_crlf = function() {
         given_content("\r\nTest");
-        when(reader.span_line(/* with end */ false));
-        expect_result_position(0, 0);
+        excluding_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(0);
+        then_expect_string("");
+        then_expect_positions(0, 2);
     }
     
-    static should_span_line_with_end_on_starting_crlf = function() {
+    static should_receive_crlf_on_starting_crlf_with_end = function() {
         given_content("\r\nTest");
-        when(reader.span_line(/* with end */ true));
-        expect_result_position(2, 0);
+        including_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(2);
+        then_expect_string("\r\n");
+        then_expect_positions(0, 2);
     }
     
     // Middle line break
     
     static should_span_line_on_middle_lf = function() {
         given_content("Lorem\nIpsum");
-        when(reader.span_line(/* with end */ false));
-        expect_result_position(5, 0);
+        excluding_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(5);
+        then_expect_string("Lorem");
+        then_expect_positions(0, 6);
     }
     
-    static should_span_line_with_end_on_middle_lf = function() {
+    static should_handle_line_on_middle_lf_with_end = function() {
         given_content("Lorem\nIpsum");
-        when(reader.span_line(/* with end */ true));
-        expect_result_position(6, 0);
+        including_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(6);
+        then_expect_string("Lorem\n");
+        then_expect_positions(0, 6);
     }
     
-    static should_span_line_on_middle_cr = function() {
+    static should_handle_line_on_middle_cr = function() {
         given_content("Lorem\rIpsum");
-        when(reader.span_line(/* with end */ false));
-        expect_result_position(5, 0);
+        excluding_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(5);
+        then_expect_string("Lorem");
+        then_expect_positions(0, 6);
     }
     
-    static should_span_line_with_end_on_middle_cr = function() {
+    static should_handle_line_on_middle_cr_with_end = function() {
         given_content("Lorem\rIpsum");
-        when(reader.span_line(/* with end */ true));
-        expect_result_position(6, 0);
+        including_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(6);
+        then_expect_string("Lorem\r");
+        then_expect_positions(0, 6);
     }
     
-    static should_span_line_on_middle_crlf = function() {
+    static should_handle_line_on_middle_crlf = function() {
         given_content("Lorem\r\nIpsum");
-        when(reader.span_line(/* with end */ false));
-        expect_result_position(5, 0);
+        excluding_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(5);
+        then_expect_string("Lorem");
+        then_expect_positions(0, 7);
     }
     
-    static should_span_line_with_end_on_middle_crlf = function() {
+    static should_handle_line_on_middle_crlf_with_end = function() {
         given_content("Lorem\r\nIpsum");
-        when(reader.span_line(/* with end */ true));
-        expect_result_position(7, 0);
+        including_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(7);
+        then_expect_string("Lorem\r\n");
+        then_expect_positions(0, 7);
     }
     
-    static should_span_line_on_middle_lfcr = function() {
+    static should_handle_line_on_middle_lfcr = function() {
         given_content("Lorem\n\rIpsum");
-        when(reader.span_line(/* with end */ false));
-        expect_result_position(5, 0);
+        excluding_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(5);
+        then_expect_string("Lorem");
+        then_expect_positions(0, 6);
     }
     
-    static should_span_line_with_end_on_middle_lfcr = function() {
+    static should_handle_line_on_middle_lfcr_with_end = function() {
         given_content("Lorem\n\rIpsum");
-        when(reader.span_line(/* with end */ true));
-        expect_result_position(6, 0);
+        including_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(6);
+        then_expect_string("Lorem\n");
+        then_expect_positions(0, 6);
     }
     
-    static should_span_line_on_middle_lflf = function() {
+    static should_handle_line_on_middle_lflf = function() {
         given_content("Lorem\n\nIpsum");
-        when(reader.span_line(/* with end */ false));
-        expect_result_position(5, 0);
+        excluding_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(5);
+        then_expect_string("Lorem");
+        then_expect_positions(0, 6);
     }
     
-    static should_span_line_with_end_on_middle_lflf = function() {
+    static should_handle_line_on_middle_lflf_with_end = function() {
         given_content("Lorem\n\nIpsum");
-        when(reader.span_line(/* with end */ true));
-        expect_result_position(6, 0);
+        including_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(6);
+        then_expect_string("Lorem\n");
+        then_expect_positions(0, 6);
     }
     
     // Ending line break
     
-    static should_span_line_on_ending_lf = function() {
+    static should_handle_line_on_ending_lf = function() {
         given_content("Lorem Ipsum\n");
-        when(reader.span_line(/* with end */ false));
-        expect_result_position(11, 0);
+        excluding_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(11);
+        then_expect_string("Lorem Ipsum");
+        then_expect_positions(0, 12);
     }
     
-    static should_span_line_with_end_on_ending_lf = function() {
+    static should_handle_line_on_ending_lf_with_end = function() {
         given_content("Lorem Ipsum\n");
-        when(reader.span_line(/* with end */ true));
-        expect_result_position(12, 0);
+        including_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(12);
+        then_expect_string("Lorem Ipsum\n");
+        then_expect_positions(0, 12);
     }
     
     // Reading from middle
     
-    static should_span_line_from_middle = function() {
+    static should_handle_line_from_middle = function() {
         given_content("Lorem\nIpsum\nDolor");
-        reader.move_to(8);
-        when(reader.span_line(/* with end */ false));
-        expect_result_position(3, 8);
+        given_position(8);
+        excluding_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(3);
+        then_expect_string("sum");
+        then_expect_positions(8, 12);
     }
     
-    static should_span_line_with_end_from_middle = function() {
+    static should_handle_line_from_middle_with_end = function() {
         given_content("Lorem\nIpsum\nDolor");
-        reader.move_to(8);
-        when(reader.span_line(/* with end */ true));
-        expect_result_position(4, 8);
-    }
-    
-    // --------
-    // Skipping
-    // --------
-    
-    static should_skip_empty_line_on_empty_string = function() {
-        given_content("");
-        when(reader.skip_line(/* with end */ false));
-        expect_result_position(0, 0);
-    }
-    
-    static should_skip_empty_line_with_end_on_empty_string = function() {
-        given_content("");
-        when(reader.skip_line(/* with end */ true));
-        expect_result_position(0, 0);
-    }
-    
-    static should_skip_entire_string_without_linebreak = function() {
-        given_content("Lorem ipsum");
-        when(reader.skip_line(/* with end */ false));
-        expect_result_position(11, 11);
-    }
-    
-    static should_skip_entire_string_with_end_without_linebreak = function() {
-        given_content("Lorem ipsum");
-        when(reader.skip_line(/* with end */ true));
-        expect_result_position(11, 11);
-    }
-    
-    static should_skip_line_without_end_by_default = function() {
-        given_content("Lorem\nIpsum");
-        when(reader.skip_line());
-        expect_result_position(5, 6);
-    }
-    
-    // Starting line break
-    
-    static should_skip_line_on_starting_lf = function() {
-        given_content("\nTest");
-        when(reader.skip_line(/* with end */ false));
-        expect_result_position(0, 1);
-    }
-    
-    static should_skip_line_with_end_on_starting_lf = function() {
-        given_content("\nTest");
-        when(reader.skip_line(/* with end */ true));
-        expect_result_position(1, 1);
-    }
-    
-    static should_skip_line_on_starting_cr = function() {
-        given_content("\rTest");
-        when(reader.skip_line(/* with end */ false));
-        expect_result_position(0, 1);
-    }
-    
-    static should_skip_line_with_end_on_starting_cr = function() {
-        given_content("\rTest");
-        when(reader.skip_line(/* with end */ true));
-        expect_result_position(1, 1);
-    }
-    
-    static should_skip_line_on_starting_crlf = function() {
-        given_content("\r\nTest");
-        when(reader.skip_line(/* with end */ false));
-        expect_result_position(0, 2);
-    }
-    
-    static should_skip_line_with_end_on_starting_crlf = function() {
-        given_content("\r\nTest");
-        when(reader.skip_line(/* with end */ true));
-        expect_result_position(2, 2);
-    }
-    
-    // Middle line break
-    
-    static should_skip_line_on_middle_lf = function() {
-        given_content("Lorem\nIpsum");
-        when(reader.skip_line(/* with end */ false));
-        expect_result_position(5, 6);
-    }
-    
-    static should_skip_line_with_end_on_middle_lf = function() {
-        given_content("Lorem\nIpsum");
-        when(reader.skip_line(/* with end */ true));
-        expect_result_position(6, 6);
-    }
-    
-    static should_skip_line_on_middle_cr = function() {
-        given_content("Lorem\rIpsum");
-        when(reader.skip_line(/* with end */ false));
-        expect_result_position(5, 6);
-    }
-    
-    static should_skip_line_with_end_on_middle_cr = function() {
-        given_content("Lorem\rIpsum");
-        when(reader.skip_line(/* with end */ true));
-        expect_result_position(6, 6);
-    }
-    
-    static should_skip_line_on_middle_crlf = function() {
-        given_content("Lorem\r\nIpsum");
-        when(reader.skip_line(/* with end */ false));
-        expect_result_position(5, 7);
-    }
-    
-    static should_skip_line_with_end_on_middle_crlf = function() {
-        given_content("Lorem\r\nIpsum");
-        when(reader.skip_line(/* with end */ true));
-        expect_result_position(7, 7);
-    }
-    
-    static should_skip_line_on_middle_lfcr = function() {
-        given_content("Lorem\n\rIpsum");
-        when(reader.skip_line(/* with end */ false));
-        expect_result_position(5, 6);
-    }
-    
-    static should_skip_line_with_end_on_middle_lfcr = function() {
-        given_content("Lorem\n\rIpsum");
-        when(reader.skip_line(/* with end */ true));
-        expect_result_position(6, 6);
-    }
-    
-    static should_skip_line_on_middle_lflf = function() {
-        given_content("Lorem\n\nIpsum");
-        when(reader.skip_line(/* with end */ false));
-        expect_result_position(5, 6);
-    }
-    
-    static should_skip_line_with_end_on_middle_lflf = function() {
-        given_content("Lorem\n\nIpsum");
-        when(reader.skip_line(/* with end */ true));
-        expect_result_position(6, 6);
-    }
-    
-    // Ending line break
-    
-    static should_skip_line_on_ending_lf = function() {
-        given_content("Lorem Ipsum\n");
-        when(reader.skip_line(/* with end */ false));
-        expect_result_position(11, 12);
-    }
-    
-    static should_skip_line_with_end_on_ending_lf = function() {
-        given_content("Lorem Ipsum\n");
-        when(reader.skip_line(/* with end */ true));
-        expect_result_position(12, 12);
-    }
-    
-    // Reading from middle
-    
-    static should_skip_line_until_end = function() {
-        given_content("Lorem\nIpsum\nDolor");
-        when(reader.skip_line(/* with end */ false));
-        expect_result_position(5, 6);
-        when(reader.skip_line(/* with end */ false));
-        expect_result_position(5, 12);
-        when(reader.skip_line(/* with end */ false));
-        expect_result_position(5, 17);
-        when(reader.skip_line(/* with end */ false));
-        expect_result_position(0, 17);
-    }
-    
-    static should_skip_line_with_end_until_end = function() {
-        given_content("Lorem\nIpsum\nDolor");
-        when(reader.skip_line(/* with end */ true));
-        expect_result_position(6, 6);
-        when(reader.skip_line(/* with end */ true));
-        expect_result_position(6, 12);
-        when(reader.skip_line(/* with end */ true));
-        expect_result_position(5, 17);
-        when(reader.skip_line(/* with end */ true));
-        expect_result_position(0, 17);
-    }
-    
-    // --------
-    // Peeking
-    // --------
-    
-    static should_peek_empty_line_on_empty_string = function() {
-        given_content("");
-        when(reader.peek_line(/* with end */ false));
-        expect_result_position("", 0);
-    }
-    
-    static should_peek_empty_line_with_end_on_empty_string = function() {
-        given_content("");
-        when(reader.peek_line(/* with end */ true));
-        expect_result_position("", 0);
-    }
-    
-    static should_peek_entire_string_without_linebreak = function() {
-        given_content("Lorem ipsum");
-        when(reader.peek_line(/* with end */ false));
-        expect_result_position("Lorem ipsum", 0);
-    }
-    
-    static should_peek_entire_string_with_end_without_linebreak = function() {
-        given_content("Lorem ipsum");
-        when(reader.peek_line(/* with end */ true));
-        expect_result_position("Lorem ipsum", 0);
-    }
-    
-    static should_peek_line_without_end_by_default = function() {
-        given_content("Lorem\nIpsum");
-        when(reader.peek_line());
-        expect_result_position("Lorem", 0);
-    }
-    
-    // Starting line break
-    
-    static should_peek_line_on_starting_lf = function() {
-        given_content("\nTest");
-        when(reader.peek_line(/* with end */ false));
-        expect_result_position("", 0);
-    }
-    
-    static should_peek_line_with_end_on_starting_lf = function() {
-        given_content("\nTest");
-        when(reader.peek_line(/* with end */ true));
-        expect_result_position("\n", 0);
-    }
-    
-    static should_peek_line_on_starting_cr = function() {
-        given_content("\rTest");
-        when(reader.peek_line(/* with end */ false));
-        expect_result_position("", 0);
-    }
-    
-    static should_peek_line_with_end_on_starting_cr = function() {
-        given_content("\rTest");
-        when(reader.peek_line(/* with end */ true));
-        expect_result_position("\r", 0);
-    }
-    
-    static should_peek_line_on_starting_crlf = function() {
-        given_content("\r\nTest");
-        when(reader.peek_line(/* with end */ false));
-        expect_result_position("", 0);
-    }
-    
-    static should_peek_line_with_end_on_starting_crlf = function() {
-        given_content("\r\nTest");
-        when(reader.peek_line(/* with end */ true));
-        expect_result_position("\r\n", 0);
-    }
-    
-    // Middle line break
-    
-    static should_peek_line_on_middle_lf = function() {
-        given_content("Lorem\nIpsum");
-        when(reader.peek_line(/* with end */ false));
-        expect_result_position("Lorem", 0);
-    }
-    
-    static should_peek_line_with_end_on_middle_lf = function() {
-        given_content("Lorem\nIpsum");
-        when(reader.peek_line(/* with end */ true));
-        expect_result_position("Lorem\n", 0);
-    }
-    
-    static should_peek_line_on_middle_cr = function() {
-        given_content("Lorem\rIpsum");
-        when(reader.peek_line(/* with end */ false));
-        expect_result_position("Lorem", 0);
-    }
-    
-    static should_peek_line_with_end_on_middle_cr = function() {
-        given_content("Lorem\rIpsum");
-        when(reader.peek_line(/* with end */ true));
-        expect_result_position("Lorem\r", 0);
-    }
-    
-    static should_peek_line_on_middle_crlf = function() {
-        given_content("Lorem\r\nIpsum");
-        when(reader.peek_line(/* with end */ false));
-        expect_result_position("Lorem", 0);
-    }
-    
-    static should_peek_line_with_end_on_middle_crlf = function() {
-        given_content("Lorem\r\nIpsum");
-        when(reader.peek_line(/* with end */ true));
-        expect_result_position("Lorem\r\n", 0);
-    }
-    
-    static should_peek_line_on_middle_lfcr = function() {
-        given_content("Lorem\n\rIpsum");
-        when(reader.peek_line(/* with end */ false));
-        expect_result_position("Lorem", 0);
-    }
-    
-    static should_peek_line_with_end_on_middle_lfcr = function() {
-        given_content("Lorem\n\rIpsum");
-        when(reader.peek_line(/* with end */ true));
-        expect_result_position("Lorem\n", 0);
-    }
-    
-    static should_peek_line_on_middle_lflf = function() {
-        given_content("Lorem\n\nIpsum");
-        when(reader.peek_line(/* with end */ false));
-        expect_result_position("Lorem", 0);
-    }
-    
-    static should_peek_line_with_end_on_middle_lflf = function() {
-        given_content("Lorem\n\nIpsum");
-        when(reader.peek_line(/* with end */ true));
-        expect_result_position("Lorem\n", 0);
-    }
-    
-    // Ending line break
-    
-    static should_peek_line_on_ending_lf = function() {
-        given_content("Lorem Ipsum\n");
-        when(reader.peek_line(/* with end */ false));
-        expect_result_position("Lorem Ipsum", 0);
-    }
-    
-    static should_peek_line_with_end_on_ending_lf = function() {
-        given_content("Lorem Ipsum\n");
-        when(reader.peek_line(/* with end */ true));
-        expect_result_position("Lorem Ipsum\n", 0);
-    }
-    
-    // Reading from middle
-    
-    static should_peek_line_from_middle = function() {
-        given_content("Lorem\nIpsum\nDolor");
-        reader.move_to(8);
-        when(reader.peek_line(/* with end */ false));
-        expect_result_position("sum", 8);
-    }
-    
-    static should_peek_line_with_end_from_middle = function() {
-        given_content("Lorem\nIpsum\nDolor");
-        reader.move_to(8);
-        when(reader.peek_line(/* with end */ true));
-        expect_result_position("sum\n", 8);
-    }
-    
-    // -------
-    // Reading
-    // -------
-    
-    static should_read_empty_line_on_empty_string = function() {
-        given_content("");
-        when(reader.read_line(/* with end */ false));
-        expect_result_position("", 0);
-    }
-    
-    static should_read_empty_line_with_end_on_empty_string = function() {
-        given_content("");
-        when(reader.read_line(/* with end */ true));
-        expect_result_position("", 0);
-    }
-    
-    static should_read_entire_string_without_linebreak = function() {
-        given_content("Lorem ipsum");
-        when(reader.read_line(/* with end */ false));
-        expect_result_position("Lorem ipsum", 11);
-    }
-    
-    static should_read_entire_string_with_end_without_linebreak = function() {
-        given_content("Lorem ipsum");
-        when(reader.read_line(/* with end */ true));
-        expect_result_position("Lorem ipsum", 11);
-    }
-    
-    static should_read_line_without_end_by_default = function() {
-        given_content("Lorem\nIpsum");
-        when(reader.read_line());
-        expect_result_position("Lorem", 6);
-    }
-    
-    // Starting line break
-    
-    static should_read_line_on_starting_lf = function() {
-        given_content("\nTest");
-        when(reader.read_line(/* with end */ false));
-        expect_result_position("", 1);
-    }
-    
-    static should_read_line_with_end_on_starting_lf = function() {
-        given_content("\nTest");
-        when(reader.read_line(/* with end */ true));
-        expect_result_position("\n", 1);
-    }
-    
-    static should_read_line_on_starting_cr = function() {
-        given_content("\rTest");
-        when(reader.read_line(/* with end */ false));
-        expect_result_position("", 1);
-    }
-    
-    static should_read_line_with_end_on_starting_cr = function() {
-        given_content("\rTest");
-        when(reader.read_line(/* with end */ true));
-        expect_result_position("\r", 1);
-    }
-    
-    static should_read_line_on_starting_crlf = function() {
-        given_content("\r\nTest");
-        when(reader.read_line(/* with end */ false));
-        expect_result_position("", 2);
-    }
-    
-    static should_read_line_with_end_on_starting_crlf = function() {
-        given_content("\r\nTest");
-        when(reader.read_line(/* with end */ true));
-        expect_result_position("\r\n", 2);
-    }
-    
-    // Middle line break
-    
-    static should_read_line_on_middle_lf = function() {
-        given_content("Lorem\nIpsum");
-        when(reader.read_line(/* with end */ false));
-        expect_result_position("Lorem", 6);
-    }
-    
-    static should_read_line_with_end_on_middle_lf = function() {
-        given_content("Lorem\nIpsum");
-        when(reader.read_line(/* with end */ true));
-        expect_result_position("Lorem\n", 6);
-    }
-    
-    static should_read_line_on_middle_cr = function() {
-        given_content("Lorem\rIpsum");
-        when(reader.read_line(/* with end */ false));
-        expect_result_position("Lorem", 6);
-    }
-    
-    static should_read_line_with_end_on_middle_cr = function() {
-        given_content("Lorem\rIpsum");
-        when(reader.read_line(/* with end */ true));
-        expect_result_position("Lorem\r", 6);
-    }
-    
-    static should_read_line_on_middle_crlf = function() {
-        given_content("Lorem\r\nIpsum");
-        when(reader.read_line(/* with end */ false));
-        expect_result_position("Lorem", 7);
-    }
-    
-    static should_read_line_with_end_on_middle_crlf = function() {
-        given_content("Lorem\r\nIpsum");
-        when(reader.read_line(/* with end */ true));
-        expect_result_position("Lorem\r\n", 7);
-    }
-    
-    static should_read_line_on_middle_lfcr = function() {
-        given_content("Lorem\n\rIpsum");
-        when(reader.read_line(/* with end */ false));
-        expect_result_position("Lorem", 6);
-    }
-    
-    static should_read_line_with_end_on_middle_lfcr = function() {
-        given_content("Lorem\n\rIpsum");
-        when(reader.read_line(/* with end */ true));
-        expect_result_position("Lorem\n", 6);
-    }
-    
-    static should_read_line_on_middle_lflf = function() {
-        given_content("Lorem\n\nIpsum");
-        when(reader.read_line(/* with end */ false));
-        expect_result_position("Lorem", 6);
-    }
-    
-    static should_read_line_with_end_on_middle_lflf = function() {
-        given_content("Lorem\n\nIpsum");
-        when(reader.read_line(/* with end */ true));
-        expect_result_position("Lorem\n", 6);
-    }
-    
-    // Ending line break
-    
-    static should_read_line_on_ending_lf = function() {
-        given_content("Lorem Ipsum\n");
-        when(reader.read_line(/* with end */ false));
-        expect_result_position("Lorem Ipsum", 12);
-    }
-    
-    static should_read_line_with_end_on_ending_lf = function() {
-        given_content("Lorem Ipsum\n");
-        when(reader.read_line(/* with end */ true));
-        expect_result_position("Lorem Ipsum\n", 12);
-    }
-    
-    // Reading from middle
-    
-    static should_read_line_until_end = function() {
-        given_content("Lorem\nIpsum\nDolor");
-        when(reader.read_line(/* with end */ false));
-        expect_result_position("Lorem", 6);
-        when(reader.read_line(/* with end */ false));
-        expect_result_position("Ipsum", 12);
-        when(reader.read_line(/* with end */ false));
-        expect_result_position("Dolor", 17);
-        when(reader.read_line(/* with end */ false));
-        expect_result_position("", 17);
-    }
-    
-    static should_read_line_with_end_until_end = function() {
-        given_content("Lorem\nIpsum\nDolor");
-        when(reader.read_line(/* with end */ true));
-        expect_result_position("Lorem\n", 6);
-        when(reader.read_line(/* with end */ true));
-        expect_result_position("Ipsum\n", 12);
-        when(reader.read_line(/* with end */ true));
-        expect_result_position("Dolor", 17);
-        when(reader.read_line(/* with end */ true));
-        expect_result_position("", 17);
+        given_position(8);
+        including_end_of_line();
+        when_method_family_tested();
+        
+        then_expect_span(4);
+        then_expect_string("sum\n");
+        then_expect_positions(8, 12);
     }
 }

@@ -1,106 +1,109 @@
-function StrewtReaderByteSequenceTests(_run, _method) : StrewtReaderBaseTests(_run, _method) constructor {
+function StrewtReaderByteSequenceTests(_run, _method) : StrewtReaderMethodFamilyBaseTests(_run, _method) constructor {
     static test_subject = "Byte sequence checking";
+    
+    // -----
+    // Setup
+    // -----
+    
+    byte_sequence = undefined;
+    static given_byte_sequence = function(_arr) {
+        byte_sequence = _arr;
+    }
+    
+    static when_spanned = function() {
+        return reader.span_byte_sequence(byte_sequence);
+    }
+    
+    static when_skipped = function() {
+        return reader.skip_byte_sequence(byte_sequence);
+    }
+    
+    static when_peeked = function() {
+        return undefined;
+    }
+    
+    static when_read = function() {
+        return undefined;
+    }
+    
+    static when_read_into_target = function(_target, _offset = undefined) {
+        return is_undefined(_offset)
+            ? reader.read_byte_sequence_into(byte_sequence, _target)
+            : reader.read_byte_sequence_into(byte_sequence, _target, _offset);
+    }
     
     // --------
     // Skipping
     // --------
     
-    static should_not_skip_sequence_on_empty_string = function() {
+    static should_ignore_sequence_on_empty_string = function() {
         given_content("");
-        when(reader.try_skip_byte_sequence([49, 50, 51]));
-        expect_result_position(0, 0);
-    }
-    
-    static should_skip_single_byte_sequence = function() {
-        given_content("12345");
-        when(reader.try_skip_byte_sequence([49]));
-        expect_result_position(1, 1);
-    }
-    
-    static should_skip_matching_sequence = function() {
-        given_content("12345");
-        when(reader.try_skip_byte_sequence([49, 50, 51]));
-        expect_result_position(3, 3);
-    }
-    
-    static should_skip_matching_sequence_to_end = function() {
-        given_content("12345");
-        when(reader.try_skip_byte_sequence([49, 50, 51, 52, 53]));
-        expect_result_position(5, 5);
-    }
-    
-    static should_not_skip_different_sequence = function() {
-        given_content("ABCDE");
-        when(reader.try_skip_byte_sequence([49, 50, 51]));
-        expect_result_position(0, 0);
-    }
-    
-    static should_not_skip_partially_matching_sequence = function() {
-        given_content("1290");
-        when(reader.try_skip_byte_sequence([49, 50, 51]));
-        expect_result_position(0, 0);
-    }
-    
-    static should_skip_matching_sequence_repeatedly = function() {
-        given_content("123123456");
+        given_byte_sequence([49, 50, 51]);
+        when_method_family_tested();
         
-        when(reader.try_skip_byte_sequence([49, 50, 51]));
-        expect_result_position(3, 3);
-        when(reader.try_skip_byte_sequence([49, 50, 51]));
-        expect_result_position(3, 6);
+        then_expect_span(0);
+        then_expect_string("");
+        then_expect_positions(0, 0);
+    }
+    
+    static should_handle_single_byte_sequence_when_matched = function() {
+        given_content("12345");
+        given_byte_sequence([49]);
+        when_method_family_tested();
         
-        when(reader.try_skip_byte_sequence([49, 50, 51]));
-        expect_result_position(0, 6);
+        then_expect_span(1);
+        then_expect_string("1");
+        then_expect_positions(0, 1);
     }
     
-    // --------
-    // Spanning
-    // --------
-    
-    static should_not_span_sequence_on_empty_string = function() {
-        given_content("");
-        when(reader.span_byte_sequence([49, 50, 51]));
-        expect_result_position(0, 0);
-    }
-    
-    static should_span_single_byte_sequence = function() {
+    static should_handle_sequence_when_matching = function() {
         given_content("12345");
-        when(reader.span_byte_sequence([49]));
-        expect_result_position(1, 0);
+        given_byte_sequence([49, 50, 51]);
+        when_method_family_tested();
+        
+        then_expect_span(3);
+        then_expect_string("123");
+        then_expect_positions(0, 3);
     }
     
-    static should_span_matching_sequence = function() {
+    static should_handle_sequence_matching_whole_string = function() {
         given_content("12345");
-        when(reader.span_byte_sequence([49, 50, 51]));
-        expect_result_position(3, 0);
+        given_byte_sequence([49, 50, 51, 52, 53]);
+        when_method_family_tested();
+        
+        then_expect_span(5);
+        then_expect_string("12345");
+        then_expect_positions(0, 5);
     }
     
-    static should_span_matching_sequence_to_end = function() {
-        given_content("12345");
-        when(reader.span_byte_sequence([49, 50, 51, 52, 53]));
-        expect_result_position(5, 0);
-    }
-    
-    static should_not_span_different_sequence = function() {
+    static should_ignore_sequence_when_not_matched = function() {
         given_content("ABCDE");
-        when(reader.span_byte_sequence([49, 50, 51]));
-        expect_result_position(0, 0);
+        given_byte_sequence([49, 50, 51]);
+        when_method_family_tested();
+        
+        then_expect_span(0);
+        then_expect_string("");
+        then_expect_positions(0, 0);
     }
     
-    static should_not_span_partially_matching_sequence = function() {
+    static should_ignore_sequence_when_not_fully_matched = function() {
         given_content("1290");
-        when(reader.span_byte_sequence([49, 50, 51]));
-        expect_result_position(0, 0);
+        given_byte_sequence([49, 50, 51]);
+        when_method_family_tested();
+        
+        then_expect_span(0);
+        then_expect_string("");
+        then_expect_positions(0, 0);
     }
     
-    static should_span_matching_sequence_in_the_middle = function() {
+    static should_handle_matching_sequence_in_the_middle = function() {
         given_content("112358");
+        given_position(1);
+        given_byte_sequence([49, 50, 51]);
+        when_method_family_tested();
         
-        when(reader.span_byte_sequence([49, 50, 51]));
-        expect_result_position(0, 0);
-        
-        reader.move_to(1);
-        when(reader.span_byte_sequence([49, 50, 51]));
-        expect_result_position(3, 1);
+        then_expect_span(3);
+        then_expect_string("123");
+        then_expect_positions(1, 4);
     }
 }

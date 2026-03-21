@@ -4,9 +4,9 @@ function StringQuoteDoublingPattern() : StrewtPattern() constructor {
     
     static skip = function(_reader) {
         var _position = _reader.position;
-        while (_reader.try_skip_byte(quote_byte)) {
-            _reader.skip_charset_string(nonquote_charset);
-            if (!_reader.try_skip_byte(quote_byte)) {
+        while (_reader.skip_byte(quote_byte)) {
+            _reader.skip_charset(nonquote_charset);
+            if (!_reader.skip_byte(quote_byte)) {
                 _reader.move_to(_position);
                 return 0;
             }
@@ -19,12 +19,12 @@ function StringQuoteDoublingPattern() : StrewtPattern() constructor {
         var _target_from = buffer_tell(_target);
         var _target_to = _target_from;
         
-        while (_reader.try_skip_byte(quote_byte)) {
-            var _count = _reader.skip_charset_string(nonquote_charset);
+        while (_reader.skip_byte(quote_byte)) {
+            var _count = _reader.skip_charset(nonquote_charset);
             buffer_copy(_reader.content_buffer, _reader.position - _count, _count, _target, _target_to);
             _target_to += _count;
             
-            if (!_reader.try_skip_byte(quote_byte)) {
+            if (!_reader.skip_byte(quote_byte)) {
                 _reader.move_to(_position);
                 buffer_poke(_target, _target_from, buffer_u8, 0);
                 buffer_seek(_target, buffer_seek_start, _target_from);
