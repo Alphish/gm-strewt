@@ -7,26 +7,26 @@ function StrewtNumberPattern() : StrewtPattern() constructor {
     static skip = function(_reader) {
         var _position = _reader.position;
         
-        _reader.try_skip_charset(sign_charset); // handle sign
+        _reader.skip_charset(sign_charset); // handle sign
         
         // handle integer part
-        if (_reader.skip_charset_string(digits_charset) == 0) {
+        if (_reader.skip_charset(digits_charset) == 0) {
             _reader.move_to(_position);
             return 0;
         }
         
         // handle fractional part
-        if (_reader.try_skip_byte(decimal_byte)) {
-            if (_reader.skip_charset_string(digits_charset) == 0) {
+        if (_reader.skip_byte(decimal_byte)) {
+            if (_reader.skip_charset(digits_charset) == 0) {
                 _reader.move_to(_position);
                 return 0;
             }
         }
         
         // handle exponent part
-        if (_reader.try_skip_charset(exponent_charset)) {
-            _reader.try_skip_charset(sign_charset);
-            if (_reader.skip_charset_string(digits_charset) == 0) {
+        if (_reader.skip_charset(exponent_charset)) {
+            _reader.skip_charset(sign_charset);
+            if (_reader.skip_charset(digits_charset) == 0) {
                 _reader.move_to(_position);
                 return 0;
             }

@@ -15,7 +15,7 @@ function StrewtReaderByteSequenceTests(_run, _method) : StrewtReaderMethodFamily
     }
     
     static when_skipped = function() {
-        return reader.try_skip_byte_sequence(byte_sequence);
+        return reader.skip_byte_sequence(byte_sequence);
     }
     
     static when_peeked = function() {
@@ -28,8 +28,8 @@ function StrewtReaderByteSequenceTests(_run, _method) : StrewtReaderMethodFamily
     
     static when_read_into_target = function(_target, _offset = undefined) {
         return is_undefined(_offset)
-            ? reader.try_read_byte_sequence_into(byte_sequence, _target)
-            : reader.try_read_byte_sequence_into(byte_sequence, _target, _offset);
+            ? reader.read_byte_sequence_into(byte_sequence, _target)
+            : reader.read_byte_sequence_into(byte_sequence, _target, _offset);
     }
     
     // --------

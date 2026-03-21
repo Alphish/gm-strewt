@@ -15,7 +15,7 @@ function StrewtReaderTetragraphTests(_run, _method) : StrewtReaderMethodFamilyBa
     }
     
     static when_skipped = function() {
-        return reader.try_skip_tetragraph(tetragraph);
+        return reader.skip_tetragraph(tetragraph);
     }
     
     static when_peeked = function() {
@@ -28,8 +28,8 @@ function StrewtReaderTetragraphTests(_run, _method) : StrewtReaderMethodFamilyBa
     
     static when_read_into_target = function(_target, _offset = undefined) {
         return is_undefined(_offset)
-            ? reader.try_read_tetragraph_into(tetragraph, _target)
-            : reader.try_read_tetragraph_into(tetragraph, _target, _offset);
+            ? reader.read_tetragraph_into(tetragraph, _target)
+            : reader.read_tetragraph_into(tetragraph, _target, _offset);
     }
     
     // -----

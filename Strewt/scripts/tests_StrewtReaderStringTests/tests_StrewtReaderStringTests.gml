@@ -15,7 +15,7 @@ function StrewtReaderStringTests(_run, _method) : StrewtReaderMethodFamilyBaseTe
     }
     
     static when_skipped = function() {
-        return reader.try_skip_string(str);
+        return reader.skip_string(str);
     }
     
     static when_peeked = function() {
@@ -28,8 +28,8 @@ function StrewtReaderStringTests(_run, _method) : StrewtReaderMethodFamilyBaseTe
     
     static when_read_into_target = function(_target, _offset = undefined) {
         return is_undefined(_offset)
-            ? reader.try_read_string_into(str, _target)
-            : reader.try_read_string_into(str, _target, _offset);
+            ? reader.read_string_into(str, _target)
+            : reader.read_string_into(str, _target, _offset);
     }
     
     // --------

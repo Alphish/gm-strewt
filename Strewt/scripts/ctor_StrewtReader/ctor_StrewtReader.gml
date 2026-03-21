@@ -79,7 +79,7 @@ function StrewtReader(_content) constructor {
     // Bytes
     // -----
     
-    static skip_byte = function() {
+    static skip_next = function() {
         if (position == byte_length)
             return 0;
         
@@ -88,11 +88,11 @@ function StrewtReader(_content) constructor {
         return 1;
     }
     
-    static peek_byte = function() {
+    static peek_next = function() {
         return buffer_peek(content_buffer, position, buffer_u8);
     }
     
-    static read_byte = function() {
+    static read_next = function() {
         if (position == byte_length)
             return 0;
         
@@ -104,7 +104,7 @@ function StrewtReader(_content) constructor {
         return buffer_peek(content_buffer, position, buffer_u8) == _byte ? 1 : 0;
     }
     
-    static try_skip_byte = function(_byte) {
+    static skip_byte = function(_byte) {
         if (buffer_read(content_buffer, buffer_u8) == _byte) {
             position++;
             return 1;
@@ -114,8 +114,8 @@ function StrewtReader(_content) constructor {
         }
     }
     
-    static try_read_byte_into = function(_byte, _target, _offset = undefined) {
-        if (!try_skip_byte(_byte))
+    static read_byte_into = function(_byte, _target, _offset = undefined) {
+        if (!skip_byte(_byte))
             return 0;
         
         if (!is_undefined(_offset))
@@ -137,7 +137,7 @@ function StrewtReader(_content) constructor {
         return _length;
     }
     
-    static try_skip_byte_sequence = function(_bytes) {
+    static skip_byte_sequence = function(_bytes) {
         var _length = array_length(_bytes);
         if (position + _length > byte_length)
             return 0;
@@ -152,9 +152,9 @@ function StrewtReader(_content) constructor {
         return _length;
     }
     
-    static try_read_byte_sequence_into = function(_bytes, _target, _offset = undefined) {
+    static read_byte_sequence_into = function(_bytes, _target, _offset = undefined) {
         var _position = position;
-        return read_into(_position, try_skip_byte_sequence(_bytes), _target, _offset);
+        return read_into(_position, skip_byte_sequence(_bytes), _target, _offset);
     }
     
     // ----------
@@ -248,7 +248,7 @@ function StrewtReader(_content) constructor {
         return buffer_peek(content_buffer, position, buffer_u16) == _value ? 2 : 0;
     }
     
-    static try_skip_digraph = function(_value) {
+    static skip_digraph = function(_value) {
         if (position + 2 > byte_length)
             return 0;
         
@@ -260,8 +260,8 @@ function StrewtReader(_content) constructor {
         return 2;
     }
     
-    static try_read_digraph_into = function(_value, _target, _offset = undefined) {
-        if (!try_skip_digraph(_value))
+    static read_digraph_into = function(_value, _target, _offset = undefined) {
+        if (!skip_digraph(_value))
             return 0;
         
         if (!is_undefined(_offset))
@@ -278,7 +278,7 @@ function StrewtReader(_content) constructor {
         return (buffer_peek(content_buffer, position, buffer_u32) & 0x00ffffff) == _value ? 3 : 0;
     }
     
-    static try_skip_trigraph = function(_value) {
+    static skip_trigraph = function(_value) {
         if (position + 3 > byte_length)
             return 0;
         
@@ -290,8 +290,8 @@ function StrewtReader(_content) constructor {
         return 3;
     }
     
-    static try_read_trigraph_into = function(_value, _target, _offset = undefined) {
-        if (!try_skip_trigraph(_value))
+    static read_trigraph_into = function(_value, _target, _offset = undefined) {
+        if (!skip_trigraph(_value))
             return 0;
         
         if (!is_undefined(_offset))
@@ -309,7 +309,7 @@ function StrewtReader(_content) constructor {
         return buffer_peek(content_buffer, position, buffer_u32) == _value ? 4 : 0;
     }
     
-    static try_skip_tetragraph = function(_value) {
+    static skip_tetragraph = function(_value) {
         if (position + 4 > byte_length)
             return 0;
         
@@ -321,8 +321,8 @@ function StrewtReader(_content) constructor {
         return 4;
     }
     
-    static try_read_tetragraph_into = function(_value, _target, _offset = undefined) {
-        if (!try_skip_tetragraph(_value))
+    static read_tetragraph_into = function(_value, _target, _offset = undefined) {
+        if (!skip_tetragraph(_value))
             return 0;
         
         if (!is_undefined(_offset))
@@ -344,7 +344,7 @@ function StrewtReader(_content) constructor {
         return peek_substring(position, position + _length) == _str ? _length : 0;
     }
     
-    static try_skip_string = function(_str) {
+    static skip_string = function(_str) {
         var _length = string_byte_length(_str);
         if (position + _length > byte_length)
             return 0;
@@ -357,9 +357,9 @@ function StrewtReader(_content) constructor {
         return _string_found ? _length : 0;
     }
     
-    static try_read_string_into = function(_str, _target, _offset = undefined) {
+    static read_string_into = function(_str, _target, _offset = undefined) {
         var _position = position;
-        return read_into(_position, try_skip_string(_str), _target, _offset);
+        return read_into(_position, skip_string(_str), _target, _offset);
     }
     
     // -----
@@ -431,13 +431,13 @@ function StrewtReader(_content) constructor {
     
     // Individual bytes
     
-    static span_charset = function(_charset) {
+    static span_charset_byte = function(_charset) {
         var _table = _charset.table;
         var _byte = buffer_peek(content_buffer, position, buffer_u8);
         return _table[_byte] ? 1 : 0;
     }
     
-    static try_skip_charset = function(_charset) {
+    static skip_charset_byte = function(_charset) {
         var _table = _charset.table;
         if (_table[buffer_read(content_buffer, buffer_u8)]) {
             position += 1;
@@ -448,13 +448,13 @@ function StrewtReader(_content) constructor {
         }
     }
     
-    static try_peek_charset = function(_charset) {
+    static peek_charset_byte = function(_charset) {
         var _table = _charset.table;
         var _byte = buffer_peek(content_buffer, position, buffer_u8);
         return _table[_byte] ? _byte : 0;
     }
     
-    static try_read_charset = function(_charset) {
+    static read_charset_byte = function(_charset) {
         var _table = _charset.table;
         var _byte = buffer_read(content_buffer, buffer_u8);
         if (_table[_byte]) {
@@ -466,8 +466,8 @@ function StrewtReader(_content) constructor {
         }
     }
     
-    static try_read_charset_into = function(_charset, _target, _offset = undefined) {
-        var _byte = try_read_charset(_charset);
+    static read_charset_byte_into = function(_charset, _target, _offset = undefined) {
+        var _byte = read_charset_byte(_charset);
         if (_byte == 0)
             return 0;
         
@@ -480,7 +480,7 @@ function StrewtReader(_content) constructor {
     
     // Charset strings
     
-    static span_charset_string = function(_charset) {
+    static span_charset = function(_charset) {
         var _table = _charset.table;
         var _to = position;
         while (_table[buffer_read(content_buffer, buffer_u8)]) {
@@ -490,7 +490,7 @@ function StrewtReader(_content) constructor {
         return _to - position;
     }
     
-    static skip_charset_string = function(_charset) {
+    static skip_charset = function(_charset) {
         var _table = _charset.table;
         var _from = position;
         while (_table[buffer_read(content_buffer, buffer_u8)]) {
@@ -500,19 +500,19 @@ function StrewtReader(_content) constructor {
         return position - _from;
     }
     
-    static peek_charset_string = function(_charset) {
-        var _span = span_charset_string(_charset);
+    static peek_charset = function(_charset) {
+        var _span = span_charset(_charset);
         return peek_substring(position, position + _span);
     }
     
-    static read_charset_string = function(_charset) {
-        var _span = skip_charset_string(_charset);
+    static read_charset = function(_charset) {
+        var _span = skip_charset(_charset);
         return peek_substring(position - _span, position);
     }
     
-    static read_charset_string_into = function(_charset, _target, _offset = undefined) {
+    static read_charset_into = function(_charset, _target, _offset = undefined) {
         var _position = position;
-        return read_into(_position, skip_charset_string(_charset), _target, _offset);
+        return read_into(_position, skip_charset(_charset), _target, _offset);
     }
     
     // ----------

@@ -15,7 +15,7 @@ function StrewtReaderDigraphTests(_run, _method) : StrewtReaderMethodFamilyBaseT
     }
     
     static when_skipped = function() {
-        return reader.try_skip_digraph(digraph);
+        return reader.skip_digraph(digraph);
     }
     
     static when_peeked = function() {
@@ -28,8 +28,8 @@ function StrewtReaderDigraphTests(_run, _method) : StrewtReaderMethodFamilyBaseT
     
     static when_read_into_target = function(_target, _offset = undefined) {
         return is_undefined(_offset)
-            ? reader.try_read_digraph_into(digraph, _target)
-            : reader.try_read_digraph_into(digraph, _target, _offset);
+            ? reader.read_digraph_into(digraph, _target)
+            : reader.read_digraph_into(digraph, _target, _offset);
     }
     
     // -----

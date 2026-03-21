@@ -12,25 +12,25 @@ function StrewtReaderCharsetStringTests(_run, _method) : StrewtReaderMethodFamil
     }
     
     static when_spanned = function() {
-        return reader.span_charset_string(charset);
+        return reader.span_charset(charset);
     }
     
     static when_skipped = function() {
-        return reader.skip_charset_string(charset);
+        return reader.skip_charset(charset);
     }
     
     static when_peeked = function() {
-        return reader.peek_charset_string(charset);
+        return reader.peek_charset(charset);
     }
     
     static when_read = function() {
-        return reader.read_charset_string(charset);
+        return reader.read_charset(charset);
     }
     
     static when_read_into_target = function(_target, _offset = undefined) {
         return is_undefined(_offset)
-            ? reader.read_charset_string_into(charset, _target)
-            : reader.read_charset_string_into(charset, _target, _offset);
+            ? reader.read_charset_into(charset, _target)
+            : reader.read_charset_into(charset, _target, _offset);
     }
     
     // -----
