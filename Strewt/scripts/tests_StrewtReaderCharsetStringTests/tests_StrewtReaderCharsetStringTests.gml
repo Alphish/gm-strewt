@@ -1,5 +1,5 @@
 function StrewtReaderCharsetStringTests(_run, _method) : StrewtReaderMethodFamilyBaseTests(_run, _method) constructor {
-    static test_subject = "Charset string reading";
+    static test_subject = "Charset string checking";
     
     // -----
     // Setup

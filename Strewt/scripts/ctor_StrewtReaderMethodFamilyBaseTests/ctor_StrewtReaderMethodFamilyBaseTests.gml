@@ -115,11 +115,19 @@ function StrewtReaderMethodFamilyBaseTests(_run, _method) : VerrificMethodTest(_
             assert_equal(_span, read_into_offset_result, $"Expected the read_into method with offset to return {_span}, but got {read_into_offset_result} instead.");
     }
     
+    static then_expect_byte = function(_byte) {
+        if (!is_undefined(peek_result) && !is_string(peek_result))
+            assert_equal(_byte, peek_result, $"Expected the peek method to return {_byte}, but got {peek_result} instead.");
+        
+        if (!is_undefined(read_result) && !is_string(read_result))
+            assert_equal(_byte, read_result, $"Expected the read method to return {_byte}, but got {read_result} instead.");
+    }
+    
     static then_expect_string = function(_str) {
-        if (!is_undefined(peek_result))
+        if (!is_undefined(peek_result) && !is_numeric(peek_result))
             assert_equal(_str, peek_result, $"Expected the peek method to return {_str}, but got {peek_result} instead.");
         
-        if (!is_undefined(read_result))
+        if (!is_undefined(read_result) && !is_numeric(read_result))
             assert_equal(_str, read_result, $"Expected the read method to return {_str}, but got {read_result} instead.");
         
         // read_into without offset should write on top of "PREFIX" already written to the buffer

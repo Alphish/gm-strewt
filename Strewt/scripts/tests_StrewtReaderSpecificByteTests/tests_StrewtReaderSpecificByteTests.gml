@@ -1,5 +1,5 @@
 function StrewtReaderSpecificByteTests(_run, _method) : StrewtReaderMethodFamilyBaseTests(_run, _method) constructor {
-    static test_subject = "Specific byte reading";
+    static test_subject = "Specific byte checking";
     
     // -----
     // Setup
@@ -46,7 +46,7 @@ function StrewtReaderSpecificByteTests(_run, _method) : StrewtReaderMethodFamily
         then_expect_positions(0, 0);
     }
     
-    static should_handle_specific_byte_when_match = function() {
+    static should_handle_specific_byte_when_matched = function() {
         given_content("123");
         given_byte(49);
         when_method_family_tested();
@@ -56,7 +56,7 @@ function StrewtReaderSpecificByteTests(_run, _method) : StrewtReaderMethodFamily
         then_expect_positions(0, 1);
     }
     
-    static should_ignore_specific_byte_given_different_byte = function() {
+    static should_ignore_specific_byte_when_unmatched = function() {
         given_content("123");
         given_byte(65);
         when_method_family_tested();
