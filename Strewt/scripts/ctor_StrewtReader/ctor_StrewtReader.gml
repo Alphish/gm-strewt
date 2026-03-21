@@ -152,6 +152,11 @@ function StrewtReader(_content) constructor {
         return _length;
     }
     
+    static try_read_byte_sequence_into = function(_bytes, _target, _offset = undefined) {
+        var _position = position;
+        return read_into(_position, try_skip_byte_sequence(_bytes), _target, _offset);
+    }
+    
     // ----------
     // Characters
     // ----------
@@ -350,6 +355,11 @@ function StrewtReader(_content) constructor {
             position += _length;
         }
         return _string_found ? _length : 0;
+    }
+    
+    static try_read_string_into = function(_str, _target, _offset = undefined) {
+        var _position = position;
+        return read_into(_position, try_skip_string(_str), _target, _offset);
     }
     
     // -----
