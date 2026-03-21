@@ -424,6 +424,8 @@ function StrewtReader(_content) constructor {
     // Charsets
     // --------
     
+    // Individual bytes
+    
     static span_charset = function(_charset) {
         var _table = _charset.table;
         var _byte = buffer_peek(content_buffer, position, buffer_u8);
@@ -458,6 +460,20 @@ function StrewtReader(_content) constructor {
             return 0;
         }
     }
+    
+    static try_read_charset_into = function(_charset, _target, _offset = undefined) {
+        var _byte = try_read_charset(_charset);
+        if (_byte == 0)
+            return 0;
+        
+        if (!is_undefined(_offset))
+            buffer_seek(_target, buffer_seek_start, _offset);
+        
+        buffer_write(_target, buffer_u8, _byte);
+        return 1;
+    }
+    
+    // Charset strings
     
     static span_charset_string = function(_charset) {
         var _table = _charset.table;
