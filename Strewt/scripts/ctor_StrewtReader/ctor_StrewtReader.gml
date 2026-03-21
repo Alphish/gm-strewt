@@ -420,6 +420,11 @@ function StrewtReader(_content) constructor {
         return peek_substring(_position, _position + _span);
     }
     
+    static read_line_into = function(_withend, _target, _offset = undefined) {
+        var _position = position;
+        return read_into(_position, skip_line(_withend), _target, _offset);
+    }
+    
     // --------
     // Charsets
     // --------
