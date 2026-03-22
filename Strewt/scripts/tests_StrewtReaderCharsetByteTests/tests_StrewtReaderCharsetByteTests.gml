@@ -27,10 +27,8 @@ function StrewtReaderCharsetTests(_run, _method) : StrewtReaderMethodFamilyBaseT
         return reader.read_charset_byte(charset);
     }
     
-    static when_read_into_target = function(_target, _offset = undefined) {
-        return is_undefined(_offset)
-            ? reader.read_charset_byte_into(charset, _target)
-            : reader.read_charset_byte_into(charset, _target, _offset);
+    static when_read_into_target = function(_target) {
+        return reader.read_charset_byte_into(charset, _target);
     }
     
     // -----

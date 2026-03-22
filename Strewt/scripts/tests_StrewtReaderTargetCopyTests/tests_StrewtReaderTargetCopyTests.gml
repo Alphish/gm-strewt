@@ -43,16 +43,6 @@ function StrewtReaderTargetCopyTests(_run, _method) : StrewtReaderBaseTests(_run
         expect_target_text("wor");
     }
     
-    static should_copy_text_to_target_offset = function() {
-        given_content("ld!lo, Helwor");
-        buffer_write(target, buffer_string, "012345");
-        
-        when(reader.read_into(0, 3, target, 2));
-        when_target_terminated();
-        expect_result_position(3, 0);
-        expect_target_text("01ld!");
-    }
-    
     static should_copy_text_multiple_times = function() {
         given_content("ld!lo, Helwor");
         when(reader.read_into(7, 3, target));

@@ -26,10 +26,8 @@ function StrewtReaderTrigraphTests(_run, _method) : StrewtReaderMethodFamilyBase
         return undefined;
     }
     
-    static when_read_into_target = function(_target, _offset = undefined) {
-        return is_undefined(_offset)
-            ? reader.read_trigraph_into(trigraph, _target)
-            : reader.read_trigraph_into(trigraph, _target, _offset);
+    static when_read_into_target = function(_target) {
+        return reader.read_trigraph_into(trigraph, _target);
     }
     
     // -----

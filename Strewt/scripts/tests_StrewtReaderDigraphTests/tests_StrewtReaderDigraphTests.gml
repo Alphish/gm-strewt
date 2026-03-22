@@ -26,10 +26,8 @@ function StrewtReaderDigraphTests(_run, _method) : StrewtReaderMethodFamilyBaseT
         return undefined;
     }
     
-    static when_read_into_target = function(_target, _offset = undefined) {
-        return is_undefined(_offset)
-            ? reader.read_digraph_into(digraph, _target)
-            : reader.read_digraph_into(digraph, _target, _offset);
+    static when_read_into_target = function(_target) {
+        return reader.read_digraph_into(digraph, _target);
     }
     
     // -----

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"tests_StrewtStringTerminatorDoublingPatternTests",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"tests_StrewtStringTerminatorDoublingPatternTests",
+  "parent":{
+    "name":"Patterns",
+    "path":"folders/Tests/Patterns.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
