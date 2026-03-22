@@ -10,29 +10,27 @@ function StrewtNumberPattern() : StrewtPattern() constructor {
         _reader.skip_charset(sign_charset); // handle sign
         
         // handle integer part
-        if (_reader.skip_charset(digits_charset) == 0) {
-            _reader.move_to(_position);
-            return 0;
-        }
+        if (_reader.skip_charset(digits_charset) == 0)
+            return restore_positions(_reader, 0);
         
         // handle fractional part
         if (_reader.skip_byte(decimal_byte)) {
             if (_reader.skip_charset(digits_charset) == 0) {
-                _reader.move_to(_position);
-                return 0;
+                _reader.move_by(-1);
+                return _reader.position - _position;
             }
         }
         
         // handle exponent part
         if (_reader.skip_charset(exponent_charset)) {
-            _reader.skip_charset(sign_charset);
+            var _sign_length = _reader.skip_charset(sign_charset);
             if (_reader.skip_charset(digits_charset) == 0) {
-                _reader.move_to(_position);
-                return 0;
+                _reader.move_by(-1 - _sign_length);
+                return _reader.position - _position;
             }
         }
         
-        // return skipped length if all steps succeeded
+        // return skipped length if all segments were processed without interruption
         return _reader.position - _position;
     }
 }
