@@ -40,13 +40,6 @@ function StrewtPattern() constructor {
         return _result;
     }
     
-    static peek_into = function(_reader, _target) {
-        var _position = _reader.position;
-        var _length = read_into(_reader, _target);
-        _reader.move_to(_position);
-        return _length;
-    }
-    
     static read_into = function(_reader, _target) {
         var _length = skip(_reader);
         var _target_from = buffer_tell(_target);

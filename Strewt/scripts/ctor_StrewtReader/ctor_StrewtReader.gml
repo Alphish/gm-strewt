@@ -545,10 +545,6 @@ function StrewtReader(_content) constructor {
         return _pattern.read(self);
     }
     
-    static peek_pattern_into = function(_pattern, _target) {
-        return _pattern.peek_into(self, _target);
-    }
-    
     static read_pattern_into = function(_pattern, _target) {
         return _pattern.read_into(self, _target);
     }
