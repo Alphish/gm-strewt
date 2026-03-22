@@ -52,6 +52,7 @@
     {"id":{"name":"ctor_StrewtReader","path":"scripts/ctor_StrewtReader/ctor_StrewtReader.yy",},},
     {"id":{"name":"ctor_StrewtReaderBaseTests","path":"scripts/ctor_StrewtReaderBaseTests/ctor_StrewtReaderBaseTests.yy",},},
     {"id":{"name":"ctor_StrewtReaderMethodFamilyBaseTests","path":"scripts/ctor_StrewtReaderMethodFamilyBaseTests/ctor_StrewtReaderMethodFamilyBaseTests.yy",},},
+    {"id":{"name":"ctor_StrewtStringCharacterEscapePattern","path":"scripts/ctor_StrewtStringCharacterEscapePattern/ctor_StrewtStringCharacterEscapePattern.yy",},},
     {"id":{"name":"ctor_StrewtStringTerminatorDoublingPattern","path":"scripts/ctor_StrewtStringTerminatorDoublingPattern/ctor_StrewtStringTerminatorDoublingPattern.yy",},},
     {"id":{"name":"ctor_VerrificArrayAssertion","path":"scripts/ctor_VerrificArrayAssertion/ctor_VerrificArrayAssertion.yy",},},
     {"id":{"name":"ctor_VerrificAsserter","path":"scripts/ctor_VerrificAsserter/ctor_VerrificAsserter.yy",},},
