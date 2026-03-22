@@ -10,19 +10,12 @@ function StrewtReaderMethodFamilyBaseTests(_run, _method) : VerrificMethodTest(_
     read_result = undefined;
     read_position = undefined;
     
-    read_into_plain_result = undefined;
-    read_into_plain_position = undefined;
-    read_into_plain_target = buffer_create(10, buffer_grow, 1);
-    buffer_write(read_into_plain_target, buffer_text, "PREFIX");
-    buffer_poke(read_into_plain_target, string_length("PREFIX"), buffer_u8, 0);
-    read_into_plain_string = undefined;
-    
-    read_into_offset_result = undefined;
-    read_into_offset_position = undefined;
-    read_into_offset_target = buffer_create(10, buffer_grow, 1);
-    buffer_write(read_into_offset_target, buffer_text, "OFFSET");
-    buffer_poke(read_into_plain_target, string_length("OFFSET"), buffer_u8, 0);
-    read_into_offset_string = undefined;
+    read_into_result = undefined;
+    read_into_position = undefined;
+    read_into_target = buffer_create(10, buffer_grow, 1);
+    buffer_write(read_into_target, buffer_text, "PREFIX");
+    buffer_poke(read_into_target, string_length("PREFIX"), buffer_u8, 0);
+    read_into_string = undefined;
     
     // -----
     // Given
@@ -56,7 +49,7 @@ function StrewtReaderMethodFamilyBaseTests(_run, _method) : VerrificMethodTest(_
         throw StrewtException.not_implemented(self, nameof(when_read));
     }
     
-    static when_read_into_target = function(_target, _offset = undefined) {
+    static when_read_into_target = function(_target) {
         throw StrewtException.not_implemented(self, nameof(when_read_into_target));
     }
     
@@ -66,25 +59,16 @@ function StrewtReaderMethodFamilyBaseTests(_run, _method) : VerrificMethodTest(_
         when_method_tested(when_peeked, nameof(peek_result), nameof(peek_position));
         when_method_tested(when_read, nameof(read_result), nameof(read_position));
         
-        when_method_tested(when_read_into_target, nameof(read_into_plain_result), nameof(read_into_plain_position), read_into_plain_target);
-        buffer_write(read_into_plain_target, buffer_u8, 0);
-        read_into_plain_string = buffer_peek(read_into_plain_target, 0, buffer_string);
-        
-        when_method_tested(when_read_into_target, nameof(read_into_offset_result), nameof(read_into_offset_position), read_into_offset_target, /* offset */ 3);
-        buffer_write(read_into_offset_target, buffer_u8, 0);
-        read_into_offset_string = buffer_peek(read_into_offset_target, 0, buffer_string);
+        when_method_tested(when_read_into_target, nameof(read_into_result), nameof(read_into_position), read_into_target);
+        buffer_write(read_into_target, buffer_u8, 0);
+        read_into_string = buffer_peek(read_into_target, 0, buffer_string);
     }
     
-    static when_method_tested = function(_func, _result_name, _position_name, _target = undefined, _offset = undefined) {
+    static when_method_tested = function(_func, _result_name, _position_name, _target = undefined) {
         var _original_position = reader.position;
         
         var _method = method(self, _func);
-        if (is_undefined(_target))
-            self[$ _result_name] = _method();
-        else if (is_undefined(_offset))
-            self[$ _result_name] = _method(_target);
-        else
-            self[$ _result_name] = _method(_target, _offset);
+        self[$ _result_name] = is_undefined(_target) ? _method() : _method(_target);
         
         if (is_undefined(self[$ _result_name])) {
             self[$ _position_name] = undefined;
@@ -108,11 +92,8 @@ function StrewtReaderMethodFamilyBaseTests(_run, _method) : VerrificMethodTest(_
         if (!is_undefined(skip_result))
             assert_equal(_span, skip_result, $"Expected the skip method to return {_span}, but got {skip_result} instead.");
         
-        if (!is_undefined(read_into_plain_result))
-            assert_equal(_span, read_into_plain_result, $"Expected the read_into method without offset to return {_span}, but got {read_into_plain_result} instead.");
-        
-        if (!is_undefined(read_into_offset_result))
-            assert_equal(_span, read_into_offset_result, $"Expected the read_into method with offset to return {_span}, but got {read_into_offset_result} instead.");
+        if (!is_undefined(read_into_result))
+            assert_equal(_span, read_into_result, $"Expected the read_into method to return {_span}, but got {read_into_result} instead.");
     }
     
     static then_expect_byte = function(_byte) {
@@ -130,17 +111,11 @@ function StrewtReaderMethodFamilyBaseTests(_run, _method) : VerrificMethodTest(_
         if (!is_undefined(read_result) && !is_numeric(read_result))
             assert_equal(_str, read_result, $"Expected the read method to return {_str}, but got {read_result} instead.");
         
-        // read_into without offset should write on top of "PREFIX" already written to the buffer
+        // read_into should write on top of "PREFIX" already written to the buffer
         if (_str == "")
-            assert_equal("PREFIX", read_into_plain_string, $"Expected the read_into method without offset to leave the target unaffected when reading empty span.");
-        else if (!is_undefined(read_into_plain_string))
-            assert_equal("PREFIX" + _str, read_into_plain_string, $"Expected the read_into method without offset to result in PREFIX{_str}, but got {read_into_plain_string} instead.");
-        
-        // read into with offset should write on top of "OFF" already written to the buffer, overwriting subsequent "SET"
-        if (_str == "")
-            assert_equal("OFFSET", read_into_offset_string, $"Expected the read_into method with offset to leave the target unaffected when reading empty span.");
-        else if (!is_undefined(read_into_offset_string))
-            assert_equal("OFF" + _str, read_into_offset_string, $"Expected the read_into method with offset to result in OFF{_str}, but got {read_into_offset_string} instead.");
+            assert_equal("PREFIX", read_into_string, $"Expected the read_into method to leave the target unaffected when reading empty span.");
+        else if (!is_undefined(read_into_string))
+            assert_equal("PREFIX" + _str, read_into_string, $"Expected the read_into method to result in PREFIX{_str}, but got {read_into_string} instead.");
     }
     
     static then_expect_positions = function(_from, _to) {
@@ -156,11 +131,8 @@ function StrewtReaderMethodFamilyBaseTests(_run, _method) : VerrificMethodTest(_
         if (!is_undefined(read_position))
             assert_equal(_to, read_position, $"Expected the read method to leave the reader at {_to}th byte, but it's at the {read_position}th byte instead.")
         
-        if (!is_undefined(read_into_plain_position))
-            assert_equal(_to, read_into_plain_position, $"Expected the read_into method without offset to leave the reader at {_to}th byte, but it's at the {read_into_plain_position}th byte instead.")
-        
-        if (!is_undefined(read_into_offset_position))
-            assert_equal(_to, read_into_offset_position, $"Expected the read_into method with offset to leave the reader at {_to}th byte, but it's at the {read_into_offset_position}th byte instead.")
+        if (!is_undefined(read_into_position))
+            assert_equal(_to, read_into_position, $"Expected the read_into method to leave the reader at {_to}th byte, but it's at the {read_into_position}th byte instead.")
     }
     
     // -------
@@ -171,7 +143,6 @@ function StrewtReaderMethodFamilyBaseTests(_run, _method) : VerrificMethodTest(_
         if (!is_undefined(reader))
             reader.cleanup();
         
-        buffer_delete(read_into_plain_target);
-        buffer_delete(read_into_offset_target);
+        buffer_delete(read_into_target);
     }
 }

@@ -26,10 +26,8 @@ function StrewtReaderTetragraphTests(_run, _method) : StrewtReaderMethodFamilyBa
         return undefined;
     }
     
-    static when_read_into_target = function(_target, _offset = undefined) {
-        return is_undefined(_offset)
-            ? reader.read_tetragraph_into(tetragraph, _target)
-            : reader.read_tetragraph_into(tetragraph, _target, _offset);
+    static when_read_into_target = function(_target) {
+        return reader.read_tetragraph_into(tetragraph, _target);
     }
     
     // -----

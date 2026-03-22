@@ -26,10 +26,8 @@ function StrewtReaderStringTests(_run, _method) : StrewtReaderMethodFamilyBaseTe
         return undefined;
     }
     
-    static when_read_into_target = function(_target, _offset = undefined) {
-        return is_undefined(_offset)
-            ? reader.read_string_into(str, _target)
-            : reader.read_string_into(str, _target, _offset);
+    static when_read_into_target = function(_target) {
+        return reader.read_string_into(str, _target);
     }
     
     // --------

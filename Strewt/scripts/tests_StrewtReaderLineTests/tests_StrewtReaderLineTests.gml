@@ -30,10 +30,8 @@ function StrewtReaderLineTests(_run, _method) : StrewtReaderMethodFamilyBaseTest
         return is_undefined(include_eol) ? reader.read_line() : reader.read_line(include_eol);
     }
     
-    static when_read_into_target = function(_target, _offset = undefined) {
-        return is_undefined(_offset)
-            ? reader.read_line_into(include_eol, _target)
-            : reader.read_line_into(include_eol, _target, _offset);
+    static when_read_into_target = function(_target) {
+        return reader.read_line_into(include_eol, _target);
     }
     
     // --------
