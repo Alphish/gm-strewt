@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"tests_StrewtStringCharacterEscapePatternTests",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"tests_StrewtStringCharacterEscapePatternTests",
+  "parent":{
+    "name":"Patterns",
+    "path":"folders/Tests/Patterns.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

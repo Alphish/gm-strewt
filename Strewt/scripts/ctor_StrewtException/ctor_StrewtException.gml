@@ -77,3 +77,10 @@ StrewtException.chartable_invalid_range_order = function(_from, _to) {
         $"The range start must be less than the range end, but got a range from {_from} to {_to} instead."
         );
 }
+
+StrewtException.invalid_escape = function(_escape) {
+    return new StrewtException(
+        nameof(invalid_escape),
+        $"Cannot process the {typeof(_escape)} escape of '{_escape}'."
+        );
+}
