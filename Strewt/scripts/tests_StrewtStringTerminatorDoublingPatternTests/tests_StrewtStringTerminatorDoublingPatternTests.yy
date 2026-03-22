@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"ctor_StringQuoteDoublingPattern",
+  "%Name":"tests_StrewtStringTerminatorDoublingPatternTests",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"ctor_StringQuoteDoublingPattern",
+  "name":"tests_StrewtStringTerminatorDoublingPatternTests",
   "parent":{
     "name":"Patterns",
-    "path":"folders/_Packages/Alphish/Strewt/Patterns.yy",
+    "path":"folders/Tests/Patterns.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
