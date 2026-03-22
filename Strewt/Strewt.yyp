@@ -111,6 +111,7 @@
     {"id":{"name":"tests_StrewtReaderTargetCopyTests","path":"scripts/tests_StrewtReaderTargetCopyTests/tests_StrewtReaderTargetCopyTests.yy",},},
     {"id":{"name":"tests_StrewtReaderTetragraphTests","path":"scripts/tests_StrewtReaderTetragraphTests/tests_StrewtReaderTetragraphTests.yy",},},
     {"id":{"name":"tests_StrewtReaderTrigraphTests","path":"scripts/tests_StrewtReaderTrigraphTests/tests_StrewtReaderTrigraphTests.yy",},},
+    {"id":{"name":"tests_StrewtStringCharacterEscapePatternTests","path":"scripts/tests_StrewtStringCharacterEscapePatternTests/tests_StrewtStringCharacterEscapePatternTests.yy",},},
     {"id":{"name":"tests_StrewtStringTerminatorDoublingPatternTests","path":"scripts/tests_StrewtStringTerminatorDoublingPatternTests/tests_StrewtStringTerminatorDoublingPatternTests.yy",},},
   ],
   "resourceType":"GMProject",
