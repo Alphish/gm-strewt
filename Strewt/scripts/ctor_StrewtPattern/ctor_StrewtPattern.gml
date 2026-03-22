@@ -23,7 +23,8 @@ function StrewtPattern() constructor {
     static peek = function(_reader) {
         var _position = _reader.position;
         var _target = buffer_create(64, buffer_grow, 1);
-        var _length = read_into(_reader, _target);
+        read_into(_reader, _target);
+        buffer_write(_target, buffer_u8, 0);
         _reader.move_to(_position);
         var _result = buffer_peek(_target, 0, buffer_string);
         buffer_delete(_target);
@@ -33,6 +34,7 @@ function StrewtPattern() constructor {
     static read = function(_reader) {
         var _target = buffer_create(64, buffer_grow, 1);
         read_into(_reader, _target);
+        buffer_write(_target, buffer_u8, 0);
         var _result = buffer_peek(_target, 0, buffer_string);
         buffer_delete(_target);
         return _result;
@@ -49,7 +51,6 @@ function StrewtPattern() constructor {
         var _length = skip(_reader);
         var _target_from = buffer_tell(_target);
         buffer_copy(_reader.content_buffer, _reader.position - _length, _length, _target, _target_from);
-        buffer_poke(_target, _target_from + _length, buffer_u8, 0);
         buffer_seek(_target, buffer_seek_relative, _length);
         return _length;
     }
