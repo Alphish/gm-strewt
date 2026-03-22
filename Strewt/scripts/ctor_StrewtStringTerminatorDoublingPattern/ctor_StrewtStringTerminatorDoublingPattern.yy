@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ctor_StrewtStringTerminatorDoublingPattern",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ctor_StrewtStringTerminatorDoublingPattern",
+  "parent":{
+    "name":"Patterns",
+    "path":"folders/_Packages/Alphish/Strewt/Patterns.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
