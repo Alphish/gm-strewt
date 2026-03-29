@@ -96,6 +96,7 @@
     {"id":{"name":"tests_StrewtChartableCreationTests","path":"scripts/tests_StrewtChartableCreationTests/tests_StrewtChartableCreationTests.yy",},},
     {"id":{"name":"tests_StrewtChartableRangeTests","path":"scripts/tests_StrewtChartableRangeTests/tests_StrewtChartableRangeTests.yy",},},
     {"id":{"name":"tests_StrewtChartableSettingTests","path":"scripts/tests_StrewtChartableSettingTests/tests_StrewtChartableSettingTests.yy",},},
+    {"id":{"name":"tests_StrewtLocationTests","path":"scripts/tests_StrewtLocationTests/tests_StrewtLocationTests.yy",},},
     {"id":{"name":"tests_StrewtNumberPatternTests","path":"scripts/tests_StrewtNumberPatternTests/tests_StrewtNumberPatternTests.yy",},},
     {"id":{"name":"tests_StrewtReaderByteSequenceTests","path":"scripts/tests_StrewtReaderByteSequenceTests/tests_StrewtReaderByteSequenceTests.yy",},},
     {"id":{"name":"tests_StrewtReaderByteTests","path":"scripts/tests_StrewtReaderByteTests/tests_StrewtReaderByteTests.yy",},},
