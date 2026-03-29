@@ -2,6 +2,7 @@ function StrewtReaderSuite() : VerrificSuiteGroup("Strewt Reader tests") constru
     array_foreach([
         StrewtReaderCreationTests,
         StrewtReaderPositionTests,
+        StrewtReaderLocationTests,
         StrewtReaderSubstringTests,
         StrewtReaderTargetCopyTests,
         StrewtReaderByteTests,

@@ -6,6 +6,10 @@ function StrewtReaderBaseTests(_run, _method) : VerrificMethodTest(_run, _method
         reader = new StrewtReader(_content);
     }
     
+    static given_position = function(_position) {
+        reader.move_to(_position);
+    }
+    
     static when = function(_operation) {
         result = _operation;
     }
