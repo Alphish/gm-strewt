@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"ctor_StrewtChartable",
   "parent":{
-    "name":"Strewt",
-    "path":"folders/_Packages/Alphish/Strewt.yy",
+    "name":"Reading",
+    "path":"folders/_Packages/Alphish/Strewt/Reading.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

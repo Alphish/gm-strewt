@@ -13,7 +13,8 @@
     {"$GMFolder":"","%Name":"_Packages","folderPath":"folders/_Packages.yy","name":"_Packages","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Alphish","folderPath":"folders/_Packages/Alphish.yy","name":"Alphish","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Strewt","folderPath":"folders/_Packages/Alphish/Strewt.yy","name":"Strewt","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Patterns","folderPath":"folders/_Packages/Alphish/Strewt/Patterns.yy","name":"Patterns","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Reading","folderPath":"folders/_Packages/Alphish/Strewt/Reading.yy","name":"Reading","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Patterns","folderPath":"folders/_Packages/Alphish/Strewt/Reading/Patterns.yy","name":"Patterns","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Verrific","folderPath":"folders/_Packages/Alphish/Verrific.yy","name":"Verrific","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Runtime","folderPath":"folders/_Packages/Alphish/Verrific/Runtime.yy","name":"Runtime","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Testing","folderPath":"folders/_Packages/Alphish/Verrific/Testing.yy","name":"Testing","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -33,7 +34,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.3.217",
+    "IDEVersion":"2024.14.4.221",
   },
   "name":"Strewt",
   "resources":[
