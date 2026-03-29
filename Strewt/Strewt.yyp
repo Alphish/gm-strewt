@@ -47,6 +47,7 @@
     {"id":{"name":"ctor_StrewtChartable","path":"scripts/ctor_StrewtChartable/ctor_StrewtChartable.yy",},},
     {"id":{"name":"ctor_StrewtChartableBaseTests","path":"scripts/ctor_StrewtChartableBaseTests/ctor_StrewtChartableBaseTests.yy",},},
     {"id":{"name":"ctor_StrewtException","path":"scripts/ctor_StrewtException/ctor_StrewtException.yy",},},
+    {"id":{"name":"ctor_StrewtLocation","path":"scripts/ctor_StrewtLocation/ctor_StrewtLocation.yy",},},
     {"id":{"name":"ctor_StrewtNumberPattern","path":"scripts/ctor_StrewtNumberPattern/ctor_StrewtNumberPattern.yy",},},
     {"id":{"name":"ctor_StrewtPattern","path":"scripts/ctor_StrewtPattern/ctor_StrewtPattern.yy",},},
     {"id":{"name":"ctor_StrewtPatternBaseTest","path":"scripts/ctor_StrewtPatternBaseTest/ctor_StrewtPatternBaseTest.yy",},},
