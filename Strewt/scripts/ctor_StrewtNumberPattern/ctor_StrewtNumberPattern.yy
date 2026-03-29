@@ -6,7 +6,7 @@
   "name":"ctor_StrewtNumberPattern",
   "parent":{
     "name":"Patterns",
-    "path":"folders/_Packages/Alphish/Strewt/Patterns.yy",
+    "path":"folders/_Packages/Alphish/Strewt/Reading/Patterns.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

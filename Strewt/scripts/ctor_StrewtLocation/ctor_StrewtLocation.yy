@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"ctor_StrewtCharset",
+  "%Name":"ctor_StrewtLocation",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"ctor_StrewtCharset",
+  "name":"ctor_StrewtLocation",
   "parent":{
     "name":"Reading",
     "path":"folders/_Packages/Alphish/Strewt/Reading.yy",

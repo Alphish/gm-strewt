@@ -42,6 +42,51 @@ function StrewtReader(_content) constructor {
         return position >= byte_length;
     }
     
+    static get_location = function() {
+        return update_location(new StrewtLocation());
+    }
+    
+    static update_location = function(_target) {
+        static continuation_mask = 0b1100_0000;
+        static continuation_pattern = 0b1000_0000;
+        
+        if (_target.position == position)
+            return _target;
+        
+        var _position = position;
+        var _start = _target.position < _position ? _target.position : 0;
+        buffer_seek(content_buffer, buffer_seek_start, _start);
+        
+        var _line = _start > 0  ? _target.line : 1;
+        var _column = _start > 0 ? _target.column : 1;
+        var _last_cr = false;
+        repeat (_position - _start) {
+            var _byte = buffer_read(content_buffer, buffer_u8);
+            if ((_byte & continuation_mask) == continuation_pattern)
+                continue;
+            
+            if (_byte == 10) {
+                _line += 1;
+                _column = 0;
+            } else if (_last_cr) {
+                _line += 1;
+                _column = 1;
+            }
+            _column += 1;
+            _last_cr = _byte == 13;
+        }
+        
+        if (_last_cr && buffer_peek(content_buffer, position, buffer_u8) != 10) {
+            _line += 1;
+            _column = 1;
+        }
+        
+        _target.line = _line;
+        _target.column = _column;
+        _target.position = position;
+        return _target;
+    }
+    
     // ------
     // Ranges
     // ------
