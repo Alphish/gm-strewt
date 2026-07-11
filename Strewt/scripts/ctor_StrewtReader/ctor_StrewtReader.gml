@@ -20,6 +20,17 @@ function StrewtReader(_content) constructor {
     buffer_seek(content_buffer, buffer_seek_start, 0);
     position = 0;
     
+    source_name = undefined;
+    
+    // -----
+    // Setup
+    // -----
+    
+    static with_source_name = function(_name) {
+        source_name = _name;
+        return self;
+    }
+    
     // ----------
     // Navigation
     // ----------
@@ -38,7 +49,7 @@ function StrewtReader(_content) constructor {
         buffer_seek(content_buffer, buffer_seek_relative, _offset);
     }
     
-    static is_end_of_string = function() {
+    static is_end_of_content = function() {
         return position >= byte_length;
     }
     
@@ -599,6 +610,7 @@ function StrewtReader(_content) constructor {
     // -------
     
     static cleanup = function() {
-        buffer_delete(content_buffer);
+        if (buffer_exists(content_buffer))
+            buffer_delete(content_buffer);
     }
 }
