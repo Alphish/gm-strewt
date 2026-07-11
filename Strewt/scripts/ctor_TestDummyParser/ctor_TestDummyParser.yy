@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ctor_TestDummyParser",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ctor_TestDummyParser",
+  "parent":{
+    "name":"Parser",
+    "path":"folders/Tests/Parser.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

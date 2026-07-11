@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"tests_StrewtParserOptionsTests",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"tests_StrewtParserOptionsTests",
+  "parent":{
+    "name":"Parser",
+    "path":"folders/Tests/Parser.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -37,12 +37,12 @@ function StrewtReaderPositionTests(_run, _method) : StrewtReaderBaseTests(_run, 
     
     static should_correctly_report_end_of_string = function() {
         given_content("Hello, world!");
-        assert_equal(false, reader.is_end_of_string());
+        assert_equal(false, reader.is_end_of_content());
         
         reader.move_to(12);
-        assert_equal(false, reader.is_end_of_string());
+        assert_equal(false, reader.is_end_of_content());
         
         reader.move_to(13);
-        assert_equal(true, reader.is_end_of_string());
+        assert_equal(true, reader.is_end_of_content());
     }
 }

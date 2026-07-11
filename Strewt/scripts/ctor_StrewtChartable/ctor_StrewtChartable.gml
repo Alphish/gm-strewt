@@ -1,6 +1,6 @@
 function StrewtChartable(_input = undefined, _blank = undefined) constructor {
     table = is_array(_input) ? _input : array_create(256, _input);
-    table[0] = _blank; // the terminating character should always be undefined
+    table[0] = _blank; // the terminating character should always be undefined unless specifically stated otherwise
     
     // -------------
     // Direct values
