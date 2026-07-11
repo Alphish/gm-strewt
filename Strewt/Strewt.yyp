@@ -61,6 +61,7 @@
     {"id":{"name":"ctor_StrewtException","path":"scripts/ctor_StrewtException/ctor_StrewtException.yy",},},
     {"id":{"name":"ctor_StrewtLocation","path":"scripts/ctor_StrewtLocation/ctor_StrewtLocation.yy",},},
     {"id":{"name":"ctor_StrewtNumberPattern","path":"scripts/ctor_StrewtNumberPattern/ctor_StrewtNumberPattern.yy",},},
+    {"id":{"name":"ctor_StrewtParser","path":"scripts/ctor_StrewtParser/ctor_StrewtParser.yy",},},
     {"id":{"name":"ctor_StrewtPattern","path":"scripts/ctor_StrewtPattern/ctor_StrewtPattern.yy",},},
     {"id":{"name":"ctor_StrewtPatternBaseTest","path":"scripts/ctor_StrewtPatternBaseTest/ctor_StrewtPatternBaseTest.yy",},},
     {"id":{"name":"ctor_StrewtReader","path":"scripts/ctor_StrewtReader/ctor_StrewtReader.yy",},},

@@ -84,3 +84,10 @@ StrewtException.invalid_escape = function(_escape) {
         $"Cannot process the {typeof(_escape)} escape of '{_escape}'."
         );
 }
+
+StrewtException.parser_invalid_filename = function(_filename) {
+    return new StrewtException(
+        nameof(parser_invalid_filename),
+        $"Could not read content from the '{_filename}' file. The given filename must be a string pointing to a readable file."
+    );
+}
