@@ -153,7 +153,7 @@ function StrewtCharsetSettingTests(_run, _method) : StrewtCharsetBaseTests(_run,
             assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("chartable_invalid_target", _ex.code);
+            assert_equal("multigraph_invalid_length", _ex.code);
         }
     }
     
