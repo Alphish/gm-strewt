@@ -35,6 +35,7 @@
   ],
   "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[
+    {"$GMIncludedFile":"","%Name":".gitattributes","CopyToMask":-1,"filePath":"datafiles/tests","name":".gitattributes","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"bad_test.txt","CopyToMask":-1,"filePath":"datafiles/tests","name":"bad_test.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"good_test.txt","CopyToMask":-1,"filePath":"datafiles/tests","name":"good_test.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],
