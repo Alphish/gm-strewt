@@ -114,47 +114,4 @@ function StrewtReaderTetragraphTests(_run, _method) : StrewtReaderMethodFamilyBa
         then_expect_string("/// ");
         then_expect_positions(8, 12);
     }
-    
-    
-    static should_not_create_tetragraph_from_non_string = function() {
-        try
-        {
-            var _value = strewt_tetragraph(123);
-            assert_fail($"Creating a multigraph from a non-string should fail, but it didn't.");
-        }
-        catch (_ex)
-        {
-            assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("multigraph_invalid_type", _ex.code);
-            assert_is_true(string_pos("tetragraph", _ex.description) > 0);
-        }
-    }
-    
-    static should_not_create_tetragraph_from_too_short_string = function() {
-        try
-        {
-            var _value = strewt_tetragraph("yes");
-            assert_fail($"Creating a multigraph with invalid length should fail, but it didn't.");
-        }
-        catch (_ex)
-        {
-            assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("multigraph_invalid_length", _ex.code);
-            assert_is_true(string_pos("tetragraph", _ex.description) > 0);
-        }
-    }
-    
-    static should_not_create_tetragraph_from_too_long_string = function() {
-        try
-        {
-            var _value = strewt_tetragraph("false");
-            assert_fail($"Creating a multigraph with invalid length should fail, but it didn't.");
-        }
-        catch (_ex)
-        {
-            assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("multigraph_invalid_length", _ex.code);
-            assert_is_true(string_pos("tetragraph", _ex.description) > 0);
-        }
-    }
 }

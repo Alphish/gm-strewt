@@ -124,6 +124,7 @@
     {"id":{"name":"tests_StrewtChartableRangeTests","path":"scripts/tests_StrewtChartableRangeTests/tests_StrewtChartableRangeTests.yy",},},
     {"id":{"name":"tests_StrewtChartableSettingTests","path":"scripts/tests_StrewtChartableSettingTests/tests_StrewtChartableSettingTests.yy",},},
     {"id":{"name":"tests_StrewtLocationTests","path":"scripts/tests_StrewtLocationTests/tests_StrewtLocationTests.yy",},},
+    {"id":{"name":"tests_StrewtMultigraphTests","path":"scripts/tests_StrewtMultigraphTests/tests_StrewtMultigraphTests.yy",},},
     {"id":{"name":"tests_StrewtNumberPatternTests","path":"scripts/tests_StrewtNumberPatternTests/tests_StrewtNumberPatternTests.yy",},},
     {"id":{"name":"tests_StrewtParserCoreTests","path":"scripts/tests_StrewtParserCoreTests/tests_StrewtParserCoreTests.yy",},},
     {"id":{"name":"tests_StrewtParserFileTests","path":"scripts/tests_StrewtParserFileTests/tests_StrewtParserFileTests.yy",},},

@@ -114,46 +114,4 @@ function StrewtReaderTrigraphTests(_run, _method) : StrewtReaderMethodFamilyBase
         then_expect_string("??=");
         then_expect_positions(5, 8);
     }
-    
-    static should_not_create_trigraph_from_non_string = function() {
-        try
-        {
-            var _value = strewt_trigraph(123);
-            assert_fail($"Creating a multigraph from a non-string should fail, but it didn't.");
-        }
-        catch (_ex)
-        {
-            assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("multigraph_invalid_type", _ex.code);
-            assert_is_true(string_pos("trigraph", _ex.description) > 0);
-        }
-    }
-    
-    static should_not_create_trigraph_from_too_short_string = function() {
-        try
-        {
-            var _value = strewt_trigraph("/*");
-            assert_fail($"Creating a multigraph with invalid length should fail, but it didn't.");
-        }
-        catch (_ex)
-        {
-            assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("multigraph_invalid_length", _ex.code);
-            assert_is_true(string_pos("trigraph", _ex.description) > 0);
-        }
-    }
-    
-    static should_not_create_trigraph_from_too_long_string = function() {
-        try
-        {
-            var _value = strewt_trigraph("/***");
-            assert_fail($"Creating a multigraph with invalid length should fail, but it didn't.");
-        }
-        catch (_ex)
-        {
-            assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("multigraph_invalid_length", _ex.code);
-            assert_is_true(string_pos("trigraph", _ex.description) > 0);
-        }
-    }
 }
