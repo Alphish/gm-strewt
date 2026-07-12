@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"tests_StrewtReaderByteTests",
+  "%Name":"tests_StrewtReaderNextByteTests",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"tests_StrewtReaderByteTests",
+  "name":"tests_StrewtReaderNextByteTests",
   "parent":{
     "name":"Reader",
     "path":"folders/Tests/Reader.yy",
