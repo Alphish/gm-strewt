@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ctor_StrewtWriterBaseTests",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ctor_StrewtWriterBaseTests",
+  "parent":{
+    "name":"Writer",
+    "path":"folders/Tests/Writer.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

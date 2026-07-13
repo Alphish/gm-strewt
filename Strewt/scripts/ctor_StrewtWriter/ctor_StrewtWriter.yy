@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ctor_StrewtWriter",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ctor_StrewtWriter",
+  "parent":{
+    "name":"Writing",
+    "path":"folders/_Packages/Alphish/Strewt/Writing.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -91,3 +91,10 @@ StrewtException.parser_invalid_filename = function(_filename) {
         $"Could not read content from the '{_filename}' file. The given filename must be a string pointing to a readable file."
     );
 }
+
+StrewtException.writer_invalid_target = function(_target) {
+    return new StrewtException(
+        nameof(writer_invalid_target),
+        $"Expected a valid buffer handle, but got {typeof(_target)} '{_target}' instead."
+        );
+}
