@@ -130,6 +130,9 @@ function StrewtWriter(_target = undefined) constructor {
     
     static pop_indent = function() {
         var _segment = array_pop(indent_segments);
+        if (is_undefined(_segment))
+            return;
+        
         var _length = string_length(_segment);
         if (_length == 0)
             return;
