@@ -1,9 +1,17 @@
+/// @desc The pattern matching a number representation - an optional sign, the mandatory integer part, an optional fractional part and an optional exponent part.
 function StrewtNumberPattern() : StrewtPattern() constructor {
+    /// @ignore
     static sign_charset = new StrewtCharset(false).including("-+");
+    /// @ignore
     static digits_charset = new StrewtCharset(false).including("0123456789");
+    /// @ignore
     static decimal_byte = ord(".");
+    /// @ignore
     static exponent_charset = new StrewtCharset(false).including("eE");
     
+    /// @desc Skips the match at the given reader's position (if any) and returns its length.
+    /// @arg {Struct.StrewtReader} reader       The reader to match against.
+    /// @returns {Real}
     static skip = function(_reader) {
         var _position = _reader.position;
         
