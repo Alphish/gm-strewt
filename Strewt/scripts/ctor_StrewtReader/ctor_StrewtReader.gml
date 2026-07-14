@@ -814,6 +814,26 @@ function StrewtReader(_content) constructor {
         return _pattern.read_into(self, _target);
     }
     
+    // --------------
+    // Direct reading
+    // --------------
+    
+    /// @desc Peeks a value of the given datatype directly from the buffer.
+    /// @arg {Constant.BufferDataType} datatype     The buffer datatype to read.
+    /// @returns {Any}
+    static peek_direct = function(_datatype) {
+        return buffer_peek(content_buffer, position, _datatype);
+    }
+    
+    /// @desc Reads a value of the given datatype directly from the buffer.
+    /// @arg {Constant.BufferDataType} datatype     The buffer datatype to read.
+    /// @returns {Any}
+    static read_direct = function(_datatype) {
+        var _result = buffer_read(content_buffer, _datatype);
+        position = buffer_tell(content_buffer);
+        return _result;
+    }
+    
     // -------
     // Cleanup
     // -------

@@ -137,6 +137,7 @@
     {"id":{"name":"tests_StrewtReaderChartableTests","path":"scripts/tests_StrewtReaderChartableTests/tests_StrewtReaderChartableTests.yy",},},
     {"id":{"name":"tests_StrewtReaderCreationTests","path":"scripts/tests_StrewtReaderCreationTests/tests_StrewtReaderCreationTests.yy",},},
     {"id":{"name":"tests_StrewtReaderDigraphTests","path":"scripts/tests_StrewtReaderDigraphTests/tests_StrewtReaderDigraphTests.yy",},},
+    {"id":{"name":"tests_StrewtReaderDirectReadTests","path":"scripts/tests_StrewtReaderDirectReadTests/tests_StrewtReaderDirectReadTests.yy",},},
     {"id":{"name":"tests_StrewtReaderLineTests","path":"scripts/tests_StrewtReaderLineTests/tests_StrewtReaderLineTests.yy",},},
     {"id":{"name":"tests_StrewtReaderLocationTests","path":"scripts/tests_StrewtReaderLocationTests/tests_StrewtReaderLocationTests.yy",},},
     {"id":{"name":"tests_StrewtReaderNextByteTests","path":"scripts/tests_StrewtReaderNextByteTests/tests_StrewtReaderNextByteTests.yy",},},

@@ -97,11 +97,15 @@ function StrewtReaderMethodFamilyBaseTests(_run, _method) : VerrificMethodTest(_
     }
     
     static then_expect_byte = function(_byte) {
+        return then_expect_number(_byte);
+    }
+    
+    static then_expect_number = function(_number) {
         if (!is_undefined(peek_result) && !is_string(peek_result))
-            assert_equal(_byte, peek_result, $"Expected the peek method to return {_byte}, but got {peek_result} instead.");
+            assert_equal(_number, peek_result, $"Expected the peek method to return {_number}, but got {peek_result} instead.");
         
         if (!is_undefined(read_result) && !is_string(read_result))
-            assert_equal(_byte, read_result, $"Expected the read method to return {_byte}, but got {read_result} instead.");
+            assert_equal(_number, read_result, $"Expected the read method to return {_number}, but got {read_result} instead.");
     }
     
     static then_expect_string = function(_str) {
