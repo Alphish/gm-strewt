@@ -88,6 +88,7 @@
     {"id":{"name":"enum_VerrificStatus","path":"scripts/enum_VerrificStatus/enum_VerrificStatus.yy",},},
     {"id":{"name":"feather_Cimpli","path":"scripts/feather_Cimpli/feather_Cimpli.yy",},},
     {"id":{"name":"funcs_Strewt","path":"scripts/funcs_Strewt/funcs_Strewt.yy",},},
+    {"id":{"name":"funcs_StrewtReading","path":"scripts/funcs_StrewtReading/funcs_StrewtReading.yy",},},
     {"id":{"name":"struct_VerrificBreak","path":"scripts/struct_VerrificBreak/struct_VerrificBreak.yy",},},
     {"id":{"name":"struct_VerrificCrash","path":"scripts/struct_VerrificCrash/struct_VerrificCrash.yy",},},
     {"id":{"name":"struct_VerrificFailure","path":"scripts/struct_VerrificFailure/struct_VerrificFailure.yy",},},
