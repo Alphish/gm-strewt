@@ -225,7 +225,7 @@ function StrewtWriter(_target = undefined) constructor {
     // Cleanup
     // -------
     
-    /// @desc Ensures the underlying content buffer has its memory released. The writer can no longer be used after the cleanup.
+    /// @desc Frees up the resources held by the writer. The writer cannot be used afterwards.
     static cleanup = function() {
         if (!is_undefined(content_buffer) && buffer_exists(content_buffer))
             buffer_delete(content_buffer);

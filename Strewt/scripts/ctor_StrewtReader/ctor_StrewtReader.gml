@@ -1,7 +1,6 @@
-/// @desc A reader for scanning through a buffer-based text.
+/// @desc A buffer-backed text reader. Its content may be passed as a string or a buffer.
 /// @arg {String,Id.Buffer} content         The content to process, given as a string or a buffer of text bytes.
-function StrewtReader(_content) constructor {
-    
+function StrewtReader(_content) constructor { 
     /// @desc The length of the content in bytes.
     /// @returns {Real}
     byte_length = 0;
@@ -60,6 +59,12 @@ function StrewtReader(_content) constructor {
         return position;
     }
     
+    /// @desc Checks whether the reader is at the end of content.
+    /// @returns {Bool}
+    static is_end_of_content = function() {
+        return position >= byte_length;
+    }
+    
     /// @desc Moves the reader position to the given byte.
     /// @arg {Real} position                The reader position to move to.
     static move_to = function(_position) {
@@ -74,19 +79,15 @@ function StrewtReader(_content) constructor {
         buffer_seek(content_buffer, buffer_seek_relative, _offset);
     }
     
-    /// @desc Checks whether the reader is at the end of content.
-    /// @returns {Bool}
-    static is_end_of_content = function() {
-        return position >= byte_length;
-    }
-    
     /// @desc Gets the current reader location struct (line, column, position).
     /// @returns {Struct.StrewtLocation}
     static get_location = function() {
         return update_location(new StrewtLocation());
     }
     
-    /// @ignore
+    /// @desc Updates the given reader location struct with updated line, column and position.
+    /// @arg {Struct.StrewtLocation} target     The location struct to update.
+    /// @returns {Struct.StrewtLocation}
     static update_location = function(_target) {
         static continuation_mask = 0b1100_0000;
         static continuation_pattern = 0b1000_0000;
@@ -156,10 +157,7 @@ function StrewtReader(_content) constructor {
         return _result;
     }
     
-    /// @desc Copies a given span of the processed content text to a given target buffer.
-    /// @arg {Real} from                    The start of the content to copy.
-    /// @arg {Real} span                    The length of the content to copy.
-    /// @arg {Id.Buffer} target             The target buffer to write the copy into.
+    /// @ignore
     static read_into = function(_from, _span, _target) {
         if (_span <= 0)
             return 0;
@@ -172,6 +170,8 @@ function StrewtReader(_content) constructor {
     // -----
     // Bytes
     // -----
+    
+    // Next bytes
     
     /// @desc Returns the length of the next byte - 1 if there's a byte remaining or 0 otherwise.
     /// @returns {Real}
@@ -218,6 +218,8 @@ function StrewtReader(_content) constructor {
         return 1;
     }
     
+    // Exact bytes
+    
     /// @desc Returns the given byte length (1) if matched at the current reader position. Returns 0 otherwise.
     /// @arg {Real} byte                    The matched byte value.
     /// @returns {Real}
@@ -249,6 +251,8 @@ function StrewtReader(_content) constructor {
         buffer_write(_target, buffer_u8, _byte);
         return 1;
     }
+    
+    // Byte sequences
     
     /// @desc Returns the given byte sequence length if matched at the current reader position. Returns 0 otherwise.
     /// @arg {Array<Real>} bytes            The matched bytes sequence.
@@ -292,99 +296,11 @@ function StrewtReader(_content) constructor {
         return read_into(_position, skip_byte_sequence(_bytes), _target);
     }
     
-    // ----------
-    // Characters
-    // ----------
-    
-    /// @desc Gets the expected UTF-8 character length based on its first byte.
-    /// @arg {Real} byte                    The first byte of the given UTF-8 character.
-    /// @returns {Real}
-    static get_utf8_character_length = function(_byte) {
-        static lookup = array_create_ext(256, function(i) {
-            if (i == 0)
-                return 0;
-            else if ((i & 0b11111_000) == 0b11111_000)
-                return -1;
-            else if ((i & 0b11111_000) == 0b11110_000)
-                return 4;
-            else if ((i & 0b1111_0000) == 0b1110_0000)
-                return 3;
-            else if ((i & 0b111_00000) == 0b110_00000)
-                return 2;
-            else if ((i & 0b11_000000) == 0b10_000000)
-                return -1;
-            else
-                return 1;
-        });
-        return lookup[_byte];
-    }
-    
-    /// @desc Gets the mask of significant UTF-8 bits for the given byte.
-    /// @arg {Real} byte                    The UTF-8 byte to get the bitmask of.
-    /// @returns {Real}
-    static get_utf8_character_mask = function(_byte) {
-        static lookup = array_create_ext(256, function(i) {
-            if (i == 0)
-                return 0;
-            else if ((i & 0b11111_000) == 0b11111_000)
-                return 0;
-            else if ((i & 0b11111_000) == 0b11110_000)
-                return 0b00000_111;
-            else if ((i & 0b1111_0000) == 0b1110_0000)
-                return 0b0000_1111;
-            else if ((i & 0b111_00000) == 0b110_00000)
-                return 0b000_11111;
-            else if ((i & 0b11_000000) == 0b10_000000)
-                return 0;
-            else
-                return 0b11111111;
-        });
-        return lookup[_byte];
-    }
-    
-    /// @desc Previews the UTF-8 character at the current reader position, given as a string.
-    /// @returns {String}
-    static peek_character = function() {
-        var _byte = buffer_peek(content_buffer, position, buffer_u8);
-        var _length = get_utf8_character_length(_byte);
-        if (_length < 0)
-            throw StrewtException.reader_invalid_utf8_byte(_byte);
-        else if (_length == 0)
-            return "";
-        
-        var _codepoint = _byte & get_utf8_character_mask(_byte);
-        for (var i = 1; i < _length; i++) {
-            _byte = buffer_peek(content_buffer, position + i, buffer_u8);
-            _codepoint = (_codepoint << 6) | (_byte & 0b00111111);
-        }
-        return chr(_codepoint);
-    }
-    
-    /// @desc Reads past the UTF-8 character at the current reader position and returns its string.
-    /// @returns {String}
-    static read_character = function() {
-        var _byte = buffer_read(content_buffer, buffer_u8);
-        var _length = get_utf8_character_length(_byte);
-        if (_length < 0) {
-            buffer_seek(content_buffer, buffer_seek_relative, -1);
-            throw StrewtException.reader_invalid_utf8_byte(_byte);
-        } else if (_length == 0) {
-            buffer_seek(content_buffer, buffer_seek_relative, -1);
-            return "";
-        }
-        
-        var _codepoint = _byte & get_utf8_character_mask(_byte);
-        repeat (_length - 1) {
-            _byte = buffer_read(content_buffer, buffer_u8);
-            _codepoint = (_codepoint << 6) | (_byte & 0b00111111);
-        }
-        position += _length;
-        return chr(_codepoint);
-    }
-    
     // -----------
     // Multigraphs
     // -----------
+    
+    // Digraphs
     
     /// @desc Returns the given digraph length (2) if matched at the current reader position. Returns 0 otherwise.
     /// @arg {Real} value                   The numeric value of the digraph.
@@ -422,6 +338,8 @@ function StrewtReader(_content) constructor {
         buffer_write(_target, buffer_u16, _value);
         return 2;
     }
+    
+    // Trigraphs
     
     /// @desc Returns the given trigraph length (3) if matched at the current reader position. Returns 0 otherwise.
     /// @arg {Real} value                   The numeric value of the trigraph.
@@ -461,6 +379,8 @@ function StrewtReader(_content) constructor {
         return 3;
     }
     
+    // Tetragraphs
+    
     /// @desc Returns the given tetragraph length (4) if matched at the current reader position. Returns 0 otherwise.
     /// @arg {Real} value                   The numeric value of the tetragraph.
     /// @returns {Real}
@@ -498,12 +418,100 @@ function StrewtReader(_content) constructor {
         return 4;
     }
     
+    // ----------
+    // Characters
+    // ----------
+    
+    /// @ignore
+    static get_utf8_character_mask = function(_byte) {
+        static lookup = array_create_ext(256, function(i) {
+            if (i == 0)
+                return 0;
+            else if ((i & 0b11111_000) == 0b11111_000)
+                return 0;
+            else if ((i & 0b11111_000) == 0b11110_000)
+                return 0b00000_111;
+            else if ((i & 0b1111_0000) == 0b1110_0000)
+                return 0b0000_1111;
+            else if ((i & 0b111_00000) == 0b110_00000)
+                return 0b000_11111;
+            else if ((i & 0b11_000000) == 0b10_000000)
+                return 0;
+            else
+                return 0b11111111;
+        });
+        return lookup[_byte];
+    }
+    
+    /// @desc Gets the expected UTF-8 character length based on its first byte.
+    /// @arg {Real} byte                    The first byte of the given UTF-8 character.
+    /// @returns {Real}
+    static span_character = function(_byte) {
+        static lookup = array_create_ext(256, function(i) {
+            if (i == 0)
+                return 0;
+            else if ((i & 0b11111_000) == 0b11111_000)
+                return -1;
+            else if ((i & 0b11111_000) == 0b11110_000)
+                return 4;
+            else if ((i & 0b1111_0000) == 0b1110_0000)
+                return 3;
+            else if ((i & 0b111_00000) == 0b110_00000)
+                return 2;
+            else if ((i & 0b11_000000) == 0b10_000000)
+                return -1;
+            else
+                return 1;
+        });
+        return lookup[_byte];
+    }
+    
+    /// @desc Previews the UTF-8 character at the current reader position, given as a string.
+    /// @returns {String}
+    static peek_character = function() {
+        var _byte = buffer_peek(content_buffer, position, buffer_u8);
+        var _length = span_character(_byte);
+        if (_length < 0)
+            throw StrewtException.reader_invalid_utf8_byte(_byte);
+        else if (_length == 0)
+            return "";
+        
+        var _codepoint = _byte & get_utf8_character_mask(_byte);
+        for (var i = 1; i < _length; i++) {
+            _byte = buffer_peek(content_buffer, position + i, buffer_u8);
+            _codepoint = (_codepoint << 6) | (_byte & 0b00111111);
+        }
+        return chr(_codepoint);
+    }
+    
+    /// @desc Reads past the UTF-8 character at the current reader position and returns its string.
+    /// @returns {String}
+    static read_character = function() {
+        var _byte = buffer_read(content_buffer, buffer_u8);
+        var _length = span_character(_byte);
+        if (_length < 0) {
+            buffer_seek(content_buffer, buffer_seek_relative, -1);
+            throw StrewtException.reader_invalid_utf8_byte(_byte);
+        } else if (_length == 0) {
+            buffer_seek(content_buffer, buffer_seek_relative, -1);
+            return "";
+        }
+        
+        var _codepoint = _byte & get_utf8_character_mask(_byte);
+        repeat (_length - 1) {
+            _byte = buffer_read(content_buffer, buffer_u8);
+            _codepoint = (_codepoint << 6) | (_byte & 0b00111111);
+        }
+        position += _length;
+        return chr(_codepoint);
+    }
+    
     // -------
     // Strings
     // -------
     
     /// @desc Returns the given string length if matched at the current reader position. Returns 0 otherwise.
-    /// @arg {Array<Real>} bytes            The matched string.
+    /// @arg {String} str                   The matched string.
     /// @returns {Real}
     static span_string = function(_str) {
         var _length = string_byte_length(_str);
@@ -514,7 +522,7 @@ function StrewtReader(_content) constructor {
     }
     
     /// @desc Skips the given string and returns its length if matched at the current reader position. Returns 0 otherwise.
-    /// @arg {Array<Real>} bytes            The matched string.
+    /// @arg {String} str                   The matched string.
     /// @returns {Real}
     static skip_string = function(_str) {
         var _length = string_byte_length(_str);
@@ -530,7 +538,7 @@ function StrewtReader(_content) constructor {
     }
     
     /// @desc Skips the given string, writes it to the target buffer and returns its length if matched at the current reader position. Returns 0 otherwise.
-    /// @arg {Array<Real>} bytes            The matched string.
+    /// @arg {String} str                   The matched string.
     /// @arg {Id.Buffer} target             The target buffer to write the string into.
     /// @returns {Real}
     static read_string_into = function(_str, _target) {
@@ -838,7 +846,7 @@ function StrewtReader(_content) constructor {
     // Cleanup
     // -------
     
-    /// @desc Cleans up the content buffer when it's no longer needed.
+    /// @desc Frees up the resources held by the reader. The reader cannot be used afterwards.
     static cleanup = function() {
         if (!is_undefined(content_buffer) && buffer_exists(content_buffer))
             buffer_delete(content_buffer);

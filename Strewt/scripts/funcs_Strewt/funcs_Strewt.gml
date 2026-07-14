@@ -51,7 +51,7 @@ function strewt_trigraph(_input) {
         throw StrewtException.multigraph_invalid_length("trigraph", 3, _input);
     
     var _buffer = buffer_create(4, buffer_fixed, 1);
-    buffer_write(_buffer, buffer_string, _input);
+    buffer_write(_buffer, buffer_string, _input); // buffer string automatically adds 0 at the end
     var _result = buffer_peek(_buffer, 0, buffer_u32);
     buffer_delete(_buffer);
     return _result;

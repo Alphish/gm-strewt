@@ -1,4 +1,4 @@
-/// @desc A base of a parser processing a specific text.
+/// @desc A base for a parser processing a specific text.
 function StrewtParser() constructor {
     content_filename = undefined;
     content = undefined;
