@@ -5,7 +5,7 @@ function StrewtNumberPattern() : StrewtPattern() constructor {
     /// @ignore
     static digits_charset = new StrewtCharset(false).including("0123456789");
     /// @ignore
-    static decimal_byte = ord(".");
+    static decimal_byte = strewt_byte(".");
     /// @ignore
     static exponent_charset = new StrewtCharset(false).including("eE");
     
@@ -15,7 +15,7 @@ function StrewtNumberPattern() : StrewtPattern() constructor {
     static skip = function(_reader) {
         var _position = _reader.position;
         
-        _reader.skip_charset(sign_charset); // handle sign
+        _reader.skip_charset_byte(sign_charset); // handle sign
         
         // handle integer part
         if (_reader.skip_charset(digits_charset) == 0)
@@ -30,8 +30,8 @@ function StrewtNumberPattern() : StrewtPattern() constructor {
         }
         
         // handle exponent part
-        if (_reader.skip_charset(exponent_charset)) {
-            var _sign_length = _reader.skip_charset(sign_charset);
+        if (_reader.skip_charset_byte(exponent_charset)) {
+            var _sign_length = _reader.skip_charset_byte(sign_charset);
             if (_reader.skip_charset(digits_charset) == 0) {
                 _reader.move_by(-1 - _sign_length);
                 return _reader.position - _position;
