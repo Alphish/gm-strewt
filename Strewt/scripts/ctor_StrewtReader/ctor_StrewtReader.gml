@@ -806,7 +806,7 @@ function StrewtReader(_content) constructor {
         return _pattern.read(self);
     }
     
-    /// @desc Skips the given pattern's match at the current position (if any), writes its interpreted content to the target buffer and returns the written length.
+    /// @desc Skips the given pattern's match at the current position (if any), writes its interpreted content to the target buffer and returns the read length.
     /// @arg {Struct.StrewtPattern} pattern     The pattern to match.
     /// @arg {Id.Buffer} target                 The target buffer to write the match into.
     /// @returns {Real}

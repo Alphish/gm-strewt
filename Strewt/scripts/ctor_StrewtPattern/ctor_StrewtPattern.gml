@@ -59,7 +59,7 @@ function StrewtPattern() constructor {
         return _result;
     }
     
-    /// @desc Skips the match at the given reader's position (if any), writes its interpreted content to the target buffer and returns the written length.
+    /// @desc Skips the match at the given reader's position (if any), writes its interpreted content to the target buffer and returns the read length.
     /// @arg {Struct.StrewtReader} reader       The reader to match against.
     /// @arg {Id.Buffer} target                 The target to write the match into.
     /// @returns {Real}

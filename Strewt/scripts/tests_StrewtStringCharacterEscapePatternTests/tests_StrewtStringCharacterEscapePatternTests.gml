@@ -16,7 +16,7 @@ function StrewtStringCharacterEscapePatternTests(_run, _method) : StrewtPatternB
         then_expect_positions(0, 0);
     }
     
-    static should_ignore_string_without_opening_terminator = function() {
+    static should_ignore_string_without_opening_delimiter = function() {
         given_content("Lorem ipsum");
         when_pattern_tested();
         
@@ -25,7 +25,7 @@ function StrewtStringCharacterEscapePatternTests(_run, _method) : StrewtPatternB
         then_expect_positions(0, 0);
     }
     
-    static should_ignore_string_without_closing_terminator = function() {
+    static should_ignore_string_without_closing_delimiter = function() {
         given_content("\"Lorem ipsum");
         when_pattern_tested();
         
@@ -75,7 +75,7 @@ function StrewtStringCharacterEscapePatternTests(_run, _method) : StrewtPatternB
     // Default escapes
     // ---------------
     
-    static should_handle_string_with_escaped_terminator = function() {
+    static should_handle_string_with_escaped_delimiter = function() {
         given_content("\"This is \\\"The Title\\\"\"");
         when_pattern_tested();
         
@@ -84,7 +84,7 @@ function StrewtStringCharacterEscapePatternTests(_run, _method) : StrewtPatternB
         then_expect_positions(0, 23);
     }
     
-    static should_ignore_string_with_closing_terminator_escaped = function() {
+    static should_ignore_string_with_closing_delimiter_escaped = function() {
         given_content("\"Lorem ipsum\\\"");
         when_pattern_tested();
         
@@ -169,11 +169,11 @@ function StrewtStringCharacterEscapePatternTests(_run, _method) : StrewtPatternB
         then_expect_positions(0, 0);
     }
     
-    // ------------------
-    // Custom terminators
-    // ------------------
+    // -----------------
+    // Custom delimiters
+    // -----------------
     
-    static should_handle_basic_string_with_custom_terminator = function() {
+    static should_handle_basic_string_with_custom_delimiter = function() {
         given_content("'Lorem ipsum'");
         given_pattern(new StrewtStringCharacterEscapePattern("'").with_json_escapes());
         when_pattern_tested();
@@ -183,7 +183,7 @@ function StrewtStringCharacterEscapePatternTests(_run, _method) : StrewtPatternB
         then_expect_positions(0, 13);
     }
     
-    static should_handle_escaped_string_with_custom_terminator = function() {
+    static should_handle_escaped_string_with_custom_delimiter = function() {
         given_content("'Nice weather, isn\\'t it?'");
         given_pattern(new StrewtStringCharacterEscapePattern("'").with_json_escapes());
         when_pattern_tested();
