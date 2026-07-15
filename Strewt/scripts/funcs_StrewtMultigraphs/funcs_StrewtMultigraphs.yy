@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"funcs_StrewtMultigraphs",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"funcs_StrewtMultigraphs",
+  "parent":{
+    "name":"Reading",
+    "path":"folders/_Packages/Alphish/Strewt/Reading.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
