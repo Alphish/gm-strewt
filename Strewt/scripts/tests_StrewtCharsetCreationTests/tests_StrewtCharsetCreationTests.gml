@@ -34,7 +34,7 @@ function StrewtCharsetCreationTests(_run, _method) : StrewtCharsetBaseTests(_run
             assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("charset_invalid_input", _ex.code);
+            assert_equal("invalid_type", _ex.code);
         }
     }
 }

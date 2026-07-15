@@ -81,7 +81,7 @@ function StrewtChartableRangeTests(_run, _method) : StrewtChartableBaseTests(_ru
             assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("chartable_invalid_range_end", _ex.code);
+            assert_equal("multigraph_invalid_length", _ex.code);
         }
     }
     
@@ -91,7 +91,7 @@ function StrewtChartableRangeTests(_run, _method) : StrewtChartableBaseTests(_ru
             assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("chartable_invalid_range_end", _ex.code);
+            assert_equal("multigraph_invalid_length", _ex.code);
         }
     }
     
@@ -101,7 +101,7 @@ function StrewtChartableRangeTests(_run, _method) : StrewtChartableBaseTests(_ru
             assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("chartable_invalid_range_end", _ex.code);
+            assert_equal("multigraph_invalid_length", _ex.code);
         }
     }
     
@@ -111,7 +111,7 @@ function StrewtChartableRangeTests(_run, _method) : StrewtChartableBaseTests(_ru
             assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("chartable_invalid_range_end", _ex.code);
+            assert_equal("multigraph_invalid_length", _ex.code);
         }
     }
     
@@ -121,7 +121,7 @@ function StrewtChartableRangeTests(_run, _method) : StrewtChartableBaseTests(_ru
             assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("chartable_invalid_range_end", _ex.code);
+            assert_equal("multigraph_invalid_length", _ex.code);
         }
     }
     
@@ -131,7 +131,7 @@ function StrewtChartableRangeTests(_run, _method) : StrewtChartableBaseTests(_ru
             assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("chartable_invalid_range_end", _ex.code);
+            assert_equal("multigraph_invalid_length", _ex.code);
         }
     }
     

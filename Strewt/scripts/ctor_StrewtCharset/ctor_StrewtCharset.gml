@@ -2,7 +2,7 @@
 /// @arg {Bool,Array<Bool>} [input]             The default byte inclusion/exclusion or the array of inclusions/exclusions.
 function StrewtCharset(_input = false) : StrewtChartable(_input, false) constructor {
     if (!is_array(_input) && !is_bool(_input))
-        throw StrewtException.charset_invalid_input(_input);
+        throw StrewtException.invalid_type("an array or a bool", _input);
     
     // -------------
     // Direct values
@@ -16,7 +16,7 @@ function StrewtCharset(_input = false) : StrewtChartable(_input, false) construc
     }
     
     /// @desc Configures the charset to exclude the given byte, all bytes in the given array or all characters in the given string.
-    /// @arg {Real,Array<Real>,String} target   The value(s) to include.
+    /// @arg {Real,Array<Real>,String} target   The value(s) to exclude.
     /// @returns {Struct.StrewtCharset}
     static excluding = function(_target) {
         return with_value(_target, false);

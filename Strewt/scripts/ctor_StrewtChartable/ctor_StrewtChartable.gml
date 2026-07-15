@@ -65,12 +65,8 @@ function StrewtChartable(_input = undefined, _blank = undefined) constructor {
     /// @returns {Strewt.Chartable}
     static with_range_value = function(_from, _to, _value) {
         static resolve_range_end = function(_end) {
-            if (is_string(_end)) {
-                if (string_byte_length(_end) != 1)
-                    throw StrewtException.chartable_invalid_range_end(_end);
-                
+            if (is_string(_end))
                 _end = strewt_byte(_end);
-            }
             
             if (is_numeric(_end)) {
                 _end = floor(_end);
