@@ -140,7 +140,7 @@ function StrewtReader(_content) constructor {
     }
     
     /// @desc Returns the section of the processed content text.
-    /// @arg {Real} from                    The start of the cointent section (in bytes).
+    /// @arg {Real} from                    The start of the content section (in bytes).
     /// @arg {Real} to                      The end of the content section (in bytes).
     static peek_substring = function(_from, _to) {
         var _length = _to - _from;
@@ -157,8 +157,12 @@ function StrewtReader(_content) constructor {
         return _result;
     }
     
-    /// @ignore
-    static read_into = function(_from, _span, _target) {
+    /// @desc Copies the given content section to the target buffer and returns the byte length of the copied span.
+    /// @arg {Real} from                    The start of the content section.
+    /// @arg {Real} span                    The length of the copied span.
+    /// @arg {Id.Buffer} target             The target buffer to copy content into.
+    /// @returns {Real}
+    static read_substring_into = function(_from, _span, _target) {
         if (_span <= 0)
             return 0;
         
@@ -293,7 +297,7 @@ function StrewtReader(_content) constructor {
     /// @returns {Real}
     static read_byte_sequence_into = function(_bytes, _target) {
         var _position = position;
-        return read_into(_position, skip_byte_sequence(_bytes), _target);
+        return read_substring_into(_position, skip_byte_sequence(_bytes), _target);
     }
     
     // -----------
@@ -543,7 +547,7 @@ function StrewtReader(_content) constructor {
     /// @returns {Real}
     static read_string_into = function(_str, _target) {
         var _position = position;
-        return read_into(_position, skip_string(_str), _target);
+        return read_substring_into(_position, skip_string(_str), _target);
     }
     
     // -----
@@ -622,7 +626,7 @@ function StrewtReader(_content) constructor {
     /// @returns {Real}
     static read_line_into = function(_target, _withend = false) {
         var _position = position;
-        return read_into(_position, skip_line(_withend), _target);
+        return read_substring_into(_position, skip_line(_withend), _target);
     }
     
     // --------
@@ -741,7 +745,7 @@ function StrewtReader(_content) constructor {
     /// @returns {Real}
     static read_charset_into = function(_charset, _target) {
         var _position = position;
-        return read_into(_position, skip_charset(_charset), _target);
+        return read_substring_into(_position, skip_charset(_charset), _target);
     }
     
     // ----------
