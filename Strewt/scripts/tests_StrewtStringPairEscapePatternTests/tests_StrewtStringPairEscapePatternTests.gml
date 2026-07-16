@@ -1,7 +1,7 @@
-function StrewtStringDelimiterDoublingPatternTests(_run, _method) : StrewtPatternBaseTest(_run, _method) constructor {
-    static test_subject = "Delimiter doubling string pattern";
+function StrewtStringPairEscapePatternTests(_run, _method) : StrewtPatternBaseTest(_run, _method) constructor {
+    static test_subject = "Pair escape string pattern";
     
-    pattern = new StrewtStringDelimiterDoublingPattern();
+    pattern = new StrewtStringPairEscapePattern();
     
     // ------
     // Basics
@@ -104,7 +104,7 @@ function StrewtStringDelimiterDoublingPatternTests(_run, _method) : StrewtPatter
     
     static should_handle_basic_string_with_custom_delimiter = function() {
         given_content("'Lorem ipsum'");
-        given_pattern(new StrewtStringDelimiterDoublingPattern("'"));
+        given_pattern(new StrewtStringPairEscapePattern("'"));
         when_pattern_tested();
         
         then_expect_span(13, 11);
@@ -114,7 +114,7 @@ function StrewtStringDelimiterDoublingPatternTests(_run, _method) : StrewtPatter
     
     static should_handle_escaped_string_with_custom_delimiter = function() {
         given_content("'Nice weather, isn''t it?'");
-        given_pattern(new StrewtStringDelimiterDoublingPattern("'"));
+        given_pattern(new StrewtStringPairEscapePattern("'"));
         when_pattern_tested();
         
         then_expect_span(26, 23);

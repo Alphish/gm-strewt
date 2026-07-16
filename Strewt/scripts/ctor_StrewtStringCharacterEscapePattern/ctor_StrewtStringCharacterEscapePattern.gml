@@ -1,7 +1,7 @@
 /// @desc The pattern matching a string literal with character-based escapes, such as "\n" or "\"".
-/// @arg {String} delimiter                     The character marking the beginning and the end of the string literal.
-/// @arg {String} escape                        The character starting an escape sequence.
-/// @arg {Bool} [withnewlines]                  Whether newline characters (CR/LF) are allowed verbatim in the string literal or not.
+/// @arg {String} [delimiter]               The character marking the beginning and the end of the string literal.
+/// @arg {String} [escape]                  The character starting an escape sequence.
+/// @arg {Bool} [withnewlines]              Whether newline characters (CR/LF) are allowed verbatim in the string literal or not.
 function StrewtStringCharacterEscapePattern(_delimiter = "\"", _escape = "\\", _withnewlines = false) : StrewtPattern() constructor { 
     /// @desc The byte marking the beginning and the end of the string literal.
     /// @returns {Real}
@@ -30,6 +30,8 @@ function StrewtStringCharacterEscapePattern(_delimiter = "\"", _escape = "\\", _
     // -----
     
     /// @desc Configures the pattern with a custom escape sequence.
+    /// @arg {Real,String} key              The byte or character to assign the escape to.
+    /// @arg {String,Function} escape       The string to replace the escape sequence with or the method used for detailed processing.
     /// @returns {Struct.StrewtStringCharsetEscapePattern}
     static with_custom_escape = function(_key, _escape) {
         escape_mappings.with_value(_key, _escape);

@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"ctor_StrewtStringDelimiterDoublingPattern",
+  "%Name":"ctor_StrewtStringPairEscapePattern",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"ctor_StrewtStringDelimiterDoublingPattern",
+  "name":"ctor_StrewtStringPairEscapePattern",
   "parent":{
     "name":"Patterns",
     "path":"folders/_Packages/Alphish/Strewt/Reading/Patterns.yy",

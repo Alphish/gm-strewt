@@ -1,6 +1,6 @@
-/// @desc The pattern matching a string literal with delimiter-doubling escapes, such as "This is a ""quote"" of a famous person."
+/// @desc The pattern matching a string literal with delimiter pair escapes.
 /// @arg {String} delimiter                     The character marking the beginning and the end of the string literal.
-function StrewtStringDelimiterDoublingPattern(_delimiter = "\"") : StrewtPattern() constructor {
+function StrewtStringPairEscapePattern(_delimiter = "\"") : StrewtPattern() constructor {
     /// @desc The byte marking the beginning and the end of the string literal.
     /// @returns {Real}
     delimiter_byte = strewt_byte(_delimiter);
