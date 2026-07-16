@@ -2,9 +2,9 @@
 function StrewtParser() constructor {
     // Config variables
     
-    /// @desc The filename of the content to read.
+    /// @desc The path of the content to read.
     /// @returns {String}
-    content_filename = undefined;
+    content_path = undefined;
     
     /// @desc The content string or buffer to read.
     /// @returns {String,Id.Buffer}
@@ -44,23 +44,23 @@ function StrewtParser() constructor {
     // Setup
     // -----
     
-    /// @desc Configures the parser to retrieve parsed content from the given file.
-    /// @arg {String} filename              The file to read content to parse from.
-    /// @arg {Bool} [assource]              Whether to use the filename as reader content source description or not.
-    /// @returns {Struct.StrewtParser}
-    static for_file = function(_filename, _assource = true) {
-        content_filename = _filename;
-        if (_assource)
-            reader_source_name ??= filename_name(content_filename);
-        
-        return self;
-    }
-    
     /// @desc Configures the parser to parse the given content.
     /// @arg {String,Id.Buffer} content     The content to process.
     /// @returns {Struct.StrewtParser}
     static for_content = function(_content) {
         content = _content;
+        return self;
+    }
+    
+    /// @desc Configures the parser to retrieve parsed content from the given file.
+    /// @arg {String} path                  The path to the content file.
+    /// @arg {Bool} [assource]              Whether to use the filename as reader content source description or not.
+    /// @returns {Struct.StrewtParser}
+    static for_file = function(_path, _assource = true) {
+        content_path = _path;
+        if (_assource)
+            reader_source_name ??= filename_name(content_path);
+        
         return self;
     }
     
@@ -86,12 +86,12 @@ function StrewtParser() constructor {
     /// @desc Prepares the content to parse and the reader.
     static init = function() {
         if (is_undefined(content)) {
-            if (!is_string(content_filename))
-                throw StrewtException.parser_invalid_filename(content_filename);
+            if (!is_string(content_path))
+                throw StrewtException.invalid_content_path(content_path);
             
-            content = buffer_load(content_filename);
+            content = buffer_load(content_path);
             if (!buffer_exists(content))
-                throw StrewtException.parser_invalid_filename(content_filename);
+                throw StrewtException.invalid_content_path(content_path);
         }
         reader = new StrewtReader(content).with_source_name(reader_source_name);
     }

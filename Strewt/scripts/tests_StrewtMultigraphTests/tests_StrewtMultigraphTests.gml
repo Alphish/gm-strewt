@@ -26,7 +26,7 @@ function StrewtMultigraphTests(_run, _method) : VerrificMethodTest(_run, _method
         given_multigraph_function(strewt_byte);
         given_input([]);
         when_multigraph_creation_attempted();
-        then_expect_exception("multigraph_invalid_type", "byte")
+        then_expect_exception("invalid_type", "a string or a number")
     }
     
     static should_fail_to_create_byte_from_too_short_string = function() {
@@ -63,7 +63,7 @@ function StrewtMultigraphTests(_run, _method) : VerrificMethodTest(_run, _method
         given_multigraph_function(strewt_digraph);
         given_input([]);
         when_multigraph_creation_attempted();
-        then_expect_exception("multigraph_invalid_type", "digraph")
+        then_expect_exception("invalid_type", "a string or a number")
     }
     
     static should_fail_to_create_digraph_from_too_short_string = function() {
@@ -100,7 +100,7 @@ function StrewtMultigraphTests(_run, _method) : VerrificMethodTest(_run, _method
         given_multigraph_function(strewt_trigraph);
         given_input([]);
         when_multigraph_creation_attempted();
-        then_expect_exception("multigraph_invalid_type", "trigraph")
+        then_expect_exception("invalid_type", "a string or a number")
     }
     
     static should_fail_to_create_trigraph_from_too_short_string = function() {
@@ -137,7 +137,7 @@ function StrewtMultigraphTests(_run, _method) : VerrificMethodTest(_run, _method
         given_multigraph_function(strewt_tetragraph);
         given_input([]);
         when_multigraph_creation_attempted();
-        then_expect_exception("multigraph_invalid_type", "tetragraph")
+        then_expect_exception("invalid_type", "a string or a number")
     }
     
     static should_fail_to_create_tetragraph_from_too_short_string = function() {

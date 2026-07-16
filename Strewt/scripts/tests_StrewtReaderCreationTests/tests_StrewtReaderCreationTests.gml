@@ -88,7 +88,7 @@ function StrewtReaderCreationTests(_run, _method) : StrewtReaderBaseTests(_run, 
             assert_fail($"Creating reader with something other than string or buffer should fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("reader_invalid_content", _ex.code);
+            assert_equal("invalid_type", _ex.code);
         }
     }
 }

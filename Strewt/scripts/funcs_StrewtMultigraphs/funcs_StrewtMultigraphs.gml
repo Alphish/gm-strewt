@@ -6,7 +6,7 @@ function strewt_byte(_input) {
         return _input;
     
     if (!is_string(_input))
-        throw StrewtException.multigraph_invalid_type("byte", _input);
+        throw StrewtException.invalid_type("a string or a number", _input);
     
     var _length = string_byte_length(_input);
     if (_length != 1)
@@ -23,7 +23,7 @@ function strewt_digraph(_input) {
         return _input;
     
     if (!is_string(_input))
-        throw StrewtException.multigraph_invalid_type("digraph", _input);
+        throw StrewtException.invalid_type("a string or a number", _input);
     
     var _length = string_byte_length(_input);
     if (_length != 2)
@@ -44,7 +44,7 @@ function strewt_trigraph(_input) {
         return _input;
     
     if (!is_string(_input))
-        throw StrewtException.multigraph_invalid_type("trigraph", _input);
+        throw StrewtException.invalid_type("a string or a number", _input);
     
     var _length = string_byte_length(_input);
     if (_length != 3)
@@ -65,7 +65,7 @@ function strewt_tetragraph(_input) {
         return _input;
     
     if (!is_string(_input))
-        throw StrewtException.multigraph_invalid_type("tetragraph", _input);
+        throw StrewtException.invalid_type("a string or a number", _input);
     
     var _length = string_byte_length(_input);
     if (_length != 4)

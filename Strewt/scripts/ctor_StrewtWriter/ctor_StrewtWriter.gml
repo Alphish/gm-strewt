@@ -2,7 +2,7 @@
 /// @arg {Id.Buffer} [target]               The target buffer to write to.
 function StrewtWriter(_target = undefined) constructor {
     if (!is_undefined(_target) && !buffer_exists(_target))
-        throw StrewtException.writer_invalid_target(_target);
+        throw StrewtException.invalid_type("a valid buffer handle", _target);
     
     /// @desc The buffer with the written content.
     /// @returns {Id.Buffer}

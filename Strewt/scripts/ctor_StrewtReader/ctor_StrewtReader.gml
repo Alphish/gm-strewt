@@ -24,7 +24,7 @@ function StrewtReader(_content) constructor {
             buffer_poke(content_buffer, byte_length, buffer_u8, 0);
         }
     } else {
-        throw StrewtException.reader_invalid_content(_content);
+        throw StrewtException.invalid_type("a buffer or a string", _content);
     }
     
     buffer_seek(content_buffer, buffer_seek_start, 0);
@@ -129,9 +129,9 @@ function StrewtReader(_content) constructor {
         return _target;
     }
     
-    // ------
-    // Ranges
-    // ------
+    // ----------------
+    // Content sections
+    // ----------------
     
     /// @desc Returns the entirety of the processed content text.
     /// @returns {String}

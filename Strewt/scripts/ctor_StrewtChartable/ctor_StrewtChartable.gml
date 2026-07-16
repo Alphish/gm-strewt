@@ -18,7 +18,7 @@ function StrewtChartable(_input = undefined, _blank = undefined) constructor {
     static with_byte_value = function(_byte, _value) {
         _byte = floor(_byte);
         if (_byte < 1 || _byte >= 256)
-            throw StrewtException.chartable_invalid_target(_byte);
+            throw StrewtException.invalid_type("a string or a number in 1-255 range", _byte);
             
         table[_byte] = _value;
         return self;
@@ -52,7 +52,7 @@ function StrewtChartable(_input = undefined, _blank = undefined) constructor {
             return self;
         }
         
-        throw StrewtException.chartable_invalid_target(_target);
+        throw StrewtException.invalid_type("a string or a number in 1-255 range", _target);
     }
     
     // ------
@@ -71,12 +71,12 @@ function StrewtChartable(_input = undefined, _blank = undefined) constructor {
             if (is_numeric(_end)) {
                 _end = floor(_end);
                 if (_end < 1 || _end >= 256)
-                    throw StrewtException.chartable_invalid_range_end(_end);
+                    throw StrewtException.invalid_type("a single-byte character or a number in 1-255 range", _end);
                 
                 return _end;
             }
             
-            throw StrewtException.chartable_invalid_range_end(_end);
+            throw StrewtException.invalid_type("a single-byte character or a number in 1-255 range", _end);
         }
         
         _from = resolve_range_end(_from);

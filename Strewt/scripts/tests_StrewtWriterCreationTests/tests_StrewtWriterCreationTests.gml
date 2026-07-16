@@ -21,7 +21,7 @@ function StrewtWriterCreationTests(_run, _method) : StrewtWriterBaseTests(_run, 
             given_writer(123);
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal(_ex.code, "writer_invalid_target");
+            assert_equal(_ex.code, "invalid_type");
         }
     }
     

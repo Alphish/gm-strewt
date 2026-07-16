@@ -48,7 +48,7 @@ function StrewtParserFileTests(_run, _method) : StrewtParserBaseTests(_run, _met
             assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("parser_invalid_filename", _ex.code);
+            assert_equal("invalid_content_path", _ex.code);
         }
     }
     
@@ -59,7 +59,7 @@ function StrewtParserFileTests(_run, _method) : StrewtParserBaseTests(_run, _met
             assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("parser_invalid_filename", _ex.code);
+            assert_equal("invalid_content_path", _ex.code);
         }
     }
     
@@ -70,7 +70,7 @@ function StrewtParserFileTests(_run, _method) : StrewtParserBaseTests(_run, _met
             assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("parser_invalid_filename", _ex.code);
+            assert_equal("invalid_content_path", _ex.code);
         }
     }
 }

@@ -215,7 +215,7 @@ function StrewtStringCharacterEscapePatternTests(_run, _method) : StrewtPatternB
             assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("invalid_escape", _ex.code);
+            assert_equal("invalid_type", _ex.code);
         }
     }
     
@@ -227,7 +227,7 @@ function StrewtStringCharacterEscapePatternTests(_run, _method) : StrewtPatternB
             assert_fail($"Expected the code to fail, but it didn't.");
         } catch (_ex) {
             assert_is_instanceof_struct(StrewtException, _ex);
-            assert_equal("invalid_escape", _ex.code);
+            assert_equal("invalid_type", _ex.code);
         }
     }
 }

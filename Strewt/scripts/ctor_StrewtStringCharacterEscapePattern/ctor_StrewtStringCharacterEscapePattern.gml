@@ -116,7 +116,7 @@ function StrewtStringCharacterEscapePattern(_delimiter = "\"", _escape = "\\", _
                     return restore_positions(_reader, _position);
             } else if (!is_string(_escape_mapping) && !is_undefined(_escape_mapping)) {
                 restore_positions(_reader, _position);
-                throw StrewtException.invalid_escape(_escape_mapping);
+                throw StrewtException.invalid_type("an escape string or handler method", _escape_mapping);
             }
         }
     }
@@ -150,7 +150,7 @@ function StrewtStringCharacterEscapePattern(_delimiter = "\"", _escape = "\\", _
                 buffer_write(_target, buffer_u8, buffer_peek(_reader.content_buffer, _reader.position - 1, buffer_u8));
             } else {
                 restore_positions(_reader, _position, _target, _target_from);
-                throw StrewtException.invalid_escape(_escape_mapping);
+                throw StrewtException.invalid_type("an escape string or handler method", _escape_mapping);
             }
         }
     }
