@@ -1,6 +1,6 @@
 /// @desc A base for a parser processing a specific text.
 function StrewtParser() constructor {
-    // Config variables
+    // Parsing setup
     
     /// @desc The path of the content to read.
     /// @returns {String}
@@ -22,7 +22,7 @@ function StrewtParser() constructor {
     /// @returns {Bool}
     auto_cleanup = true;
     
-    // Parsing state
+    // Task state
     
     /// @desc Indicates the parsing status; 0 when in progress, positive when completed, negative when failed.
     /// @returns {Real}

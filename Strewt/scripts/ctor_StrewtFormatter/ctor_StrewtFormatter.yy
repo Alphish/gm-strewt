@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ctor_StrewtFormatter",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ctor_StrewtFormatter",
+  "parent":{
+    "name":"Writing",
+    "path":"folders/_Packages/Alphish/Strewt/Writing.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
