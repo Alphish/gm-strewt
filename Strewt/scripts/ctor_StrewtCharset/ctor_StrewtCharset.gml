@@ -29,7 +29,7 @@ function StrewtCharset(_input = false) : StrewtChartable(_input, false) construc
     /// @desc Configures the charset to include the given bytes/characters range.
     /// @arg {Real} from                    The byte/character starting the included range.
     /// @arg {Real} to                      The byte/character ending the included range.
-    /// @returns {Strewt.Chartable}
+    /// @returns {Struct.StrewtCharset}
     static including_range = function(_from, _to) {
         return with_range_value(_from, _to, true);
     }
@@ -37,7 +37,7 @@ function StrewtCharset(_input = false) : StrewtChartable(_input, false) construc
     /// @desc Configures the charset to exclude the given value to the given bytes/characters range.
     /// @arg {Real} from                    The byte/character starting the excluded range.
     /// @arg {Real} to                      The byte/character ending the excluded range.
-    /// @returns {Strewt.Chartable}
+    /// @returns {Struct.StrewtCharset}
     static excluding_range = function(_from, _to) {
         return with_range_value(_from, _to, false);
     }
@@ -47,7 +47,7 @@ function StrewtCharset(_input = false) : StrewtChartable(_input, false) construc
     // ----------------
     
     /// @desc Creates a separate charset with identical values.
-    /// @returns {Strewt.Chartable}
+    /// @returns {Struct.StrewtCharset}
     static clone = function() {
         var _input = array_create(array_length(table));
         array_copy(_input, 0, table, 0, array_length(table));
@@ -55,7 +55,7 @@ function StrewtCharset(_input = false) : StrewtChartable(_input, false) construc
     }
     
     /// @desc Creates a separate charset with inclusions/exclusions flipped (except zero byte which is always excluded).
-    /// @returns {Strewt.Chartable}
+    /// @returns {Struct.StrewtCharset}
     static inverse = function() {
         var _input = array_create_ext(256, function(i) { return !table[i]; });
         return new StrewtCharset(_input);

@@ -14,7 +14,7 @@ function StrewtChartable(_input = undefined, _blank = undefined) constructor {
     /// @desc Configures the chartable with the given byte-value match.
     /// @arg {Real} byte                    The byte to assign the value to.
     /// @arg {Any} value                    The value to assign.
-    /// @returns {Strewt.Chartable}
+    /// @returns {Struct.StrewtChartable}
     static with_byte_value = function(_byte, _value) {
         _byte = floor(_byte);
         if (_byte < 1 || _byte >= 256)
@@ -27,7 +27,7 @@ function StrewtChartable(_input = undefined, _blank = undefined) constructor {
     /// @desc Configures the chartable to match the given value to the given byte, all bytes in the given array or all characters in the given string.
     /// @arg {Real,Array<Real>,String} target   The bytes/characters to match to the given value.
     /// @arg {Any} value                        The value to match.
-    /// @returns {Strewt.Chartable}
+    /// @returns {Struct.StrewtChartable}
     static with_value = function(_target, _value) {
         if (is_numeric(_target))
             return with_byte_value(_target, _value);
@@ -62,7 +62,7 @@ function StrewtChartable(_input = undefined, _blank = undefined) constructor {
     /// @desc Configures the chartable to match the given value to the given bytes/characters range.
     /// @arg {Real} from                    The byte/character starting the matched range.
     /// @arg {Real} to                      The byte/character ending the matched range.
-    /// @returns {Strewt.Chartable}
+    /// @returns {Struct.StrewtChartable}
     static with_range_value = function(_from, _to, _value) {
         static resolve_range_end = function(_end) {
             if (is_string(_end))
@@ -96,7 +96,7 @@ function StrewtChartable(_input = undefined, _blank = undefined) constructor {
     // ------------------
     
     /// @desc Creates a separate chartable with identical values.
-    /// @returns {Strewt.Chartable}
+    /// @returns {Struct.StrewtChartable}
     static clone = function() {
         var _input = array_create(array_length(table));
         array_copy(_input, 0, table, 0, array_length(table));
