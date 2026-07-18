@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"ctor_StrewtStringTerminatorDoublingPattern",
+  "%Name":"ctor_StrewtStringPairEscapePattern",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"ctor_StrewtStringTerminatorDoublingPattern",
+  "name":"ctor_StrewtStringPairEscapePattern",
   "parent":{
     "name":"Patterns",
     "path":"folders/_Packages/Alphish/Strewt/Reading/Patterns.yy",

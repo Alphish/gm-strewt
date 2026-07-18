@@ -1,31 +1,53 @@
-function StrewtStringCharacterEscapePattern(_terminator = "\"", _escape = "\\", _withnewlines = false) : StrewtPattern() constructor {
-    terminator_byte = ord(_terminator);
-    escape_byte = ord(_escape);
-    literal_charset = new StrewtCharset(true)
-        .with_byte_value(terminator_byte, false)
-        .with_byte_value(escape_byte, false)
-        .with_byte_value(ord("\n"), _withnewlines)
-        .with_byte_value(ord("\r"), _withnewlines);
+/// @desc The pattern matching a string literal with character-based escapes, such as "\n" or "\"".
+/// @arg {String} [delimiter]               The character marking the beginning and the end of the string literal.
+/// @arg {String} [escape]                  The character starting an escape sequence.
+/// @arg {Bool} [withnewlines]              Whether newline characters (CR/LF) are allowed verbatim in the string literal or not.
+function StrewtStringCharacterEscapePattern(_delimiter = "\"", _escape = "\\", _withnewlines = false) : StrewtPattern() constructor { 
+    /// @desc The byte marking the beginning and the end of the string literal.
+    /// @returns {Real}
+    delimiter_byte = strewt_byte(_delimiter);
     
+    /// @desc The byte starting an escape sequence.
+    /// @returns {Real}
+    escape_byte = strewt_byte(_escape);
+    
+    /// @desc The charset for raw string literal contents.
+    /// @returns {Struct.StrewtCharset}
+    literal_charset = new StrewtCharset(true)
+        .with_byte_value(delimiter_byte, false)
+        .with_byte_value(escape_byte, false)
+        .with_byte_value(strewt_byte("\n"), _withnewlines)
+        .with_byte_value(strewt_byte("\r"), _withnewlines);
+    
+    /// @desc The chartable matching bytes following the escape character to their respective characters/strings.
+    /// @returns {Struct.StrewtChartable}
     escape_mappings = new StrewtChartable(undefined);
-    escape_mappings.with_value(terminator_byte, chr(terminator_byte));
+    escape_mappings.with_value(delimiter_byte, chr(delimiter_byte));
     escape_mappings.with_value(escape_byte, chr(escape_byte));
     
     // -----
     // Setup
     // -----
     
+    /// @desc Configures the pattern with a custom escape sequence.
+    /// @arg {Real,String} key              The byte or character to assign the escape to.
+    /// @arg {String,Function} escape       The string to replace the escape sequence with or the method used for detailed processing.
+    /// @returns {Struct.StrewtStringCharsetEscapePattern}
     static with_custom_escape = function(_key, _escape) {
         escape_mappings.with_value(_key, _escape);
         return self;
     }
     
+    /// @desc Configures the pattern with standard newline escape sequences (CR to "\r", LF to "\n").
+    /// @returns {Struct.StrewtStringCharsetEscapePattern}
     static with_newline_escapes = function() {
         return self
             .with_custom_escape("n", "\n")
             .with_custom_escape("r", "\r");
     }
     
+    /// @desc Configures the pattern with standard JSON escape sequences.
+    /// @returns {Struct.StrewtStringCharsetEscapePattern}
     static with_json_escapes = function() {
         return self
             .with_custom_escape("\"", "\"")
@@ -39,6 +61,7 @@ function StrewtStringCharacterEscapePattern(_terminator = "\"", _escape = "\\", 
             .with_custom_escape("u", read_unicode);
     }
     
+    ///.@ignore
     static read_unicode = function(_reader, _target = undefined) {
         static digits_by_char = new StrewtChartable(NaN)
             .with_value("0", 0).with_value("1", 1).with_value("2", 2).with_value("3", 3).with_value("4", 4)
@@ -71,14 +94,17 @@ function StrewtStringCharacterEscapePattern(_terminator = "\"", _escape = "\\", 
     // Processing
     // ----------
     
+    /// @desc Skips the match at the given reader's position (if any) and returns its length.
+    /// @arg {Struct.StrewtReader} reader       The reader to match against.
+    /// @returns {Real}
     static skip = function(_reader) {
         var _position = _reader.position;
-        if (!_reader.skip_byte(terminator_byte))
+        if (!_reader.skip_byte(delimiter_byte))
             return 0;
         
         while (true) {
             _reader.skip_charset(literal_charset);
-            if (_reader.skip_byte(terminator_byte))
+            if (_reader.skip_byte(delimiter_byte))
                 return _reader.position - _position;
             
             if (!_reader.skip_byte(escape_byte))
@@ -90,21 +116,25 @@ function StrewtStringCharacterEscapePattern(_terminator = "\"", _escape = "\\", 
                     return restore_positions(_reader, _position);
             } else if (!is_string(_escape_mapping) && !is_undefined(_escape_mapping)) {
                 restore_positions(_reader, _position);
-                throw StrewtException.invalid_escape(_escape_mapping);
+                throw StrewtException.invalid_type("an escape string or handler method", _escape_mapping);
             }
         }
     }
     
+    /// @desc Skips the match at the given reader's position (if any), writes its interpreted content to the target buffer and returns the written length.
+    /// @arg {Struct.StrewtReader} reader       The reader to match against.
+    /// @arg {Id.Buffer} target                 The target to write the match into.
+    /// @returns {Real}
     static read_into = function(_reader, _target) {
         var _position = _reader.position;
-        if (!_reader.skip_byte(terminator_byte))
+        if (!_reader.skip_byte(delimiter_byte))
             return 0;
         
         var _target_from = buffer_tell(_target);
         
         while (true) {
             _reader.read_charset_into(literal_charset, _target);
-            if (_reader.skip_byte(terminator_byte))
+            if (_reader.skip_byte(delimiter_byte))
                 return buffer_tell(_target) - _target_from;
             
             if (!_reader.skip_byte(escape_byte))
@@ -120,7 +150,7 @@ function StrewtStringCharacterEscapePattern(_terminator = "\"", _escape = "\\", 
                 buffer_write(_target, buffer_u8, buffer_peek(_reader.content_buffer, _reader.position - 1, buffer_u8));
             } else {
                 restore_positions(_reader, _position, _target, _target_from);
-                throw StrewtException.invalid_escape(_escape_mapping);
+                throw StrewtException.invalid_type("an escape string or handler method", _escape_mapping);
             }
         }
     }

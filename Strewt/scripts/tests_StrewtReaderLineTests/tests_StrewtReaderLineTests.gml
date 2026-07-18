@@ -31,7 +31,7 @@ function StrewtReaderLineTests(_run, _method) : StrewtReaderMethodFamilyBaseTest
     }
     
     static when_read_into_target = function(_target) {
-        return reader.read_line_into(include_eol, _target);
+        return reader.read_line_into(_target, include_eol);
     }
     
     // --------

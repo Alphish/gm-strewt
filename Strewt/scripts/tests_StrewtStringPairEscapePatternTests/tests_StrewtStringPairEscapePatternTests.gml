@@ -1,7 +1,7 @@
-function StrewtStringTerminatorDoublingPatternTests(_run, _method) : StrewtPatternBaseTest(_run, _method) constructor {
-    static test_subject = "Terminator doubling string pattern";
+function StrewtStringPairEscapePatternTests(_run, _method) : StrewtPatternBaseTest(_run, _method) constructor {
+    static test_subject = "Pair escape string pattern";
     
-    pattern = new StrewtStringTerminatorDoublingPattern();
+    pattern = new StrewtStringPairEscapePattern();
     
     // ------
     // Basics
@@ -16,7 +16,7 @@ function StrewtStringTerminatorDoublingPatternTests(_run, _method) : StrewtPatte
         then_expect_positions(0, 0);
     }
     
-    static should_ignore_string_without_opening_terminator = function() {
+    static should_ignore_string_without_opening_delimiter = function() {
         given_content("Lorem ipsum");
         when_pattern_tested();
         
@@ -25,7 +25,7 @@ function StrewtStringTerminatorDoublingPatternTests(_run, _method) : StrewtPatte
         then_expect_positions(0, 0);
     }
     
-    static should_ignore_string_without_closing_terminator = function() {
+    static should_ignore_string_without_closing_delimiter = function() {
         given_content("\"Lorem ipsum");
         when_pattern_tested();
         
@@ -93,7 +93,7 @@ function StrewtStringTerminatorDoublingPatternTests(_run, _method) : StrewtPatte
         then_expect_positions(0, 30);
     }
     
-    static should_ignore_string_with_closing_terminator_escaped = function() {
+    static should_ignore_string_with_closing_delimiter_escaped = function() {
         given_content("\"Lorem ipsum\"\"");
         when_pattern_tested();
         
@@ -102,9 +102,9 @@ function StrewtStringTerminatorDoublingPatternTests(_run, _method) : StrewtPatte
         then_expect_positions(0, 0);
     }
     
-    static should_handle_basic_string_with_custom_terminator = function() {
+    static should_handle_basic_string_with_custom_delimiter = function() {
         given_content("'Lorem ipsum'");
-        given_pattern(new StrewtStringTerminatorDoublingPattern("'"));
+        given_pattern(new StrewtStringPairEscapePattern("'"));
         when_pattern_tested();
         
         then_expect_span(13, 11);
@@ -112,9 +112,9 @@ function StrewtStringTerminatorDoublingPatternTests(_run, _method) : StrewtPatte
         then_expect_positions(0, 13);
     }
     
-    static should_handle_escaped_string_with_custom_terminator = function() {
+    static should_handle_escaped_string_with_custom_delimiter = function() {
         given_content("'Nice weather, isn''t it?'");
-        given_pattern(new StrewtStringTerminatorDoublingPattern("'"));
+        given_pattern(new StrewtStringPairEscapePattern("'"));
         when_pattern_tested();
         
         then_expect_span(26, 23);

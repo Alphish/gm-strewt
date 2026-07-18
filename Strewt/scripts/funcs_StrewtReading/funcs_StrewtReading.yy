@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"funcs_StrewtReading",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"funcs_StrewtReading",
+  "parent":{
+    "name":"Reading",
+    "path":"folders/_Packages/Alphish/Strewt/Reading.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

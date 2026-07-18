@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"tests_StrewtStringTerminatorDoublingPatternTests",
+  "%Name":"tests_StrewtStringPairEscapePatternTests",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"tests_StrewtStringTerminatorDoublingPatternTests",
+  "name":"tests_StrewtStringPairEscapePatternTests",
   "parent":{
     "name":"Patterns",
     "path":"folders/Tests/Patterns.yy",

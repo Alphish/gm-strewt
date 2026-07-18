@@ -88,6 +88,15 @@ function StrewtNumberPatternTests(_run, _method) : StrewtPatternBaseTest(_run, _
         then_expect_positions(0, 0);
     }
     
+    static should_ignore_double_sign = function() {
+        given_content("++123");
+        when_pattern_tested();
+        
+        then_expect_span(0);
+        then_expect_string("");
+        then_expect_positions(0, 0);
+    }
+    
     static should_handle_fraction = function() {
         given_content("3.14");
         when_pattern_tested();
@@ -131,6 +140,24 @@ function StrewtNumberPatternTests(_run, _method) : StrewtPatternBaseTest(_run, _
         then_expect_span(7);
         then_expect_number(0.000000000123);
         then_expect_positions(0, 7);
+    }
+    
+    static should_ignore_double_exponent = function() {
+        given_content("9EE+3");
+        when_pattern_tested();
+        
+        then_expect_span(1);
+        then_expect_number(9);
+        then_expect_positions(0, 1);
+    }
+    
+    static should_ignore_double_exponent_sign = function() {
+        given_content("9e++3");
+        when_pattern_tested();
+        
+        then_expect_span(1);
+        then_expect_number(9);
+        then_expect_positions(0, 1);
     }
     
     static should_ignore_trailing_exponent = function() {

@@ -1,4 +1,5 @@
 function StrewtSuite() : VerrificSuiteGroup("Strewt tests") constructor {
+    add_methods_from(StrewtMultigraphTests);
     add_suite(new StrewtChartableSuite());
     add_suite(new StrewtCharsetSuite());
     add_methods_from(StrewtLocationTests);

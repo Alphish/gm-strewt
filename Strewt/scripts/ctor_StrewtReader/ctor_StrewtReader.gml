@@ -1,4 +1,14 @@
-function StrewtReader(_content) constructor {
+/// @desc A buffer-backed text reader. Its content may be passed as a string or a buffer.
+/// @arg {String,Id.Buffer} content         The content to process, given as a string or a buffer of text bytes.
+function StrewtReader(_content) constructor { 
+    /// @desc The length of the content in bytes.
+    /// @returns {Real}
+    byte_length = 0;
+    
+    /// @desc The buffer of the content to be processed.
+    /// @returns {Id.Buffer}
+    content_buffer = undefined;
+    
     if (is_string(_content)) {
         byte_length = string_byte_length(_content);
         content_buffer = buffer_create(byte_length + 1 /* extra byte for terminating character */, buffer_fixed, 1);
@@ -14,18 +24,26 @@ function StrewtReader(_content) constructor {
             buffer_poke(content_buffer, byte_length, buffer_u8, 0);
         }
     } else {
-        throw StrewtException.reader_invalid_content(_content);
+        throw StrewtException.invalid_type("a buffer or a string", _content);
     }
     
     buffer_seek(content_buffer, buffer_seek_start, 0);
+    
+    /// @desc The current position in the processed content.
+    /// @returns {Real}
     position = 0;
     
+    /// @desc The name specifying the source of the processed content, such as a filename.
+    /// @returns {String}
     source_name = undefined;
     
     // -----
     // Setup
     // -----
     
+    /// @desc Configures the reader with the given source name.
+    /// @arg {String} name                  The name of the source the content comes from.
+    /// @returns {Struct.StrewtReader}
     static with_source_name = function(_name) {
         source_name = _name;
         return self;
@@ -35,28 +53,41 @@ function StrewtReader(_content) constructor {
     // Navigation
     // ----------
     
+    /// @desc Gets the current reader position (in bytes) within the processed content.
+    /// @returns {Real}
     static get_position = function() {
         return position;
     }
     
+    /// @desc Checks whether the reader is at the end of content.
+    /// @returns {Bool}
+    static is_end_of_content = function() {
+        return position >= byte_length;
+    }
+    
+    /// @desc Moves the reader position to the given byte.
+    /// @arg {Real} position                The reader position to move to.
     static move_to = function(_position) {
         position = _position;
         buffer_seek(content_buffer, buffer_seek_start, position);
     }
     
+    /// @desc Moves the reader position by the given number of bytes.
+    /// @arg {Real} offset                  The number of bytes to move the reader position by.
     static move_by = function(_offset) {
         position += _offset;
         buffer_seek(content_buffer, buffer_seek_relative, _offset);
     }
     
-    static is_end_of_content = function() {
-        return position >= byte_length;
-    }
-    
+    /// @desc Gets the current reader location struct (line, column, position).
+    /// @returns {Struct.StrewtLocation}
     static get_location = function() {
         return update_location(new StrewtLocation());
     }
     
+    /// @desc Updates the given reader location struct with updated line, column and position.
+    /// @arg {Struct.StrewtLocation} target     The location struct to update.
+    /// @returns {Struct.StrewtLocation}
     static update_location = function(_target) {
         static continuation_mask = 0b1100_0000;
         static continuation_pattern = 0b1000_0000;
@@ -98,14 +129,19 @@ function StrewtReader(_content) constructor {
         return _target;
     }
     
-    // ------
-    // Ranges
-    // ------
+    // ----------------
+    // Content sections
+    // ----------------
     
+    /// @desc Returns the entirety of the processed content text.
+    /// @returns {String}
     static peek_all = function() {
         return buffer_peek(content_buffer, 0, buffer_string);
     }
     
+    /// @desc Returns the section of the processed content text.
+    /// @arg {Real} from                    The start of the content section (in bytes).
+    /// @arg {Real} to                      The end of the content section (in bytes).
     static peek_substring = function(_from, _to) {
         var _length = _to - _from;
         if (_length == 0)
@@ -121,7 +157,12 @@ function StrewtReader(_content) constructor {
         return _result;
     }
     
-    static read_into = function(_from, _span, _target) {
+    /// @desc Copies the given content section to the target buffer and returns the byte length of the copied span.
+    /// @arg {Real} from                    The start of the content section.
+    /// @arg {Real} span                    The length of the copied span.
+    /// @arg {Id.Buffer} target             The target buffer to copy content into.
+    /// @returns {Real}
+    static read_substring_into = function(_from, _span, _target) {
         if (_span <= 0)
             return 0;
         
@@ -134,8 +175,18 @@ function StrewtReader(_content) constructor {
     // Bytes
     // -----
     
+    // Next bytes
+    
+    /// @desc Returns the length of the next byte - 1 if there's a byte remaining or 0 otherwise.
+    /// @returns {Real}
+    static span_next = function() {
+        return position < byte_length ? 1 : 0;
+    }
+    
+    /// @desc Skips the next byte, if any remains. Returns the number of bytes skipped (0 or 1).
+    /// @returns {Real}
     static skip_next = function() {
-        if (position == byte_length)
+        if (position >= byte_length)
             return 0;
         
         position++;
@@ -143,22 +194,46 @@ function StrewtReader(_content) constructor {
         return 1;
     }
     
+    /// @desc Returns the next byte value. If the reader is at the end of content, 0 will be returned.
+    /// @returns {Real}
     static peek_next = function() {
         return buffer_peek(content_buffer, position, buffer_u8);
     }
     
+    /// @desc Skips the next byte (if any) and returns its value. If the reader is at the end of content, 0 will be returned.
+    /// @returns {Real}
     static read_next = function() {
-        if (position == byte_length)
+        if (position >= byte_length)
             return 0;
         
         position++;
         return buffer_read(content_buffer, buffer_u8);
     }
     
+    /// @desc Skips the next byte (if any), writes it to the target buffer and returns its length (1). If the reader is at the end of content, 0 will be returned.
+    /// @arg {Id.Buffer} target             The target buffer to write the byte into.
+    /// @returns {Real}
+    static read_next_into = function(_target) {
+        if (position >= byte_length)
+            return 0;
+        
+        position++;
+        buffer_write(_target, buffer_u8, buffer_read(content_buffer, buffer_u8));
+        return 1;
+    }
+    
+    // Exact bytes
+    
+    /// @desc Returns the given byte length (1) if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {Real} byte                    The matched byte value.
+    /// @returns {Real}
     static span_byte = function(_byte) {
         return buffer_peek(content_buffer, position, buffer_u8) == _byte ? 1 : 0;
     }
     
+    /// @desc Skips the given byte and returns its length (1) if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {Real} byte                    The matched byte value.
+    /// @returns {Real}
     static skip_byte = function(_byte) {
         if (buffer_read(content_buffer, buffer_u8) == _byte) {
             position++;
@@ -169,6 +244,10 @@ function StrewtReader(_content) constructor {
         }
     }
     
+    /// @desc Skips the given byte, writes it to the target buffer and returns its length (1) if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {Real} byte                    The matched byte value.
+    /// @arg {Id.Buffer} target             The target buffer to write the byte into.
+    /// @returns {Real}
     static read_byte_into = function(_byte, _target) {
         if (!skip_byte(_byte))
             return 0;
@@ -177,6 +256,11 @@ function StrewtReader(_content) constructor {
         return 1;
     }
     
+    // Byte sequences
+    
+    /// @desc Returns the given byte sequence length if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {Array<Real>} bytes            The matched bytes sequence.
+    /// @returns {Real}
     static span_byte_sequence = function(_bytes) {
         var _length = array_length(_bytes);
         if (position + _length > byte_length)
@@ -189,6 +273,9 @@ function StrewtReader(_content) constructor {
         return _length;
     }
     
+    /// @desc Skips the given byte sequence and returns its length if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {Array<Real>} bytes            The matched bytes sequence.
+    /// @returns {Real}
     static skip_byte_sequence = function(_bytes) {
         var _length = array_length(_bytes);
         if (position + _length > byte_length)
@@ -204,35 +291,142 @@ function StrewtReader(_content) constructor {
         return _length;
     }
     
+    /// @desc Skips the given bytes sequence, writes it to the target buffer and returns its length if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {Array<Real>} bytes            The matched bytes sequence.
+    /// @arg {Id.Buffer} target             The target buffer to write the bytes sequence into.
+    /// @returns {Real}
     static read_byte_sequence_into = function(_bytes, _target) {
         var _position = position;
-        return read_into(_position, skip_byte_sequence(_bytes), _target);
+        return read_substring_into(_position, skip_byte_sequence(_bytes), _target);
+    }
+    
+    // -----------
+    // Multigraphs
+    // -----------
+    
+    // Digraphs
+    
+    /// @desc Returns the given digraph length (2) if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {Real} value                   The numeric value of the digraph.
+    /// @returns {Real}
+    static span_digraph = function(_value) {
+        if (position + 2 > byte_length)
+            return 0;
+        
+        return buffer_peek(content_buffer, position, buffer_u16) == _value ? 2 : 0;
+    }
+    
+    /// @desc Skips the given digraph and returns its length (2) if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {Real} value                   The numeric value of the digraph.
+    /// @returns {Real}
+    static skip_digraph = function(_value) {
+        if (position + 2 > byte_length)
+            return 0;
+        
+        if (buffer_peek(content_buffer, position, buffer_u16) != _value)
+            return 0;
+        
+        buffer_seek(content_buffer, buffer_seek_relative, 2);
+        position += 2;
+        return 2;
+    }
+    
+    /// @desc Skips the given digraph, writes it to the target buffer and returns its length (2) if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {Real} value                   The numeric value of the digraph.
+    /// @arg {Id.Buffer} target             The target buffer to write the digraph into.
+    /// @returns {Real}
+    static read_digraph_into = function(_value, _target) {
+        if (!skip_digraph(_value))
+            return 0;
+        
+        buffer_write(_target, buffer_u16, _value);
+        return 2;
+    }
+    
+    // Trigraphs
+    
+    /// @desc Returns the given trigraph length (3) if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {Real} value                   The numeric value of the trigraph.
+    /// @returns {Real}
+    static span_trigraph = function(_value) {
+        if (position + 3 > byte_length)
+            return 0;
+        
+        return (buffer_peek(content_buffer, position, buffer_u32) & 0x00ffffff) == _value ? 3 : 0;
+    }
+    
+    /// @desc Skips the given trigraph and returns its length (3) if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {Real} value                   The numeric value of the trigraph.
+    /// @returns {Real}
+    static skip_trigraph = function(_value) {
+        if (position + 3 > byte_length)
+            return 0;
+        
+        if ((buffer_peek(content_buffer, position, buffer_u32) & 0x00ffffff) != _value)
+            return 0;
+        
+        buffer_seek(content_buffer, buffer_seek_relative, 3);
+        position += 3;
+        return 3;
+    }
+    
+    /// @desc Skips the given trigraph, writes it to the target buffer and returns its length (3) if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {Real} value                   The numeric value of the trigraph.
+    /// @arg {Id.Buffer} target             The target buffer to write the trigraph into.
+    /// @returns {Real}
+    static read_trigraph_into = function(_value, _target) {
+        if (!skip_trigraph(_value))
+            return 0;
+        
+        buffer_write(_target, buffer_u32, _value);
+        buffer_seek(_target, buffer_seek_relative, -1);
+        return 3;
+    }
+    
+    // Tetragraphs
+    
+    /// @desc Returns the given tetragraph length (4) if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {Real} value                   The numeric value of the tetragraph.
+    /// @returns {Real}
+    static span_tetragraph = function(_value) {
+        if (position + 4 > byte_length)
+            return 0;
+        
+        return buffer_peek(content_buffer, position, buffer_u32) == _value ? 4 : 0;
+    }
+    
+    /// @desc Skips the given tetragraph and returns its length (4) if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {Real} value                   The numeric value of the tetragraph.
+    /// @returns {Real}
+    static skip_tetragraph = function(_value) {
+        if (position + 4 > byte_length)
+            return 0;
+        
+        if (buffer_peek(content_buffer, position, buffer_u32) != _value)
+            return 0;
+        
+        buffer_seek(content_buffer, buffer_seek_relative, 4);
+        position += 4;
+        return 4;
+    }
+    
+    /// @desc Skips the given tetragraph, writes it to the target buffer and returns its length (4) if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {Real} value                   The numeric value of the tetragraph.
+    /// @arg {Id.Buffer} target             The target buffer to write the tetragraph into.
+    /// @returns {Real}
+    static read_tetragraph_into = function(_value, _target) {
+        if (!skip_tetragraph(_value))
+            return 0;
+        
+        buffer_write(_target, buffer_u32, _value);
+        return 4;
     }
     
     // ----------
     // Characters
     // ----------
     
-    static get_utf8_character_length = function(_byte) {
-        static lookup = array_create_ext(256, function(i) {
-            if (i == 0)
-                return 0;
-            else if ((i & 0b11111_000) == 0b11111_000)
-                return -1;
-            else if ((i & 0b11111_000) == 0b11110_000)
-                return 4;
-            else if ((i & 0b1111_0000) == 0b1110_0000)
-                return 3;
-            else if ((i & 0b111_00000) == 0b110_00000)
-                return 2;
-            else if ((i & 0b11_000000) == 0b10_000000)
-                return -1;
-            else
-                return 1;
-        });
-        return lookup[_byte];
-    }
-    
+    /// @ignore
     static get_utf8_character_mask = function(_byte) {
         static lookup = array_create_ext(256, function(i) {
             if (i == 0)
@@ -253,9 +447,34 @@ function StrewtReader(_content) constructor {
         return lookup[_byte];
     }
     
+    /// @desc Gets the expected UTF-8 character length based on its first byte.
+    /// @arg {Real} byte                    The first byte of the given UTF-8 character.
+    /// @returns {Real}
+    static span_character = function(_byte) {
+        static lookup = array_create_ext(256, function(i) {
+            if (i == 0)
+                return 0;
+            else if ((i & 0b11111_000) == 0b11111_000)
+                return -1;
+            else if ((i & 0b11111_000) == 0b11110_000)
+                return 4;
+            else if ((i & 0b1111_0000) == 0b1110_0000)
+                return 3;
+            else if ((i & 0b111_00000) == 0b110_00000)
+                return 2;
+            else if ((i & 0b11_000000) == 0b10_000000)
+                return -1;
+            else
+                return 1;
+        });
+        return lookup[_byte];
+    }
+    
+    /// @desc Previews the UTF-8 character at the current reader position, given as a string.
+    /// @returns {String}
     static peek_character = function() {
         var _byte = buffer_peek(content_buffer, position, buffer_u8);
-        var _length = get_utf8_character_length(_byte);
+        var _length = span_character(_byte);
         if (_length < 0)
             throw StrewtException.reader_invalid_utf8_byte(_byte);
         else if (_length == 0)
@@ -269,9 +488,11 @@ function StrewtReader(_content) constructor {
         return chr(_codepoint);
     }
     
+    /// @desc Reads past the UTF-8 character at the current reader position and returns its string.
+    /// @returns {String}
     static read_character = function() {
         var _byte = buffer_read(content_buffer, buffer_u8);
-        var _length = get_utf8_character_length(_byte);
+        var _length = span_character(_byte);
         if (_length < 0) {
             buffer_seek(content_buffer, buffer_seek_relative, -1);
             throw StrewtException.reader_invalid_utf8_byte(_byte);
@@ -289,96 +510,13 @@ function StrewtReader(_content) constructor {
         return chr(_codepoint);
     }
     
-    // -----------
-    // Multigraphs
-    // -----------
-    
-    static span_digraph = function(_value) {
-        if (position + 2 > byte_length)
-            return 0;
-        
-        return buffer_peek(content_buffer, position, buffer_u16) == _value ? 2 : 0;
-    }
-    
-    static skip_digraph = function(_value) {
-        if (position + 2 > byte_length)
-            return 0;
-        
-        if (buffer_peek(content_buffer, position, buffer_u16) != _value)
-            return 0;
-        
-        buffer_seek(content_buffer, buffer_seek_relative, 2);
-        position += 2;
-        return 2;
-    }
-    
-    static read_digraph_into = function(_value, _target) {
-        if (!skip_digraph(_value))
-            return 0;
-        
-        buffer_write(_target, buffer_u16, _value);
-        return 2;
-    }
-    
-    static span_trigraph = function(_value) {
-        if (position + 3 > byte_length)
-            return 0;
-        
-        return (buffer_peek(content_buffer, position, buffer_u32) & 0x00ffffff) == _value ? 3 : 0;
-    }
-    
-    static skip_trigraph = function(_value) {
-        if (position + 3 > byte_length)
-            return 0;
-        
-        if ((buffer_peek(content_buffer, position, buffer_u32) & 0x00ffffff) != _value)
-            return 0;
-        
-        buffer_seek(content_buffer, buffer_seek_relative, 3);
-        position += 3;
-        return 3;
-    }
-    
-    static read_trigraph_into = function(_value, _target) {
-        if (!skip_trigraph(_value))
-            return 0;
-        
-        buffer_write(_target, buffer_u32, _value);
-        buffer_seek(_target, buffer_seek_relative, -1);
-        return 3;
-    }
-    
-    static span_tetragraph = function(_value) {
-        if (position + 4 > byte_length)
-            return 0;
-        
-        return buffer_peek(content_buffer, position, buffer_u32) == _value ? 4 : 0;
-    }
-    
-    static skip_tetragraph = function(_value) {
-        if (position + 4 > byte_length)
-            return 0;
-        
-        if (buffer_peek(content_buffer, position, buffer_u32) != _value)
-            return 0;
-        
-        buffer_seek(content_buffer, buffer_seek_relative, 4);
-        position += 4;
-        return 4;
-    }
-    
-    static read_tetragraph_into = function(_value, _target) {
-        if (!skip_tetragraph(_value))
-            return 0;
-        
-        buffer_write(_target, buffer_u32, _value);
-        return 4;
-    }
-    
     // -------
     // Strings
     // -------
     
+    /// @desc Returns the given string length if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {String} str                   The matched string.
+    /// @returns {Real}
     static span_string = function(_str) {
         var _length = string_byte_length(_str);
         if (position + _length > byte_length)
@@ -387,6 +525,9 @@ function StrewtReader(_content) constructor {
         return peek_substring(position, position + _length) == _str ? _length : 0;
     }
     
+    /// @desc Skips the given string and returns its length if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {String} str                   The matched string.
+    /// @returns {Real}
     static skip_string = function(_str) {
         var _length = string_byte_length(_str);
         if (position + _length > byte_length)
@@ -400,15 +541,22 @@ function StrewtReader(_content) constructor {
         return _string_found ? _length : 0;
     }
     
+    /// @desc Skips the given string, writes it to the target buffer and returns its length if matched at the current reader position. Returns 0 otherwise.
+    /// @arg {String} str                   The matched string.
+    /// @arg {Id.Buffer} target             The target buffer to write the string into.
+    /// @returns {Real}
     static read_string_into = function(_str, _target) {
         var _position = position;
-        return read_into(_position, skip_string(_str), _target);
+        return read_substring_into(_position, skip_string(_str), _target);
     }
     
     // -----
     // Lines
     // -----
     
+    /// @desc Returns the remaining line length at the current position, with or without the line terminating sequence.
+    /// @arg {Bool} [withend]               Whether to include the length of the line terminator.
+    /// @returns {Real}
     static span_line = function(_withend = false) {
         var _byte = buffer_read(content_buffer, buffer_u8);
         while (_byte != 10 /* Line feed */ && _byte != 13 /* Carriage return */ && _byte != 0 /* String end */) {
@@ -424,6 +572,9 @@ function StrewtReader(_content) constructor {
         return _newpos - position;
     }
     
+    /// @desc Skips to the next line and returns the remaining length of the skipped line. The line terminating sequence may or may not be included, but it's always skipped.
+    /// @arg {Bool} [withend]               Whether to include the length of the line terminator.
+    /// @returns {Real}
     static skip_line = function(_withend = false) {
         var _byte = buffer_read(content_buffer, buffer_u8);
         while (_byte != 10 /* Line feed */ && _byte != 13 /* Carriage return */ && _byte != 0 /* String end */) {
@@ -452,20 +603,30 @@ function StrewtReader(_content) constructor {
         }
     }
     
+    /// @desc Returns the remaining line content at the current position, with or without the line terminating sequence.
+    /// @arg {Bool} [withend]               Whether to include the line terminator in the result.
+    /// @returns {String}
     static peek_line = function(_withend = false) {
         var _span = span_line(_withend);
         return peek_substring(position, position + _span);
     }
     
+    /// @desc Skips to the next line and returns the remaining line content at the current position. The line terminating sequence may or may not be included, but it's always skipped.
+    /// @arg {Bool} [withend]               Whether to include the line terminator in the result.
+    /// @returns {String}
     static read_line = function(_withend = false) {
         var _position = position;
         var _span = skip_line(_withend);
         return peek_substring(_position, _position + _span);
     }
     
-    static read_line_into = function(_withend, _target) {
+    /// @desc Skips to the next line, writes the remaining line content to the target buffer and returns its length. The line terminating sequence may or may not be included in the written output and length, but it's always skipped.
+    /// @arg {Id.Buffer} target             The target buffer to write the line content into.
+    /// @arg {Bool} [withend]               Whether to include the line terminator in the written output.
+    /// @returns {Real}
+    static read_line_into = function(_target, _withend = false) {
         var _position = position;
-        return read_into(_position, skip_line(_withend), _target);
+        return read_substring_into(_position, skip_line(_withend), _target);
     }
     
     // --------
@@ -474,12 +635,18 @@ function StrewtReader(_content) constructor {
     
     // Individual bytes
     
+    /// @desc Returns the current byte length (1) if it's in the given charset. Returns 0 otherwise.
+    /// @arg {Struct.StrewtCharset} charset     The charset of valid bytes.
+    /// @returns {Real}
     static span_charset_byte = function(_charset) {
         var _table = _charset.table;
         var _byte = buffer_peek(content_buffer, position, buffer_u8);
         return _table[_byte] ? 1 : 0;
     }
     
+    /// @desc Skips the current byte and returns its length (1) if it's in the given charset. Returns 0 otherwise.
+    /// @arg {Struct.StrewtCharset} charset     The charset of valid bytes.
+    /// @returns {Real}
     static skip_charset_byte = function(_charset) {
         var _table = _charset.table;
         if (_table[buffer_read(content_buffer, buffer_u8)]) {
@@ -491,12 +658,18 @@ function StrewtReader(_content) constructor {
         }
     }
     
+    /// @desc Returns the current byte value if it's in the given charset. Returns 0 otherwise.
+    /// @arg {Struct.StrewtCharset} charset     The charset of valid bytes.
+    /// @returns {Real}
     static peek_charset_byte = function(_charset) {
         var _table = _charset.table;
         var _byte = buffer_peek(content_buffer, position, buffer_u8);
         return _table[_byte] ? _byte : 0;
     }
     
+    /// @desc Skips the current byte and returns its value if it's in the given charset. Returns 0 otherwise.
+    /// @arg {Struct.StrewtCharset} charset     The charset of valid bytes.
+    /// @returns {Real}
     static read_charset_byte = function(_charset) {
         var _table = _charset.table;
         var _byte = buffer_read(content_buffer, buffer_u8);
@@ -509,6 +682,10 @@ function StrewtReader(_content) constructor {
         }
     }
     
+    /// @desc Skips the current byte, writes it to the target buffer and returns its length (1) if it's in the given charset. Returns 0 otherwise.
+    /// @arg {Struct.StrewtCharset} charset     The charset of valid bytes.
+    /// @arg {Id.Buffer} target                 The target buffer to write the byte into.
+    /// @returns {Real}
     static read_charset_byte_into = function(_charset, _target) {
         var _byte = read_charset_byte(_charset);
         if (_byte == 0)
@@ -520,6 +697,9 @@ function StrewtReader(_content) constructor {
     
     // Charset strings
     
+    /// @desc Returns the length of a sequence matching the given charset at the current position (0 or more bytes).
+    /// @arg {Struct.StrewtCharset} charset     The charset to match.
+    /// @returns {Real}
     static span_charset = function(_charset) {
         var _table = _charset.table;
         var _to = position;
@@ -530,6 +710,9 @@ function StrewtReader(_content) constructor {
         return _to - position;
     }
     
+    /// @desc Skips the sequence matching the given charset at the current position and returns its length (0 or more bytes).
+    /// @arg {Struct.StrewtCharset} charset     The charset to match.
+    /// @returns {Real}
     static skip_charset = function(_charset) {
         var _table = _charset.table;
         var _from = position;
@@ -540,30 +723,46 @@ function StrewtReader(_content) constructor {
         return position - _from;
     }
     
+    /// @desc Returns the content of a sequence matching the given charset at the current position.
+    /// @arg {Struct.StrewtCharset} charset     The charset to match.
+    /// @returns {Real}
     static peek_charset = function(_charset) {
         var _span = span_charset(_charset);
         return peek_substring(position, position + _span);
     }
     
+    /// @desc Skips the sequence matching the given charset at the current position and returns its content.
+    /// @arg {Struct.StrewtCharset} charset     The charset to match.
+    /// @returns {Real}
     static read_charset = function(_charset) {
         var _span = skip_charset(_charset);
         return peek_substring(position - _span, position);
     }
     
+    /// @desc Skips the sequence matching the given charset at the current position, writes its content to the target buffer and returns its length (0 or more bytes).
+    /// @arg {Struct.StrewtCharset} charset     The charset to match.
+    /// @arg {Id.Buffer} target                 The target buffer to write the sequence into.
+    /// @returns {Real}
     static read_charset_into = function(_charset, _target) {
         var _position = position;
-        return read_into(_position, skip_charset(_charset), _target);
+        return read_substring_into(_position, skip_charset(_charset), _target);
     }
     
     // ----------
     // Chartables
     // ----------
     
+    /// @desc Returns the given chartable's value corresponding to the next byte.
+    /// @arg {Struct.StrewtChartable} chartable     The chartable to get the value of.
+    /// @returns {Any}
     static peek_chartable = function(_chartable) {
         var _byte = buffer_peek(content_buffer, position, buffer_u8);
         return _chartable.table[_byte];
     }
     
+    /// @desc Returns the given chartable's value corresponding to the next byte and skips the byte (if any).
+    /// @arg {Struct.StrewtChartable} chartable     The chartable to get the value of.
+    /// @returns {Any}
     static read_chartable = function(_chartable) {
         if (position >= byte_length)
             return _chartable.table[0];
@@ -577,40 +776,85 @@ function StrewtReader(_content) constructor {
     // Patterns
     // --------
     
+    /// @desc Returns the length of a given pattern's match at the current position, if any.
+    /// @arg {Struct.StrewtPattern} pattern     The pattern to match.
+    /// @returns {Real}
     static span_pattern = function(_pattern) {
         return _pattern.span(self);
     }
     
+    /// @desc Skips the given pattern's match at the current position (if any) and returns its length.
+    /// @arg {Struct.StrewtPattern} pattern     The pattern to match.
+    /// @returns {Real}
     static skip_pattern = function(_pattern) {
         return _pattern.skip(self);
     }
     
+    /// @desc Returns the raw content of a given pattern's match at the current position, if any.
+    /// @arg {Struct.StrewtPattern} pattern     The pattern to match.
+    /// @returns {Real}
     static peek_pattern_raw = function(_pattern) {
         return _pattern.peek_raw(self);
     }
     
+    /// @desc Skips the given pattern's match at the current position (if any) and returns its raw content.
+    /// @arg {Struct.StrewtPattern} pattern     The pattern to match.
+    /// @returns {Real}
     static read_pattern_raw = function(_pattern) {
         return _pattern.read_raw(self);
     }
     
+    /// @desc Returns the interpreted content of a given pattern's match at the current position, if any.
+    /// @arg {Struct.StrewtPattern} pattern     The pattern to match.
+    /// @returns {Real}
     static peek_pattern = function(_pattern) {
         return _pattern.peek(self);
     }
     
+    /// @desc Skips the given pattern's match at the current position (if any) and returns its interpreted content.
+    /// @arg {Struct.StrewtPattern} pattern     The pattern to match.
+    /// @returns {Real}
     static read_pattern = function(_pattern) {
         return _pattern.read(self);
     }
     
+    /// @desc Skips the given pattern's match at the current position (if any), writes its interpreted content to the target buffer and returns the read length.
+    /// @arg {Struct.StrewtPattern} pattern     The pattern to match.
+    /// @arg {Id.Buffer} target                 The target buffer to write the match into.
+    /// @returns {Real}
     static read_pattern_into = function(_pattern, _target) {
         return _pattern.read_into(self, _target);
+    }
+    
+    // --------------
+    // Direct reading
+    // --------------
+    
+    /// @desc Peeks a value of the given datatype directly from the buffer.
+    /// @arg {Constant.BufferDataType} datatype     The buffer datatype to read.
+    /// @returns {Any}
+    static peek_direct = function(_datatype) {
+        return buffer_peek(content_buffer, position, _datatype);
+    }
+    
+    /// @desc Reads a value of the given datatype directly from the buffer.
+    /// @arg {Constant.BufferDataType} datatype     The buffer datatype to read.
+    /// @returns {Any}
+    static read_direct = function(_datatype) {
+        var _result = buffer_read(content_buffer, _datatype);
+        position = buffer_tell(content_buffer);
+        return _result;
     }
     
     // -------
     // Cleanup
     // -------
     
+    /// @desc Frees up the resources held by the reader. The reader cannot be used afterwards.
     static cleanup = function() {
-        if (buffer_exists(content_buffer))
+        if (!is_undefined(content_buffer) && buffer_exists(content_buffer))
             buffer_delete(content_buffer);
+        
+        content_buffer = undefined;
     }
 }

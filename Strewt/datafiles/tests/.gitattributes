@@ -1,0 +1,2 @@
+# force LF for test inputs to report consistent positions
+*.txt text eol=lf

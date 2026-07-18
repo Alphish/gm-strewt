@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"funcs_Strewt",
+  "%Name":"tests_StrewtMultigraphTests",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"funcs_Strewt",
+  "name":"tests_StrewtMultigraphTests",
   "parent":{
-    "name":"Strewt",
-    "path":"folders/_Packages/Alphish/Strewt.yy",
+    "name":"Tests",
+    "path":"folders/Tests.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

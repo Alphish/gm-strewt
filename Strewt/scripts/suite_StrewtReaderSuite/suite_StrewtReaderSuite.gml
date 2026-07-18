@@ -5,7 +5,7 @@ function StrewtReaderSuite() : VerrificSuiteGroup("Strewt Reader tests") constru
         StrewtReaderLocationTests,
         StrewtReaderSubstringTests,
         StrewtReaderTargetCopyTests,
-        StrewtReaderByteTests,
+        StrewtReaderNextByteTests,
         StrewtReaderSpecificByteTests,
         StrewtReaderByteSequenceTests,
         StrewtReaderCharacterTests,
@@ -17,6 +17,7 @@ function StrewtReaderSuite() : VerrificSuiteGroup("Strewt Reader tests") constru
         StrewtReaderCharsetTests,
         StrewtReaderCharsetStringTests,
         StrewtReaderChartableTests,
+        StrewtReaderDirectReadTests,
     ], function(_test) {
         add_methods_from(_test);
     });
