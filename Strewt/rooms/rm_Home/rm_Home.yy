@@ -11,6 +11,7 @@
     {"name":"inst_23D02000","path":"rooms/rm_Home/rm_Home.yy",},
     {"name":"inst_5B35A468","path":"rooms/rm_Home/rm_Home.yy",},
     {"name":"inst_1161464","path":"rooms/rm_Home/rm_Home.yy",},
+    {"name":"inst_4C528BC2","path":"rooms/rm_Home/rm_Home.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -38,6 +39,12 @@
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"par_DecolActionButton","path":"objects/par_DecolActionButton/par_DecolActionButton.yy",},"propertyId":{"name":"command_parameter","path":"objects/par_DecolActionButton/par_DecolActionButton.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"rm_Test",},
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"par_DecolComponent","path":"objects/par_DecolComponent/par_DecolComponent.yy",},"propertyId":{"name":"stylesheet","path":"objects/par_DecolComponent/par_DecolComponent.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"button_strewt",},
           ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":4.0000005,"scaleY":0.6666667,"x":80.0,"y":520.0,},
+        {"$GMRInstance":"v4","%Name":"inst_4C528BC2","colour":4286116448,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_4C528BC2","objectId":{"name":"ui_DecolActionTextButton","path":"objects/ui_DecolActionTextButton/ui_DecolActionTextButton.yy",},"previewSprite":{"name":"spr_DecolRoundButton","path":"sprites/spr_DecolRoundButton/spr_DecolRoundButton.yy",},"properties":[
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"par_DecolActionButton","path":"objects/par_DecolActionButton/par_DecolActionButton.yy",},"propertyId":{"name":"command","path":"objects/par_DecolActionButton/par_DecolActionButton.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"room_goto",},
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"ui_DecolActionTextButton","path":"objects/ui_DecolActionTextButton/ui_DecolActionTextButton.yy",},"propertyId":{"name":"text","path":"objects/ui_DecolActionTextButton/ui_DecolActionTextButton.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"BBCode parser demo",},
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"par_DecolActionButton","path":"objects/par_DecolActionButton/par_DecolActionButton.yy",},"propertyId":{"name":"command_parameter","path":"objects/par_DecolActionButton/par_DecolActionButton.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"rm_BbcodeParserDemo",},
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"par_DecolComponent","path":"objects/par_DecolComponent/par_DecolComponent.yy",},"propertyId":{"name":"stylesheet","path":"objects/par_DecolComponent/par_DecolComponent.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"button_strewt",},
+          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":4.0000005,"scaleY":0.6666667,"x":80.0,"y":460.0,},
       ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRBackgroundLayer":"","%Name":"Background","animationFPS":30.0,"animationSpeedType":0,"colour":4294967295,"depth":200,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Background","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":{"name":"bg_Demo","path":"sprites/bg_Demo/bg_Demo.yy",},"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.0,"vtiled":false,"x":0,"y":0,},
   ],

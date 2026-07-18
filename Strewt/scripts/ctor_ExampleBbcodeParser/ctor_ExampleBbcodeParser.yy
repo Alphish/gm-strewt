@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ctor_ExampleBbcodeParser",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ctor_ExampleBbcodeParser",
+  "parent":{
+    "name":"Bbcode",
+    "path":"folders/Demo/Bbcode.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
