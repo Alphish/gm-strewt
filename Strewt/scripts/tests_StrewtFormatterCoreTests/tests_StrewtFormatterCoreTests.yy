@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"tests_StrewtFormatterCoreTests",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"tests_StrewtFormatterCoreTests",
+  "parent":{
+    "name":"Formatter",
+    "path":"folders/Tests/Formatter.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
