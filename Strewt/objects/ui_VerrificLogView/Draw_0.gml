@@ -1,5 +1,5 @@
-var _gui_width = display_get_gui_width();
-var _gui_height = display_get_gui_height();
+var _gui_width = room_width;
+var _gui_height = room_height;
 
 // draw the main background
 // it's not necessary to draw when the screen is filled with lines
