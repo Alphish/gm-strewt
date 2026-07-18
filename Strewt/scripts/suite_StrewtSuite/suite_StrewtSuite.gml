@@ -7,4 +7,5 @@ function StrewtSuite() : VerrificSuiteGroup("Strewt tests") constructor {
     add_suite(new StrewtPatternsSuite());
     add_suite(new StrewtParserSuite());
     add_suite(new StrewtWriterSuite());
+    add_suite(new StrewtFormatterSuite());
 }

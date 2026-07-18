@@ -7,20 +7,28 @@
   "inheritLayers":false,
   "instanceCreationOrder":[
     {"name":"inst_6BE6CC21","path":"rooms/rm_Test/rm_Test.yy",},
+    {"name":"inst_39A8A370","path":"rooms/rm_Test/rm_Test.yy",},
   ],
   "isDnd":false,
   "layers":[
-    {"$GMRInstanceLayer":"","%Name":"Instances","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
+    {"$GMRInstanceLayer":"","%Name":"Buttons","depth":0,"effectEnabled":true,"effectType":null,"gridX":20,"gridY":20,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
+        {"$GMRInstance":"v4","%Name":"inst_39A8A370","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_39A8A370","objectId":{"name":"ui_DecolActionTextButton","path":"objects/ui_DecolActionTextButton/ui_DecolActionTextButton.yy",},"previewSprite":{"name":"spr_DecolRoundButton","path":"sprites/spr_DecolRoundButton/spr_DecolRoundButton.yy",},"properties":[
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"par_DecolActionButton","path":"objects/par_DecolActionButton/par_DecolActionButton.yy",},"propertyId":{"name":"command","path":"objects/par_DecolActionButton/par_DecolActionButton.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"room_goto",},
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"ui_DecolActionTextButton","path":"objects/ui_DecolActionTextButton/ui_DecolActionTextButton.yy",},"propertyId":{"name":"text","path":"objects/ui_DecolActionTextButton/ui_DecolActionTextButton.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"Back to home",},
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"par_DecolActionButton","path":"objects/par_DecolActionButton/par_DecolActionButton.yy",},"propertyId":{"name":"command_parameter","path":"objects/par_DecolActionButton/par_DecolActionButton.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"rm_Home",},
+          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":4.0000005,"scaleY":0.6666667,"x":1020.0,"y":20.0,},
+      ],"layers":[],"name":"Buttons","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
+    {"$GMRInstanceLayer":"","%Name":"Instances","depth":100,"effectEnabled":true,"effectType":null,"gridX":20,"gridY":20,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v4","%Name":"inst_6BE6CC21","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_6BE6CC21","objectId":{"name":"ctrl_VerrificLog","path":"objects/ctrl_VerrificLog/ctrl_VerrificLog.yy",},"properties":[
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"ctrl_VerrificLog","path":"objects/ctrl_VerrificLog/ctrl_VerrificLog.yy",},"propertyId":{"name":"suite","path":"objects/ctrl_VerrificLog/ctrl_VerrificLog.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"StrewtSuite",},
           ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":0.0,"y":0.0,},
       ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
-    {"$GMRBackgroundLayer":"","%Name":"Background","animationFPS":15.0,"animationSpeedType":0,"colour":4278190080,"depth":100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Background","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":null,"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.0,"vtiled":false,"x":0,"y":0,},
+    {"$GMRBackgroundLayer":"","%Name":"Background","animationFPS":15.0,"animationSpeedType":0,"colour":4278190080,"depth":200,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Background","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":null,"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.0,"vtiled":false,"x":0,"y":0,},
   ],
   "name":"rm_Test",
   "parent":{
-    "name":"Strewt",
-    "path":"Strewt.yyp",
+    "name":"Tests",
+    "path":"folders/Tests.yy",
   },
   "parentRoom":null,
   "physicsSettings":{
@@ -33,10 +41,10 @@
   "resourceType":"GMRoom",
   "resourceVersion":"2.0",
   "roomSettings":{
-    "Height":1080,
+    "Height":720,
     "inheritRoomSettings":false,
     "persistent":false,
-    "Width":1920,
+    "Width":1280,
   },
   "sequenceId":null,
   "views":[

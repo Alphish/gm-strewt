@@ -1,6 +1,4 @@
 function StrewtParserBaseTests(_run, _method) : VerrificMethodTest(_run, _method) constructor {
-    static test_subject = "Example parser";
-    
     parser = undefined;
     parse_result = undefined;
     
