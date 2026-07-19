@@ -4,7 +4,7 @@ function TestDummyFormatter(_input) : StrewtFormatter(_input) constructor {
     header = undefined;
     
     static process_step = function() {
-        if (status)
+        if (status != 0)
             return;
         
         if (total_items == 0)
@@ -17,6 +17,8 @@ function TestDummyFormatter(_input) : StrewtFormatter(_input) constructor {
             case "<":
                 writer.pop_indent();
                 break;
+            case "?":
+                return fail("Cannot process individual question marks.");
             default:
                 writer.write_line(input[current_item]);
                 break;

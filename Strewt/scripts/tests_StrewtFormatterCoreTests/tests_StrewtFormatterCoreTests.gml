@@ -28,4 +28,11 @@ function StrewtFormatterCoreTests(_run, _method) : StrewtFormatterBaseTests(_run
         expect_result("open\n    inner1\n    inner2\n\nclose\n");
         expect_cleanup();
     }
+    
+    static should_fail_formatting_invalid_input = function() {
+        given_formatter_of(["open", ">", "inner1", "?", "", "<", "close"]);
+        when_formatted();
+        expect_error("Cannot process individual question marks.");
+        expect_cleanup();
+    }
 }

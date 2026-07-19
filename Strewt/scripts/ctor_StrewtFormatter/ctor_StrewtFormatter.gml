@@ -33,7 +33,7 @@ function StrewtFormatter(_input) constructor {
     /// @returns {Struct.StrewtLocation}
     error_location = undefined;
     
-    /// @desc Indicates the parsing status; 0 when in progress, positive when completed.
+    /// @desc Indicates the parsing status; 0 when in progress, positive when completed, negative when failed.
     /// @returns {Real}
     status = 0;
     
@@ -90,7 +90,7 @@ function StrewtFormatter(_input) constructor {
             writer.with_newline_sequence(writer_newline_sequence);
         
         if (!is_undefined(writer_default_indent))
-            writer.with_newline_sequence(writer_default_indent);
+            writer.with_default_indent_unit(writer_default_indent);
         
         if (writer_indent_blank_lines)
             writer.indenting_blank_lines();
@@ -112,7 +112,7 @@ function StrewtFormatter(_input) constructor {
     /// @returns {Bool}
     static complete = function() {
         result = writer.get_content();
-        status = true;
+        status = 1;
         return true;
     }
     
@@ -122,10 +122,18 @@ function StrewtFormatter(_input) constructor {
         return _condition ? complete() : false;
     }
     
+    /// @desc Fails the formatting process with the given failure and returns "true" for process_step purposes.
+    /// @returns {Bool}
+    static fail = function(_failure) {
+        error = _failure;
+        status = -1;
+        return true;
+    }
+    
     /// @desc Immediately performs all the remaining formatting and returns the formatted text.
     /// @returns {String}
     static format_all = function() {
-        if (status)
+        if (status != 0)
             return result;
         
         if (is_undefined(writer))
@@ -140,7 +148,7 @@ function StrewtFormatter(_input) constructor {
     /// @desc Indicates whether the formatting has finished or not.
     /// @returns {Bool}
     static is_finished = function() {
-        return status;
+        return status != 0;
     }
     
     /// @desc Attempts to clean up the formatter resources.

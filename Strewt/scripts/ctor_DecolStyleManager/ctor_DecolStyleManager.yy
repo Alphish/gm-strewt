@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ctor_DecolStyleManager",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ctor_DecolStyleManager",
+  "parent":{
+    "name":"Styles",
+    "path":"folders/_Packages/Alphish/Decol/Styles.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

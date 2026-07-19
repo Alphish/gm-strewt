@@ -1,0 +1,17 @@
+[
+{ "name": "Short sword", "attack": 5, "defense": 0, "magic": 0, "effects": null },
+{ "name": "Long sword", "attack": 10, "defense": 0, "magic": 0 },
+{ "name": "Parrying sword", "attack": 8, "defense": 4, "magic": 0 },
+{ "name": "Vampire sword", "attack": 12, "defense": 0, "magic": 3, "effects": { "type": "dmgdrain", "strength": 0.5 } },
+{ "name": "Bronze staff", "attack": 2, "defense": 0, "magic": 5 },
+{ "name": "Silver staff", "attack": 2, "defense": 0, "magic": 8 },
+{ "name": "Gold staff", "attack": -2, "defense": 0, "magic": 12 },
+{ "name": "Steel staff", "attack": 4, "defense": 2, "magic": 8 },
+{ "name": "Bronze armor", "attack": 0, "defense": 8, "magic": 0 },
+{ "name": "Steel armor", "attack": 0, "defense": 15, "magic": 0 },
+{ "name": "Noise armor", "attack": 0, "defense": 5, "magic": 0, "effects": { "type": "evasion", "strength": 0.5 } },
+{ "name": "Writhing armor", "attack": 0, "defense": 5, "magic": 0, "effects": { "type": "hpregen", "strength": 0.05 } },
+{ "name": "Adept robes", "attack": 0, "defense": 5, "magic": 5 },
+{ "name": "Wizard robes", "attack": 0, "defense": 5, "magic": 10 },
+{ "name": "Priest robes", "attack": 0, "defense": 5, "magic": 5, "effects": { "type": "holymagic", "strength": 0.5 } }
+]
