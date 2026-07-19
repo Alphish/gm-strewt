@@ -1,8 +1,8 @@
 event_inherited();
 
 create_processor = function(_path) {
-    var _visitor = new BbcodeVisitor();
-    return new BbcodeParser(_visitor).for_file(_path);
+    var _visitor = new ExampleBbcodeVisitor();
+    return new ExampleBbcodeParser(_visitor).for_file(_path);
 }
 
 on_cancelation = function() {
@@ -21,7 +21,6 @@ on_success = function(_result) {
     status_panel.replace_content($"Processing successful!", #40BF55);
     result_panel.clear();
     
-    draw_set_font(fnt_Output);
     var _tag_number = 0;
     var _close_colors = [];
     

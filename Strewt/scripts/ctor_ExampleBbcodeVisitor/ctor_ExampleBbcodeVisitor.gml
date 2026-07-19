@@ -1,4 +1,4 @@
-function BbcodeVisitor() constructor {
+function ExampleBbcodeVisitor() constructor {
     found_elements = [];
     current_tags = [];
     

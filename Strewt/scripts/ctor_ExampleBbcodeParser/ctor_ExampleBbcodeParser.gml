@@ -1,4 +1,4 @@
-function BbcodeParser(_visitor) : StrewtParser() constructor { 
+function ExampleBbcodeParser(_visitor) : StrewtParser() constructor { 
     static space_charset = new StrewtCharset(false).including(" \t\r\n");
     static plaintext_charset = new StrewtCharset(true).excluding("[:");
     static word_charset = new StrewtCharset(false).including_range("0", "9").including_range("A", "Z").including_range("a", "z").including("_");

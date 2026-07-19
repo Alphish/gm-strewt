@@ -1,0 +1,16 @@
+NAME,ATK,DEF,MAG,EFFECT
+"Short sword",5,0,0
+"Long sword",10,0,0
+"Parrying sword",8,4,0
+"Vampire sword",12,0,3,dmgdrain:50%
+"Bronze staff",2,0,5
+"Silver staff",2,0,8
+"Gold staff",-2,0,12
+"Steel staff",4,2,8
+"Bronze armor",0,8,0
+"Steel armor",0,15,0
+"Noise armor",0,5,0,evasion:50%
+"Writhing armor",0,5,0,hpregen:5%
+"Adept robes",0,5,5
+"Wizard robes",0,5,10
+"Priest robes",0,5,5,holymagic:50%
