@@ -6,7 +6,9 @@
   ],
   "managed":true,
   "name":"ctrl_IndentObjectFormatterDemo",
-  "overriddenProperties":[],
+  "overriddenProperties":[
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"par_StrewtProcessorDemo","path":"objects/par_StrewtProcessorDemo/par_StrewtProcessorDemo.yy",},"propertyId":{"name":"example_path_template","path":"objects/par_StrewtProcessorDemo/par_StrewtProcessorDemo.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"indobj/{0}.json",},
+  ],
   "parent":{
     "name":"Indent Object Formatter",
     "path":"folders/Demo/Indent Object Formatter.yy",

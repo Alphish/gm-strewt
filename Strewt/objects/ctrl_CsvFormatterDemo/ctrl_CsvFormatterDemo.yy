@@ -1,17 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"ctrl_BbcodeParserDemo",
+  "%Name":"ctrl_CsvFormatterDemo",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"ctrl_BbcodeParserDemo",
+  "name":"ctrl_CsvFormatterDemo",
   "overriddenProperties":[
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"par_StrewtProcessorDemo","path":"objects/par_StrewtProcessorDemo/par_StrewtProcessorDemo.yy",},"propertyId":{"name":"example_path_template","path":"objects/par_StrewtProcessorDemo/par_StrewtProcessorDemo.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"bbcode/{0}.bbcode",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"par_StrewtProcessorDemo","path":"objects/par_StrewtProcessorDemo/par_StrewtProcessorDemo.yy",},"propertyId":{"name":"example_path_template","path":"objects/par_StrewtProcessorDemo/par_StrewtProcessorDemo.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"csvformat/{0}.json",},
   ],
   "parent":{
-    "name":"Bbcode Parser",
-    "path":"folders/Demo/Bbcode Parser.yy",
+    "name":"Csv Formatter",
+    "path":"folders/Demo/Csv Formatter.yy",
   },
   "parentObjectId":{
     "name":"par_StrewtProcessorDemo",
