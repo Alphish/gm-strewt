@@ -22,6 +22,15 @@ function StrewtFormatterBaseTests(_run, _method) : VerrificMethodTest(_run, _met
         assert_is_true(formatter.is_finished());
         
         assert_array_equal(_expected, formatter.result);
+        assert_is_undefined(formatter.error);
+    }
+    
+    static expect_error = function(_error) {
+        assert_equal(-1, formatter.status);
+        assert_is_true(formatter.is_finished());
+        
+        assert_equal(_error, formatter.error);
+        assert_is_undefined(formatter.result);
     }
     
     static expect_cleanup = function() {
