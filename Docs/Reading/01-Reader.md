@@ -4,13 +4,13 @@
 
 The reader functionality is available through the **StrewtReader** constructor. It exposes methods for easily scanning through various text fragments - individual bytes or sequences thereof, fixed strings, whole lines and continuous sequences of specific character category (so-called charset).
 
-The aforementioned building blocks may be used to create more complex reusable patterns. Finally, the reader functionality can be wrapped in a parser, that controls the flow of the text processing. Patterns and parsers will be described in more detail in the later chapters.
+The aforementioned building blocks may be used to create more complex reusable patterns. Finally, the reader functionality can be wrapped in a parser, which controls the flow of the text processing and allows spreading it over many frames. Patterns and parsers will be described in more detail in the later chapters.
 
 ## Setup
 
-The reader can be created with its constructor or using the `strewt_reader_create` function. Both the constructor and the `strewt_reader_create` function the following argument:
+The reader can be created with its constructor or using the `strewt_reader_create` function. Both the constructor and the `strewt_reader_create` function accept the following argument:
 
-- `content: String OR Id.Buffer` - the content for the reader to process; the content may be given as a string to turn into a new buffer, or as an existing buffer to use
+- `content: String OR Buffer` - the content for the reader to process; the content may be given as a string to turn into a new buffer, or as an existing buffer to use
 
 Example of creating the reader from the string:
 
@@ -30,20 +30,6 @@ var _script_buffer = buffer_load($"dialogue/{_filename}");
 script_reader = strewt_reader_create(_script_buffer).with_source_name(_filename);
 ```
 
-## Cleanup
-
-After the reader is no longer used, its resources should be freed using the reader's `cleanup` instance method, like so:
-
-```gml
-script_reader.cleanup();
-```
-
-Alternatively, you may use `strewt_reader_destroy` function, like so:
-
-```gml
-strewt_reader_destroy(script_reader);
-```
-
 ## Navigation
 
 You can inspect and manipulate the reader position using following methods:
@@ -55,8 +41,8 @@ You can inspect and manipulate the reader position using following methods:
 
 Additionally, you can retrieve the reader location using one of the following methods:
 
-- `get_location() -> Struct.StrewtLocation` - creates a new location struct by counting lines/columns from the very start
-- `update_location(target: Struct.StrewtLocation) -> Struct.StrewtLocation` - updates an existing location struct by counting lines/columns relative to the previous position; will count from the start when backtracking
+- `get_location() -> StrewtLocation` - creates a new location struct by counting lines/columns from the very start
+- `update_location(target: StrewtLocation) -> StrewtLocation` - updates an existing location struct by counting lines/columns relative to the previous position; will count from the start when backtracking
 
 Both methods will return a **Strewt location struct** with **line** (1-indexed), **column** (1-indexed) and **position** (0-indexed) variables.
 
@@ -92,7 +78,7 @@ Strewt reader exposes the following methods for accessing and applying content s
 
 - `peek_all() -> String` - returns the entire content text
 - `peek_substring(from: Real, to: Real) -> String` returns the subsection of the content between given bytes
-- `read_substring_into(from: Real, span: Real, target: Id.Buffer) -> Real` - copies into the target buffer a content section starting from the *from* position and with the length of *span*
+- `read_substring_into(from: Real, span: Real, target: Buffer) -> Real` - copies into the target buffer a content section starting from the *from* position and with the length of *span*
 
 ## Reading
 
@@ -132,10 +118,24 @@ Specific text units are described in more detail in this chapter: [Text Units](0
 
 Additionally, Strewt reader exposes the following methods for direct reading:
 
-- `peek_direct(datatype: Constant.BufferDataType) -> Any` - previews a value directly from the content buffer at the current position
-- `read_direct(datatype: Constant.BufferDataType) -> Any` - reads a value directly from the content buffer and advances the reader position
+- `peek_direct(datatype: BufferDataType) -> Any` - previews a value directly from the content buffer at the current position
+- `read_direct(datatype: BufferDataType) -> Any` - reads a value directly from the content buffer and advances the reader position
 
 <sup>1</sup>Patterns additionally have `peek_pattern_raw` and `read_pattern_raw` methods, which is related to interpreting the pattern content. You can read more about it on the [Patterns](04-Patterns.md) page.
+
+## Cleanup
+
+After the reader is no longer used, its resources should be freed using the reader's `cleanup` instance method, like so:
+
+```gml
+script_reader.cleanup();
+```
+
+Alternatively, you may use `strewt_reader_destroy` function, like so:
+
+```gml
+strewt_reader_destroy(script_reader);
+```
 
 ## Limitations
 

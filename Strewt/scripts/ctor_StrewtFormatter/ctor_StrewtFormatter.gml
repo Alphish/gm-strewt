@@ -41,7 +41,8 @@ function StrewtFormatter(_input) constructor {
     /// @returns {Any}
     result = undefined;
     
-    /// @ignore
+    /// @desc The formatting error description.
+    /// @returns {String}
     error = undefined;
     
     // -----
@@ -50,7 +51,7 @@ function StrewtFormatter(_input) constructor {
     
     /// @desc Configures the formatter to use the given newline sequence.
     /// @arg {String} sequence              The writer newline sequence.
-    /// @returns {Struct.StrewtWriter}
+    /// @returns {Struct.StrewtFormatter}
     static with_newline_sequence = function(_sequence) {
         writer_newline_sequence = _sequence;
         return self;
@@ -58,21 +59,21 @@ function StrewtFormatter(_input) constructor {
     
     /// @desc Configures the formatter to use the given default indentation unit.
     /// @arg {String} unit                  The new default indentation unit.
-    /// @returns {Struct.StrewtWriter}
+    /// @returns {Struct.StrewtFormatter}
     static with_default_indent_unit = function(_unit) {
         writer_default_indent = _unit;
         return self;
     }
     
     /// @desc Configures the formatter to indent blank lines.
-    /// @returns {Struct.StrewtWriter}
+    /// @returns {Struct.StrewtFormatter}
     static indenting_blank_lines = function() {
         writer_indent_blank_lines = true;
         return self;
     }
     
     /// @desc Configures the formatter to disable automatic cleanup after completion.
-    /// @returns {Struct.StrewtParser}
+    /// @returns {Struct.StrewtFormatter}
     static with_manual_cleanup = function() {
         auto_cleanup = false;
         return self;

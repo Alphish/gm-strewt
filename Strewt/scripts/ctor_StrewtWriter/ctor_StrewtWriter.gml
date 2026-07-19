@@ -93,6 +93,7 @@ function StrewtWriter(_target = undefined) constructor {
     
     /// @desc Writes a given text or value to the content.
     /// @arg {Any} value                    The value to be written.
+    /// @returns {Constant.BufferErrorType}
     static write = function(_value) {
         var _text = string(_value);
         if (_text == "")
@@ -106,6 +107,7 @@ function StrewtWriter(_target = undefined) constructor {
     
     /// @desc Writes a given text or value (if any) to the content and begins a new line.
     /// @arg {Any} [value]                  The value to be written before beginning the next line.
+    /// @returns {Constant.BufferErrorType}
     static write_line = function(_value = "") {
         write(_value);
         if (indent_blank_lines)
@@ -119,6 +121,7 @@ function StrewtWriter(_target = undefined) constructor {
     /// @desc Writes a given multiline text or array of values to the content. Indentation is applied separately to each line.
     /// @arg {String,Array} value           The multiline text or the array of values to be written.
     /// @arg {Bool} [lastline]              Whether to begin the new line after the last line or not.
+    /// @returns {Constant.BufferErrorType}
     static write_multiline = function(_value, _lastline = true) {
         static newline_separators = ["\r\n", "\r", "\n"];
         
@@ -140,6 +143,7 @@ function StrewtWriter(_target = undefined) constructor {
     /// @desc Writes a given value of a given buffer datatype directly to the content. Indentation is ignored.
     /// @arg {Constant.BufferDataType} datatype     The buffer datatype to write.
     /// @arg {Any} value                            The value to write into the content.
+    /// @returns {Constant.BufferErrorType}
     static write_direct = function(_datatype, _value) {
         var _result = buffer_write(content_buffer, _datatype, _value);
         begins_line = check_begins_line();
