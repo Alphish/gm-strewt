@@ -8,8 +8,8 @@
   "name":"ctrl_BbcodeParserDemo",
   "overriddenProperties":[],
   "parent":{
-    "name":"Bbcode",
-    "path":"folders/Demo/Bbcode.yy",
+    "name":"Bbcode Parser",
+    "path":"folders/Demo/Bbcode Parser.yy",
   },
   "parentObjectId":{
     "name":"par_StrewtProcessorDemo",

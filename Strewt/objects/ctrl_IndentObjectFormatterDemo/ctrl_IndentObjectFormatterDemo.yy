@@ -1,18 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"par_StrewtProcessorDemo",
+  "%Name":"ctrl_IndentObjectFormatterDemo",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":10,"eventType":7,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"par_StrewtProcessorDemo",
+  "name":"ctrl_IndentObjectFormatterDemo",
   "overriddenProperties":[],
   "parent":{
-    "name":"Common",
-    "path":"folders/Demo/Common.yy",
+    "name":"Indent Object Formatter",
+    "path":"folders/Demo/Indent Object Formatter.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"par_StrewtProcessorDemo",
+    "path":"objects/par_StrewtProcessorDemo/par_StrewtProcessorDemo.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -26,9 +28,7 @@
   "physicsShape":1,
   "physicsShapePoints":[],
   "physicsStartAwake":true,
-  "properties":[
-    {"$GMObjectProperty":"v2","%Name":"example_path_template","filters":[],"listItems":[],"multiselect":false,"name":"example_path_template","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"{0}","varType":2,},
-  ],
+  "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,

@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"ctor_ExampleBbcodeVisitor",
   "parent":{
-    "name":"Bbcode",
-    "path":"folders/Demo/Bbcode.yy",
+    "name":"Bbcode Parser",
+    "path":"folders/Demo/Bbcode Parser.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

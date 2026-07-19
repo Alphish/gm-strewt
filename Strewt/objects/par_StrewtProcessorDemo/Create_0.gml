@@ -24,6 +24,12 @@ process_content = function(_path) {
         worker.try_cancel();
     
     processor = create_processor(_path);
+    if (is_undefined(processor)) {
+        task = undefined;
+        worker = undefined;
+        return;
+    }
+    
     task = new CimpliTask(processor);
     
     task.task_started.add_handler(on_start);
@@ -37,6 +43,32 @@ process_content = function(_path) {
 
 create_processor = function(_path) {
     throw StrewtException.not_implemented({}, nameof(create_processor));
+}
+
+load_json_data = function(_path) {
+    var _json_content = load_file_content(_path);
+    if (is_undefined(_json_content))
+        return undefined;
+    
+    try {
+        return json_parse(_json_content);
+    } catch (_) {
+        // if the file content isn't a valid JSON, prevent crash and return undefined instead
+        return undefined;
+    }
+}
+
+load_file_content = function(_path) {
+    var _buffer = buffer_load(_path);
+    if (!buffer_exists(_buffer))
+        return undefined;
+    
+    if (buffer_get_size(_buffer) == 0)
+        return "";
+    
+    var _result = buffer_read(_buffer, buffer_text);
+    buffer_delete(_buffer);
+    return _result;
 }
 
 on_start = function() {
@@ -66,3 +98,9 @@ cancel_process_command = new CimpliCommand(function() {
 }, function() {
     return !is_undefined(worker) && worker.is_busy();
 });
+
+process_custom_command = new CimpliCommand(process_custom, function() { return os_type != os_gxgames; });
+
+open_instructions = function() {
+    layer_set_visible("Instructions", true);
+}

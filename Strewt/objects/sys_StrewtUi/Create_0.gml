@@ -20,4 +20,5 @@ styles_provider.add_value("button_example", new DecolStylesheet(["hover", "activ
 styles_provider.add_value("button_custom", new DecolStylesheet(["hover", "active", "disabled"])
     .with_base_overrides({ image_blend: merge_color(c_white, #FFD020, 0.7) })
     .with_style("hover", { image_blend: #FFD020 })
+    .with_style("disabled", { image_blend: merge_color(#404040, #FFD020, 0.5) })
 );

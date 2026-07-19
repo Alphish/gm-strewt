@@ -52,6 +52,8 @@ add_text_line = function(_text, _color, _newline = false) {
 }
 
 add_segment = function(_text, _color, _newline = false) {
+    draw_set_font(fnt_Output);
+    
     var _previous_segment = array_last(array_last(segments)) ?? { x: 0, width: 0 };
     var _segment = { x: _previous_segment.x + _previous_segment.width, width: string_width(_text), text: _text, color: _color };
     var _trim_width = string_width(string_trim_end(_text));
