@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"feather_Strewt",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"feather_Strewt",
+  "parent":{
+    "name":"Strewt",
+    "path":"folders/_Packages/Alphish/Strewt.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

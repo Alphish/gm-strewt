@@ -134,6 +134,7 @@
     {"id":{"name":"ctor_VerrificStructAssertion","path":"scripts/ctor_VerrificStructAssertion/ctor_VerrificStructAssertion.yy",},},
     {"id":{"name":"enum_VerrificStatus","path":"scripts/enum_VerrificStatus/enum_VerrificStatus.yy",},},
     {"id":{"name":"feather_Cimpli","path":"scripts/feather_Cimpli/feather_Cimpli.yy",},},
+    {"id":{"name":"feather_Strewt","path":"scripts/feather_Strewt/feather_Strewt.yy",},},
     {"id":{"name":"funcs_StrewtMultigraphs","path":"scripts/funcs_StrewtMultigraphs/funcs_StrewtMultigraphs.yy",},},
     {"id":{"name":"funcs_StrewtReading","path":"scripts/funcs_StrewtReading/funcs_StrewtReading.yy",},},
     {"id":{"name":"struct_VerrificBreak","path":"scripts/struct_VerrificBreak/struct_VerrificBreak.yy",},},
